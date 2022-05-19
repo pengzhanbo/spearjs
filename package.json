@@ -10,6 +10,14 @@
     "Pnpm",
     "Typescript"
   ],
+  "homepage": "https://github.com/pengzhanbo/spearjs#readme",
+  "bugs": {
+    "url": "https://github.com/pengzhanbo/spearjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:pengzhanbo/spearjs.git"
+  },
   "scripts": {
     "cm": "cz",
     "lint": "eslint --ext .js,.ts,.vue .",
@@ -28,6 +36,11 @@
     "*.{json,yml}": "prettier --write",
     "package.json": "sort-package-json",
     "*.md": "prettier --write"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
