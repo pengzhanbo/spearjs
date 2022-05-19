@@ -1,0 +1,11 @@
+*.sh
+**/node_modules/
+*.md
+*.woff
+*.ttf
+
+dist
+.husky
+.local
+.DS_Store
+**/*.log*

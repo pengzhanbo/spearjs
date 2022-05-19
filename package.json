@@ -1,0 +1,66 @@
+{
+  "name": "@spearjs/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "keywords": [
+    "LowCode",
+    "low code",
+    "Vue3",
+    "Vite",
+    "Pnpm",
+    "Typescript"
+  ],
+  "scripts": {
+    "cm": "cz",
+    "lint": "eslint --ext .js,.ts,.vue .",
+    "prepare": "husky install",
+    "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "release:version": "bumpp package.json packages/*/package.json --execute=\"pnpm release:changelog\" --commit \"build: publish v%s\" --all --tag --push"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --write"
+    ],
+    "*.{json,yml}": "prettier --write",
+    "package.json": "sort-package-json",
+    "*.md": "prettier --write"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.0",
+    "@types/node": "^17.0.34",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "bumpp": "^7.1.1",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-cli": "^2.2.2",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-define-config": "^1.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.4.1",
+    "postcss-html": "^1.4.1",
+    "prettier": "^2.6.2",
+    "sort-package-json": "^1.57.0",
+    "stylelint": "^14.8.2",
+    "stylelint-config-html": "^1.0.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recommended": "^7.0.0",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.2.0",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.9",
+    "vue-eslint-parser": "^9.0.2"
+  },
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=7"
+  }
+}
