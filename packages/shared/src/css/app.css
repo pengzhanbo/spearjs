@@ -1,0 +1,9 @@
+:root {
+  /* application color */
+  --app-c-brand: #666;
+}
+
+html.dark {
+  /* application dark color */
+  --app-c-brand: #999;
+}

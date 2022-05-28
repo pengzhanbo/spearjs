@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/public
+**/.vscode
+
+**/*.js
+**/*.jsx
+**/*.ts
+**/*.tsx

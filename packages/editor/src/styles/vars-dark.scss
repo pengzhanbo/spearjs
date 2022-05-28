@@ -1,0 +1,25 @@
+/**
+ * editor css variables 配置 深色模式
+ */
+html.dark {
+  // color brand
+  --c-brand: #0094c8;
+  --c-brand-light: #007bbb;
+
+  // color background
+  --c-bg: #22272e;
+  --c-bg-light: #2b313a;
+  --c-bg-lighter: #262c34;
+  --c-bg-container: rgb(38, 44, 52);
+  --c-bg-navbar: rgba(38, 44, 52, 0.95);
+
+  // color text
+  --c-text: #adbac7;
+  --c-text-light: #96a7b7;
+  --c-text-lighter: #8b94a8;
+  --c-text-lightest: #8094a8;
+
+  // color border
+  --c-border: #3e4c5a;
+  --c-border-dark: #34404c;
+}

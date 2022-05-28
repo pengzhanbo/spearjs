@@ -1,0 +1,26 @@
+:root {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  color: var(--c-text);
+  background-color: var(--c-bg);
+  transition: var(--t-color);
+  transition-property: background-color, color;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+}

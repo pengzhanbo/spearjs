@@ -1,5 +1,8 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": false,
+    "incremental": false,
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -11,7 +14,11 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vite/client", "element-plus/global"],
+    "paths": {
+      "@editor/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

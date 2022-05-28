@@ -1,0 +1,17 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "spearjs dev"
+  },
+  "devDependencies": {
+    "@spearjs/cli": "workspace:*",
+    "@spearjs/shared": "workspace:*"
+  },
+  "widgetId": ""
+}

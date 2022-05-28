@@ -1,0 +1,12 @@
+/**
+ * editor css variables 配置
+ * 用于在 application 的配置
+ * 这部分配置，在后面会转到 shared 包中，
+ * 因为这部分配置需要共享到 widget、render、editor中使用
+ *
+ * 使用 --app-* 作为命名空间
+ */
+
+:root {
+  --app-c-brand: var(--c-brand);
+}

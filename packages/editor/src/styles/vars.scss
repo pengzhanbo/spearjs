@@ -1,0 +1,32 @@
+/**
+ * editor css variables 配置
+ */
+:root {
+  // brand color
+  --c-brand: #0095d9;
+  --c-brand-light: #2ca9e1;
+
+  // background color
+  --c-bg: #f3f4f6;
+  --c-bg-light: #e5e7eb;
+  --c-bg-lighter: #d1d5db;
+  --c-bg-container: #fff;
+  --c-bg-navbar: rgba(255, 255, 255, 0.9);
+  --c-bg-sidebar: var(--c-bg-container);
+  --c-bg-arrow: #ccc;
+
+  // text color-scheme
+  --c-text: #2c3e50;
+  --c-text-accent: var(--c-brand);
+  --c-text-light: #3a5169;
+  --c-text-lighter: #4e6e8e;
+  --c-text-lightest: #6a8bad;
+  --c-text-quote: #999;
+
+  // border colors
+  --c-border: #eaecef;
+  --c-border-dark: #dfe2e5;
+
+  // transition timing
+  --t-color: 0.3s ease;
+}

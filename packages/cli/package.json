@@ -1,0 +1,46 @@
+{
+  "name": "@spearjs/cli",
+  "version": "1.0.0",
+  "description": "Cli package of SpearJs",
+  "keywords": [
+    "SpearJs",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "pengzhanbo",
+  "main": "dist/index.js",
+  "bin": {
+    "spearjs": "bin/spear.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "preview"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "rimraf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@spearjs/shared": "workspace:*",
+    "@spearjs/utils": "workspace:*",
+    "cac": "^6.7.12",
+    "chokidar": "3.5.3",
+    "esbuild": "^0.14.39",
+    "vite": "^2.9.9",
+    "vue": "^3.2.35",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.10",
+    "postcss": "^8.4.14",
+    "rimraf": "^3.0.2",
+    "sass": "^1.51.0",
+    "typescript": "^4.6.4",
+    "vue-tsc": "^0.34.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "@spearjs/shared",
+  "version": "1.0.0",
+  "description": "Utils that shared between SpearJs node(cli/server) and client(editor/render/widget/admin)",
+  "keywords": [
+    "SpearJs",
+    "shared",
+    "utils"
+  ],
+  "homepage": "https://github.com/pengzhanbo/spearjs#readme",
+  "bugs": {
+    "url": "https://github.com/pengzhanbo/spearjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:pengzhanbo/spearjs.git"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./editor": {
+      "import": "./dist/editor/index.js",
+      "require": "./dist/editor/index.cjs"
+    },
+    "./render": {
+      "import": "./dist/render/index.js",
+      "require": "./dist/render/index.cjs"
+    },
+    "./app.css": {
+      "import": "./dist/css/app.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && pnpm copy",
+    "clean": "rimraf dist",
+    "copy": "cpx \"src/**/*.css\" dist"
+  },
+  "devDependencies": {
+    "cpx2": "^4.2.0",
+    "rimraf": "^3.0.2",
+    "tsup": "^5.12.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "tsup": {
+    "clean": true,
+    "dts": [
+      "src/index.ts",
+      "src/editor/index.ts",
+      "src/render/index.ts"
+    ],
+    "entry": [
+      "src/index.ts",
+      "src/editor/index.ts",
+      "src/render/index.ts"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "outDir": "dist",
+    "sourcemap": false,
+    "target": "es2020",
+    "tsconfig": "tsconfig.dts.json"
+  }
+}

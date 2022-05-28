@@ -3,7 +3,6 @@
 *.md
 *.woff
 *.ttf
-
 dist
 .husky
 .local
