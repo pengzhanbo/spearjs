@@ -1,12 +1,21 @@
 <script lang="ts" setup>
 import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
+import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
 import { tabs } from './tabs'
 import { ref } from 'vue'
 
 const activeTab = ref(tabs[0].key)
+
+const isOpen = ref(true)
+const handleOpen = () => {
+  isOpen.value = !isOpen.value
+}
 </script>
 <template>
-  <div class="left-sidebar-wrapper">
+  <div class="left-sidebar-wrapper" :class="{ open: isOpen }">
+    <div class="btn-arrow" @click="handleOpen">
+      <component :is="isOpen ? DArrowLeft : DArrowRight" />
+    </div>
     <ElTabs v-model="activeTab" tab-position="left" class="left-sidebar-tabs">
       <template v-for="tab in tabs" :key="tab.key">
         <ElTabPane :name="tab.key" lazy>
@@ -28,6 +37,35 @@ const activeTab = ref(tabs[0].key)
   @apply rounded-tr-md rounded-br-md;
 
   background-color: var(--c-bg-container);
+  transition: transform 0.5s ease-in-out;
+  transform: translate3d(-100%, 0, 0);
+
+  &.open {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .btn-arrow {
+    @apply absolute top-1/2 right-0 cursor-pointer;
+    @apply flex justify-center items-center;
+    @apply rounded-tr-md rounded-br-md shadow-md;
+
+    width: 20px;
+    height: 80px;
+    color: var(--c-text-lightest);
+    background-color: var(--c-bg-container);
+    transform: translate(100%, -50%);
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: -4px;
+      display: block;
+      width: 4px;
+      height: 80px;
+      content: '';
+      background-color: var(--c-bg-container);
+    }
+  }
 
   .left-sidebar-tabs {
     min-height: 100%;

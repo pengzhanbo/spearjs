@@ -16,6 +16,7 @@
     "commitlint",
     "esbuild",
     "nprogress",
+    "pinia",
     "pnpm",
     "spearjs",
     "tsup",

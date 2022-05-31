@@ -14,8 +14,7 @@ const handleOpen = () => {
 <template>
   <div class="right-controller-wrapper" :class="{ open: isOpen }">
     <div class="btn-arrow" @click="handleOpen">
-      <DArrowRight v-if="isOpen"></DArrowRight>
-      <DArrowLeft v-else></DArrowLeft>
+      <component :is="isOpen ? DArrowRight : DArrowLeft" />
     </div>
     <ElTabs v-model="activeTab" type="border-card" stretch class="right-controller-tabs">
       <template v-for="tab in tabs" :key="tab.key">
@@ -67,6 +66,7 @@ const handleOpen = () => {
 
   .right-controller-tabs {
     height: 100%;
+    border: none;
   }
 }
 </style>

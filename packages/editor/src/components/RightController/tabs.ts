@@ -3,8 +3,17 @@ import StylesConfig from './StylesConfig.vue'
 import ActionConfig from './ActionsConfig.vue'
 import PageConfig from './PageConfig.vue'
 import AppConfig from './AppConfig.vue'
+import type { Component } from 'vue'
 
-export const tabs = [
+export interface RightControllerTabItem {
+  key: string
+  label: string
+  tab: Component
+}
+
+export type RightControllerTabs = RightControllerTabItem[]
+
+export const tabs: RightControllerTabs = [
   {
     key: 'attrs-config',
     label: '属性',

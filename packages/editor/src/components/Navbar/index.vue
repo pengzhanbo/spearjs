@@ -4,7 +4,7 @@ import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus
 </script>
 <template>
   <header class="spear-header">
-    <SiteBrand></SiteBrand>
+    <SiteBrand />
     <div class="flex flex-1 items-center">
       <p class="header-item">
         <ElIcon class="el-icon--left"><Files /></ElIcon>
