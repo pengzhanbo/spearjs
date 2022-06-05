@@ -1,3 +1,9 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'RightController',
+})
+</script>
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'

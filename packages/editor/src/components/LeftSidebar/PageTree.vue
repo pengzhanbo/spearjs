@@ -2,8 +2,8 @@
 import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useAppPagesStore } from '../../stores'
-import type { AppPageItem } from '../../stores'
+import { useAppPagesStore } from '@editor/stores'
+import type { AppPageItem } from '@editor/stores'
 import {
   ElIcon,
   ElTooltip,

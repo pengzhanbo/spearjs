@@ -47,6 +47,9 @@
     "clean": "rimraf dist",
     "copy": "cpx \"src/**/*.css\" dist"
   },
+  "dependencies": {
+    "vue": "^3.2.36"
+  },
   "devDependencies": {
     "cpx2": "^4.2.0",
     "rimraf": "^3.0.2",

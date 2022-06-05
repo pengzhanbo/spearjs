@@ -1,3 +1,9 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'LeftSidebar',
+})
+</script>
 <script lang="ts" setup>
 import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'

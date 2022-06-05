@@ -4,9 +4,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import windicss from 'vite-plugin-windicss'
 import legacy from '@vitejs/plugin-legacy'
 import { resolve } from 'path'
-import autoImport from 'unplugin-auto-import/vite'
-import components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig(({ mode }): UserConfig => {
   const { VITE_BASE_URL } = loadEnv(mode, process.cwd())
@@ -17,6 +14,7 @@ export default defineConfig(({ mode }): UserConfig => {
     },
     server: {
       cors: true,
+      host: '0.0.0.0',
       proxy: {
         '/api': {
           target: '',
@@ -26,22 +24,7 @@ export default defineConfig(({ mode }): UserConfig => {
         },
       },
     },
-    plugins: [
-      vue(),
-      vueJsx(),
-      windicss(),
-      legacy({ targets: ['defaults', 'not IE 11'] }),
-      autoImport({
-        include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
-        dts: true,
-        imports: ['vue', 'vue-router'],
-        // resolvers: [ElementPlusResolver()],
-      }),
-      components({
-        dts: true,
-        resolvers: [ElementPlusResolver()],
-      }),
-    ],
+    plugins: [vue(), vueJsx(), windicss(), legacy({ targets: ['defaults', 'not IE 11'] })],
     css: {
       modules: {
         localsConvention: 'camelCase',
@@ -60,8 +43,8 @@ export default defineConfig(({ mode }): UserConfig => {
         },
       },
     },
-    // optimizeDeps: {
-    //   include: ['@vueuse/core', 'element-plus', 'lodash-es', 'vuedraggable'],
-    // },
+    optimizeDeps: {
+      include: ['@vueuse/core', 'element-plus', 'lodash-es'],
+    },
   }
 })

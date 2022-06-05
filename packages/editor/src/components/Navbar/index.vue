@@ -1,3 +1,9 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'Navbar',
+})
+</script>
 <script lang="ts" setup>
 import SiteBrand from './SiteBrand.vue'
 import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'

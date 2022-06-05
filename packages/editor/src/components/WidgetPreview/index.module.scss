@@ -1,0 +1,24 @@
+.preview {
+  @apply relative p-5 pb-10 flex justify-center items-center;
+  @apply border-2 border-cool-gray-400 border-dotted rounded-md overflow-hidden;
+}
+
+.widget-label {
+  @apply absolute bottom-0 left-0 w-full py-1 flex items-center justify-center;
+  @apply text-center bg-amber-200;
+
+  span {
+    @apply mr-2;
+  }
+}
+
+.widget-preview {
+  position: relative;
+
+  &::after {
+    @apply absolute top-0 right-0 bottom-0 left-0 cursor-move;
+
+    z-index: 2;
+    content: '';
+  }
+}

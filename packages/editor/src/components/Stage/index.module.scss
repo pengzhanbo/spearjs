@@ -1,5 +1,38 @@
-.canvas-wrapper {
+.stage-wrapper {
   // position: absolute;
   background-color: var(--c-bg-container);
   @apply shadow-md;
+}
+
+.stage-container {
+  height: inherit;
+  min-height: inherit;
+}
+
+.widget-component {
+  @apply relative cursor-move;
+
+  outline: solid 2px transparent;
+  outline-offset: 2px;
+  transition: outline 0.2s ease-in-out;
+
+  &::before {
+    @apply inline-block absolute top-0 right-0 bottom-0 left-0 z-10 cursor-move;
+
+    content: '';
+  }
+
+  &.focus {
+    @apply outline-solid-blue-500;
+  }
+}
+
+.widget-component-group {
+  position: relative;
+}
+
+:global {
+  .flip-list-move {
+    transition: transform 0.3s;
+  }
 }

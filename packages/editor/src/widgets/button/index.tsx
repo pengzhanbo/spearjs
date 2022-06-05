@@ -19,26 +19,41 @@ export default {
   preview: () => {
     return <ElButton type="primary">按钮</ElButton>
   },
-  render: ({ props, styles }) => {
-    return () => <ElButton style={styles} {...props}></ElButton>
+  render({ props, styles }) {
+    const { buttonText, ...otherProps } = props
+    return (
+      <ElButton style={styles} {...otherProps}>
+        {buttonText}
+      </ElButton>
+    )
   },
   props: [
     {
-      key: 'text',
+      key: 'buttonText',
       type: String,
       form: {
         label: '按钮文字',
         type: 'input',
         defaultValue: '按钮',
+      },
+    },
+    {
+      key: 'text',
+      type: Boolean,
+      form: {
+        label: '是否为文字按钮',
+        type: 'switch',
+        defaultValue: false,
         desc: '',
       },
     },
     {
       key: 'type',
       type: String,
-      from: {
+      form: {
         label: '按钮类型',
         type: 'select',
+        defaultValue: 'primary',
         options: [
           { label: '主要按钮', value: 'primary' },
           { label: '成功按钮', value: 'success' },

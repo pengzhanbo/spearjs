@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { hasOwn } from '@spearjs/shared'
+import { ComponentWidget, hasOwn, WidgetPropItem, WidgetPropsGroup } from '@spearjs/shared'
+import { generateComponentId } from '@editor/services/componentId'
 
 const createAppPage = ({
   title = '新页面',
@@ -18,15 +19,43 @@ const createAppPage = ({
     blocks: [],
   }
 }
+
+function getDefaultValue(type: any, defaultValue: any): any {
+  if (type === String) {
+    return defaultValue || ''
+  }
+  if (type === Object) {
+    return defaultValue || {}
+  }
+  if (type === Array) {
+    return defaultValue || []
+  }
+  if (type === Boolean) {
+    return !!defaultValue
+  }
+  if (type === Function) {
+    return defaultValue || (() => {})
+  }
+  return defaultValue
+}
+
+let uuid = 0
 export const useAppPagesStore = defineStore('pages', {
   state: (): AppPagesStore => {
     const firstPage = createAppPage({ title: '首页', path: '/', isHome: true })
     return {
       pages: [firstPage],
       currentPage: firstPage,
+      focusBlock: null,
     }
   },
+  getters: {
+    blocks(state) {
+      return state.currentPage.blocks
+    },
+  },
   actions: {
+    // --- page
     createAppPage(option: { title: string; path: string; isHome?: boolean }): void {
       this.pages.push(createAppPage(option))
     },
@@ -48,8 +77,41 @@ export const useAppPagesStore = defineStore('pages', {
       })
       page.isHome = true
     },
-    updateCurrentPage(page: AppPageItem): void {
+    updateCurrentPage(page: Partial<AppPageItem>): void {
+      if (page.path === this.currentPage.path) return
       this.currentPage = Object.assign(this.currentPage, page)
+      this.setFocusBlock(null)
+    },
+    // --- block
+    createBlock(widget: ComponentWidget): AppBlock {
+      const data = {}
+      const { props } = widget
+      props.forEach((prop) => {
+        if ((prop as WidgetPropsGroup).props) {
+          ;(prop as WidgetPropsGroup).props.forEach((prop: WidgetPropItem) => {
+            data[prop.key] = getDefaultValue(prop.type, prop?.form?.defaultValue)
+          })
+        } else {
+          prop = prop as WidgetPropItem
+          data[prop.key] = getDefaultValue(prop.type, prop?.form?.defaultValue)
+        }
+      })
+      return {
+        component: {
+          id: widget.id,
+          name: 'widget-' + widget.id,
+          version: widget.version,
+        },
+        componentId: generateComponentId(),
+        props: { ...data, buttonText: (data as any).buttonText + uuid++ },
+        styles: {},
+      }
+    },
+    updateBlocks(blocks: AppBlocks) {
+      this.currentPage.blocks = [...blocks]
+    },
+    setFocusBlock(block: AppBlock | null) {
+      this.focusBlock = block
     },
   },
 })
@@ -57,6 +119,7 @@ export const useAppPagesStore = defineStore('pages', {
 export interface AppPagesStore {
   pages: AppPageList
   currentPage: AppPageItem
+  focusBlock: AppBlock | null
 }
 
 export type AppPageList = AppPageItem[]
@@ -86,26 +149,7 @@ export interface AppBlock {
     name: string
     version: string
   }
-  uuid: string
-  props: BlockProps
-}
-
-export type BlockProps = (BlockPropGroup | BlockPropItem)[]
-
-export interface BlockPropGroup {
-  key: string
-  label: string
-  props: BlockPropItem[]
-}
-
-export interface BlockPropItem {
-  key: string
-  label: string
-  type: string
-  defaultValue?: any
-  options?: {
-    label: string
-    key: string
-    defaultValue?: any
-  }[]
+  componentId: string
+  props: Record<string, any>
+  styles: Record<string, any>
 }

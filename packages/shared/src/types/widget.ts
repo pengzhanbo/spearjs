@@ -1,4 +1,5 @@
 import type { Platform } from './platform'
+import type { RenderFunction, SetupContext } from 'vue'
 
 /**
  * widget 类型
@@ -41,25 +42,86 @@ export type WidgetComponentSubType = 'vant' | 'element-plus'
  */
 export type WidgetPlatform = Platform | Platform[]
 
-export type WidgetMap = WidgetMapItem[]
+export type WidgetMap = Widget[]
 
-export interface WidgetMapItem {
+export type Widget = ComponentWidget | ServiceWidget
+
+export interface BaseWidget {
   id: string
   version: string
   label: string
   platform: WidgetPlatform
-  componentType?: WidgetComponentType
-  componentSubType?: WidgetComponentSubType
-  description: () => string
-  preview: (...args: any[]) => any
-  setup: () => void
-  enhance: () => void
-  services?: WeightService | WeightService[]
-  render: (option: { props: Record<any, any>; [prop: string]: any }) => any
+  type: WidgetType
+  enhance?: () => void
+}
+export interface ComponentWidget<Props = WidgetProps> extends BaseWidget {
+  type: 'component'
+  componentType: WidgetComponentType
+  componentSubType: WidgetComponentSubType
+  props: Props
+  description: () => ReturnType<RenderFunction>
+  preview: () => ReturnType<RenderFunction>
+  setup?: <
+    P = Record<
+      Props extends WidgetPropsGroup[]
+        ? Props[number]['props'][number]['key']
+        : Props extends WidgetPropItem[]
+        ? Props[number]['key']
+        : never,
+      any
+    >,
+    RawBindings = object
+  >(
+    props: Readonly<P>,
+    ctx: SetupContext
+  ) => ComponentWidget['render'] | RawBindings
+  render?: (option: {
+    props: Record<
+      Props extends WidgetPropsGroup[]
+        ? Props[number]['props'][number]['key']
+        : Props extends WidgetPropItem[]
+        ? Props[number]['key']
+        : never,
+      any
+    > & { [prop: string]: any }
+    styles: {
+      [prop: string]: string
+    }
+    [prop: string]: any
+  }) => ReturnType<RenderFunction>
 }
 
-export interface WeightService {
+export interface ServiceWidget extends BaseWidget {
+  type: 'service'
+  service?: WightService
+  services?: WightService[]
+}
+
+export interface WightService {
   type: string
   name: string
   fn: <T>() => () => T | Promise<T>
+}
+
+export type WidgetProps = (WidgetPropsGroup | WidgetPropItem)[]
+
+export interface WidgetPropsGroup {
+  key: string
+  label: string
+  props: WidgetPropItem[]
+}
+
+export interface WidgetPropItem {
+  key: string
+  type: any
+  form: {
+    label: string
+    type: string
+    defaultValue: any
+    options?: {
+      label: string
+      key: string
+      defaultValue?: any
+    }[]
+  }
 }
