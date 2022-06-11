@@ -1,6 +1,10 @@
 .preview {
-  @apply relative p-5 pb-10 flex justify-center items-center;
+  @apply relative p-5 pb-10 flex justify-center items-center mb-5;
   @apply border-2 border-cool-gray-400 border-dotted rounded-md overflow-hidden;
+
+  &:last-of-type {
+    @apply mb-0;
+  }
 }
 
 .widget-label {
@@ -13,7 +17,7 @@
 }
 
 .widget-preview {
-  position: relative;
+  @apply relative;
 
   &::after {
     @apply absolute top-0 right-0 bottom-0 left-0 cursor-move;

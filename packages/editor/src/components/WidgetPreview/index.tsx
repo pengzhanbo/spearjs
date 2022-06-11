@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 import { ElIcon, ElPopover } from 'element-plus'
 import { InfoFilled } from '@element-plus/icons-vue'
 import { useDrag } from 'vue3-dnd'
-import { useAppPagesStore } from '@editor/stores'
+import { WIDGET_DND_TYPE } from '@editor/common'
 
 export default defineComponent({
   name: 'WidgetPreview',
@@ -18,29 +18,10 @@ export default defineComponent({
   },
   setup(props) {
     const widget = findWidget(props.widget.id, props.widget.version)
-    const pageStore = useAppPagesStore()
 
-    // TODO 待完善 组件拖拽逻辑
-    // https://hcg1023.github.io/vue3-dnd/
-    const [collect, dragSource] = useDrag({
-      type: 'component',
+    const [, dragSource] = useDrag({
+      type: WIDGET_DND_TYPE.Component,
       item: widget,
-      collect: (monitor) => ({
-        canDrag: monitor.canDrag(),
-        isDragging: monitor.isDragging(),
-        didDrop: monitor.didDrop(),
-        type: monitor.getItemType(),
-      }),
-      end: (item) => {
-        if (!collect.value.didDrop) return
-        const blocks = pageStore.currentPage.blocks
-        const block = pageStore.createBlock(item)
-        blocks.push(block)
-        pageStore.updateCurrentPage({
-          blocks,
-        })
-        pageStore.setFocusBlock(block)
-      },
     })
 
     return () => (

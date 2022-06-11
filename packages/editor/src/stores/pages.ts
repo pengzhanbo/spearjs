@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { ComponentWidget, hasOwn, WidgetPropItem, WidgetPropsGroup } from '@spearjs/shared'
-import { generateComponentId } from '@editor/services/componentId'
+import { hasOwn } from '@spearjs/shared'
+import type { AppBlocks, AppBlock, AppBlockGroup } from '@editor/services'
+import { findBlockGroup } from '@editor/services'
 
 const createAppPage = ({
   title = '新页面',
@@ -19,27 +20,6 @@ const createAppPage = ({
     blocks: [],
   }
 }
-
-function getDefaultValue(type: any, defaultValue: any): any {
-  if (type === String) {
-    return defaultValue || ''
-  }
-  if (type === Object) {
-    return defaultValue || {}
-  }
-  if (type === Array) {
-    return defaultValue || []
-  }
-  if (type === Boolean) {
-    return !!defaultValue
-  }
-  if (type === Function) {
-    return defaultValue || (() => {})
-  }
-  return defaultValue
-}
-
-let uuid = 0
 export const useAppPagesStore = defineStore('pages', {
   state: (): AppPagesStore => {
     const firstPage = createAppPage({ title: '首页', path: '/', isHome: true })
@@ -72,7 +52,7 @@ export const useAppPagesStore = defineStore('pages', {
       if (page.isHome) return
       this.pages.forEach((item) => {
         if (hasOwn(item, 'isHome')) {
-          item.isHome = false
+          delete item.isHome
         }
       })
       page.isHome = true
@@ -83,32 +63,25 @@ export const useAppPagesStore = defineStore('pages', {
       this.setFocusBlock(null)
     },
     // --- block
-    createBlock(widget: ComponentWidget): AppBlock {
-      const data = {}
-      const { props } = widget
-      props.forEach((prop) => {
-        if ((prop as WidgetPropsGroup).props) {
-          ;(prop as WidgetPropsGroup).props.forEach((prop: WidgetPropItem) => {
-            data[prop.key] = getDefaultValue(prop.type, prop?.form?.defaultValue)
-          })
-        } else {
-          prop = prop as WidgetPropItem
-          data[prop.key] = getDefaultValue(prop.type, prop?.form?.defaultValue)
-        }
-      })
-      return {
-        component: {
-          id: widget.id,
-          name: 'widget-' + widget.id,
-          version: widget.version,
-        },
-        componentId: generateComponentId(),
-        props: { ...data, buttonText: (data as any).buttonText + uuid++ },
-        styles: {},
-      }
-    },
-    updateBlocks(blocks: AppBlocks) {
+    updateBlocks(blocks: AppBlocks): void {
       this.currentPage.blocks = [...blocks]
+    },
+    // 交换两个 block 的 位置
+    swapBlock(prevBid: string, nextBid: string): void {
+      // swap block
+      console.log(prevBid, nextBid)
+    },
+    addBlock(block: AppBlock | AppBlockGroup, groupKey?: string): void {
+      if (!groupKey) {
+        this.currentPage.blocks.push(block)
+        return
+      }
+      const blockGroup = findBlockGroup(this.currentPage.blocks, groupKey)
+      blockGroup && blockGroup.blocks.push(block)
+    },
+    deleteBlock(bid: string): void {
+      // bid
+      console.log(bid)
     },
     setFocusBlock(block: AppBlock | null) {
       this.focusBlock = block
@@ -134,22 +107,4 @@ export interface AppPageItem {
 
 export interface AppPageConfig {
   [prop: string]: any
-}
-
-export type AppBlocks = (AppBlock | AppBlockGroup)[]
-
-export interface AppBlockGroup {
-  label: string
-  key: string
-  blocks: AppBlock[]
-}
-export interface AppBlock {
-  component: {
-    id: string
-    name: string
-    version: string
-  }
-  componentId: string
-  props: Record<string, any>
-  styles: Record<string, any>
 }

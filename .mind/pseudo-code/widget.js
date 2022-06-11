@@ -8,6 +8,7 @@ const componentWidget = {
   props: [],
   styles: [],
   actions: [],
+  slots: ['default'],
   enhance() {},
   setup() {},
   preview() {},

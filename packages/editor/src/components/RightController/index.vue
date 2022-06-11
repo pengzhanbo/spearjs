@@ -12,7 +12,7 @@ import { tabs } from './tabs'
 
 const activeTab = ref(tabs[0].key)
 
-const isOpen = ref(true)
+const isOpen = ref(false)
 const handleOpen = () => {
   isOpen.value = !isOpen.value
 }

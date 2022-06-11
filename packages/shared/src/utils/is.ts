@@ -4,7 +4,8 @@ const checkType = (arg: unknown): string => {
 
 export const isArray = (val: unknown): val is any[] => Array.isArray(val)
 
-export const isFunction = (val: unknown): boolean => typeof val === 'function'
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const isFunction = (val: unknown): val is Function => typeof val === 'function'
 
 export const isObject = (val: unknown): boolean => val !== null && typeof val === 'object'
 

@@ -1,3 +1,4 @@
+import { ComponentWidget } from '@spearjs/shared'
 import { ElButton } from 'element-plus'
 
 export default {
@@ -61,4 +62,4 @@ export default {
       },
     },
   ],
-}
+} as ComponentWidget

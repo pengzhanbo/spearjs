@@ -57,16 +57,32 @@ export interface BaseWidget {
 export interface ComponentWidget<Props = WidgetProps> extends BaseWidget {
   type: 'component'
   componentType: WidgetComponentType
-  componentSubType: WidgetComponentSubType
+  componentSubType?: WidgetComponentSubType
   props: Props
+  slots?:
+    | ((
+        props: Record<
+          Props extends WidgetProps<infer K>
+            ? K extends WidgetPropsGroup
+              ? K['props'][number]['key']
+              : K extends WidgetPropItem
+              ? K['key']
+              : never
+            : never,
+          any
+        >
+      ) => string[])
+    | string[]
   description: () => ReturnType<RenderFunction>
   preview: () => ReturnType<RenderFunction>
   setup?: <
     P = Record<
-      Props extends WidgetPropsGroup[]
-        ? Props[number]['props'][number]['key']
-        : Props extends WidgetPropItem[]
-        ? Props[number]['key']
+      Props extends WidgetProps<infer K>
+        ? K extends WidgetPropsGroup
+          ? K['props'][number]['key']
+          : K extends WidgetPropItem
+          ? K['key']
+          : never
         : never,
       any
     >,
@@ -77,10 +93,12 @@ export interface ComponentWidget<Props = WidgetProps> extends BaseWidget {
   ) => ComponentWidget['render'] | RawBindings
   render?: (option: {
     props: Record<
-      Props extends WidgetPropsGroup[]
-        ? Props[number]['props'][number]['key']
-        : Props extends WidgetPropItem[]
-        ? Props[number]['key']
+      Props extends WidgetProps<infer K>
+        ? K extends WidgetPropsGroup
+          ? K['props'][number]['key']
+          : K extends WidgetPropItem
+          ? K['key']
+          : never
         : never,
       any
     > & { [prop: string]: any }
@@ -103,7 +121,7 @@ export interface WightService {
   fn: <T>() => () => T | Promise<T>
 }
 
-export type WidgetProps = (WidgetPropsGroup | WidgetPropItem)[]
+export type WidgetProps<T = WidgetPropsGroup | WidgetPropItem> = T[]
 
 export interface WidgetPropsGroup {
   key: string

@@ -2,15 +2,15 @@ import { useAppPagesStore } from '@editor/stores'
 import { ref } from 'vue'
 import { useDrag, useDrop } from 'vue3-dnd'
 import type { XYCoord } from 'vue3-dnd'
+import { WIDGET_DND_TYPE } from '@editor/common'
 
 export interface BlockDragItem {
-  componentId: string
+  bid: string
   index: number
   groupIndex: number
   isGroup: boolean
   type: string | symbol
 }
-const DND_TYPE = Symbol('block')
 
 export const useBlockDnd = (_item: Omit<BlockDragItem, 'type'>) => {
   const blockEl = ref<HTMLDivElement>()
@@ -18,7 +18,7 @@ export const useBlockDnd = (_item: Omit<BlockDragItem, 'type'>) => {
 
   const item = ref<BlockDragItem>({
     ..._item,
-    type: DND_TYPE,
+    type: WIDGET_DND_TYPE.Block,
   })
 
   const [dropCollect, drop] = useDrop<
@@ -30,16 +30,21 @@ export const useBlockDnd = (_item: Omit<BlockDragItem, 'type'>) => {
       isCurrentOver: boolean
     }
   >({
-    accept: DND_TYPE,
+    accept: [WIDGET_DND_TYPE.Block, WIDGET_DND_TYPE.Component],
     collect: (monitor) => ({
       handlerId: monitor.getHandlerId(),
       isOver: monitor.isOver(),
       isCurrentOver: monitor.isOver({ shallow: true }),
     }),
     hover(dragItem: BlockDragItem, monitor) {
+      const type = monitor.getItemType()
+      if (type === WIDGET_DND_TYPE.Component) {
+        return
+      }
       if (!blockEl.value) return
       const hoverItem = item.value!
-      if (dragItem.componentId === hoverItem.componentId) return
+      if (dragItem.bid === hoverItem.bid) return
+
       const clientOffset = monitor.getClientOffset() as XYCoord
       const hoverRect = blockEl.value.getBoundingClientRect()
       // 获取 悬浮目标的 Y轴中位线
@@ -71,8 +76,8 @@ export const useBlockDnd = (_item: Omit<BlockDragItem, 'type'>) => {
     },
   })
 
-  const [dragCollect, drag, preview] = useDrag({
-    type: DND_TYPE,
+  const [dragCollect, drag] = useDrag({
+    type: WIDGET_DND_TYPE.Block,
     item: () => item.value,
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -80,24 +85,19 @@ export const useBlockDnd = (_item: Omit<BlockDragItem, 'type'>) => {
   })
 
   const setRef = (el: Element) => {
-    blockEl.value = drag(drop(el)) as HTMLDivElement
-  }
-
-  const setPreview = (el: Element) => {
-    preview(el)
+    blockEl.value = drag(drop(el), { dropEffect: 'move' }) as HTMLDivElement
   }
 
   const setItem = (_item: Omit<BlockDragItem, 'type'>) => {
     item.value = {
       ..._item,
-      type: DND_TYPE,
+      type: WIDGET_DND_TYPE.Block,
     }
   }
 
   return {
     setRef,
     setItem,
-    setPreview,
     dragCollect,
     dropCollect,
   }

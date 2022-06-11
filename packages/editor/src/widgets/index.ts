@@ -1,4 +1,8 @@
-import { registerWidget } from '@spearjs/shared'
+import { spearJs } from '@editor/common'
+import { ComponentWidget } from '@spearjs/shared'
 import Button from './button'
+import Gird from './gird'
 
-registerWidget(Button)
+const widgetList: ComponentWidget[] = [Button, Gird]
+
+widgetList.forEach((widget) => spearJs.registerWidget(widget))
