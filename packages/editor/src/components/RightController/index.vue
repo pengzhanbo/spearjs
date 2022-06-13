@@ -9,10 +9,11 @@ import { ref } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
 import { tabs } from './tabs'
+import BlockTree from './BlockTree.vue'
 
 const activeTab = ref(tabs[0].key)
 
-const isOpen = ref(false)
+const isOpen = ref(true)
 const handleOpen = () => {
   isOpen.value = !isOpen.value
 }
@@ -29,6 +30,7 @@ const handleOpen = () => {
         </ElTabPane>
       </template>
     </ElTabs>
+    <BlockTree />
   </div>
 </template>
 <style lang="scss" scoped>
@@ -71,7 +73,7 @@ const handleOpen = () => {
   }
 
   .right-controller-tabs {
-    height: 100%;
+    height: calc(100% - 240px);
     border: none;
   }
 }

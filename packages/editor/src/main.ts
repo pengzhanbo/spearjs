@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from './App'
 import { setupRouter, router } from './router'
 import { setupStore } from './stores'
 import { setupElementPlus } from './plugins'

@@ -5,7 +5,7 @@ import { generateBid, generateBlockGroupKey } from './idGenerator'
 export type AppBlocks = (AppBlock | AppBlockGroup)[]
 
 export interface AppBlockGroup {
-  key: string | number
+  bid: string
   type: 'group'
   label: string
   blocks: AppBlocks
@@ -92,7 +92,7 @@ export const createBlock = (widget: ComponentWidget): AppBlock => {
 let groupIndex = 0
 export const createBlockGroup = (label?: string): AppBlockGroup => {
   return {
-    key: generateBlockGroupKey(),
+    bid: generateBlockGroupKey(),
     label: label || 'group_' + groupIndex++,
     type: 'group',
     blocks: [],
@@ -102,22 +102,43 @@ export const createBlockGroup = (label?: string): AppBlockGroup => {
 /**
  * 查找 block group 分组
  */
-export const findBlockGroup = (blocks: AppBlocks, key: string | number): AppBlockGroup | null => {
+export const findBlockGroup = (blocks: AppBlocks, bid: string | number): AppBlockGroup | null => {
   // 优先同级遍历，同级查找不到再进行深度遍历
-  const group = blocks.find((block) => block.type === 'group' && block.key === key)
+  const group = blocks.find((block) => block.type === 'group' && block.bid === bid)
   if (group) return group as AppBlockGroup
   for (let i = 0, l = blocks.length; i < l; i++) {
     const block = blocks[i]
     if (block.type === 'group') {
-      const group = findBlockGroup(block.blocks, key)
+      const group = findBlockGroup(block.blocks, bid)
       if (group) return group
     } else {
       // 查找同级的 slots 是否有 对应的 group
+      const slots = Object.keys(block.slots).map((name: string) => block.slots[name])
+      if (slots.length) {
+        for (let s = 0, sl = slots.length; s < sl; s++) {
+          const group = findBlockGroup(slots[s], bid)
+          if (group) return group
+        }
+      }
+    }
+  }
+  return null
+}
+
+export const findBlockByBid = (blocks: AppBlocks, bid: string): AppBlock | AppBlockGroup | null => {
+  const block = blocks.find((block) => block.type === 'block' && block.bid === bid)
+  if (block) return block
+  for (let i = 0, l = blocks.length; i < l; i++) {
+    const block = blocks[i]
+    if (block.type === 'group') {
+      const current = findBlockByBid(block.blocks, bid)
+      if (current) return current
+    } else {
       const slots = Object.keys(block.slots).map((key: string) => block.slots[key])
       if (slots.length) {
         for (let s = 0, sl = slots.length; s < sl; s++) {
-          const group = findBlockGroup(slots[s], key)
-          if (group) return group
+          const current = findBlockByBid(slots[s], bid)
+          if (current) return current
         }
       }
     }

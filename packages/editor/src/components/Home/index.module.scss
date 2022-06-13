@@ -1,0 +1,17 @@
+.editor-wrapper {
+  @apply w-full h-full overflow-auto;
+
+  .editor-container {
+    @apply relative;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 7px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.55);
+    border-radius: 3.5px;
+  }
+}

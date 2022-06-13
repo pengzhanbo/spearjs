@@ -1,16 +1,25 @@
 import { AppBlocks } from '@editor/services'
-import { defineComponent, toRefs } from 'vue'
+import { computed, defineComponent, toRefs } from 'vue'
 import type { PropType } from 'vue'
-import styles from './slot.module.scss'
 import Blocks from './Blocks'
-import { useDrop } from 'vue3-dnd'
+import { useBlocksDrop } from './hooks'
+
+import styles from './slot.module.scss'
 
 export default defineComponent({
   name: 'BlockSlot',
   props: {
+    roadMap: {
+      type: String,
+      default: '',
+    },
     name: {
       type: String,
-      default: 'slot-default',
+      default: '',
+    },
+    index: {
+      type: Number,
+      default: 0,
     },
     blocks: {
       type: Array as PropType<AppBlocks>,
@@ -20,16 +29,25 @@ export default defineComponent({
   setup(props) {
     const { blocks, name } = toRefs(props)
 
-    const [, drop] = useDrop(() => ({
-      accept: ['component'],
-    }))
+    const roadMap = computed(() => {
+      const roadMap = `slot:${props.name}:${props.index}`
+      return props.roadMap ? `${props.roadMap}|${roadMap}` : roadMap
+    })
+
+    const { dropCollect, setRef } = useBlocksDrop(roadMap)
 
     return () => (
-      <div class={styles.blockSlot} ref={(el) => drop(el as HTMLElement)}>
+      <div
+        class={styles.blockSlot}
+        ref={(el) => setRef(el as HTMLElement)}
+        data-handler-id={dropCollect.value.handlerId}
+      >
         {blocks.value.length === 0 ? (
           <div class={styles.slotPlaceholder}>组件拖到此slot:{name.value}</div>
         ) : (
-          <Blocks blocks={blocks.value} />
+          <div class={[styles.slotContainer, dropCollect.value.canDrop ? styles.canDrop : '']}>
+            <Blocks blocks={blocks.value} roadMap={roadMap.value} />
+          </div>
         )}
       </div>
     )

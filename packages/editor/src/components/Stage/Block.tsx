@@ -1,12 +1,13 @@
 import { useAppPagesStore } from '@editor/stores'
-import { computed, defineComponent, h, readonly, VNode, watch } from 'vue'
-import type { PropType, Slots } from 'vue'
+import { computed, defineComponent, h, readonly, VNode, watch, withModifiers } from 'vue'
+import type { PropType, Slots, StyleValue } from 'vue'
 import { createWidgetComponent, findWidget } from '@editor/services'
 import type { AppBlock } from '@editor/services'
-import styles from './index.module.scss'
-import { useBlockDnd } from './hooks/useBlockDnD'
+import { useBlockDnd } from './hooks'
 import { storeToRefs } from 'pinia'
 import SlotItem from './SlotItem'
+
+import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'StageBlock',
@@ -19,13 +20,13 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    groupIndex: {
-      type: Number,
-      default: 0,
-    },
-    type: {
-      type: String as PropType<'group' | undefined>,
+    roadMap: {
+      type: String,
       default: '',
+    },
+    preview: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
@@ -34,8 +35,7 @@ export default defineComponent({
     const { setRef, dragCollect, dropCollect, setItem } = useBlockDnd({
       bid: props.block.bid,
       index: props.index,
-      groupIndex: props.groupIndex,
-      isGroup: props.type === 'group',
+      roadMap: props.roadMap,
     })
 
     // props 变化时，更新 拖拽目标信息
@@ -45,8 +45,7 @@ export default defineComponent({
         setItem({
           bid: props.block.bid,
           index: props.index,
-          groupIndex: props.groupIndex,
-          isGroup: props.type === 'group',
+          roadMap: props.roadMap,
         })
       },
       { immediate: true }
@@ -66,55 +65,59 @@ export default defineComponent({
       }
     })
 
-    // 当进行拖拽时，将拖拽中的元素变为全透明
-    const opacity = computed(() => {
-      return dragCollect.value.isDragging ? 0 : 1
-    })
-
     const pageStore = useAppPagesStore()
 
     const { focusBlock } = storeToRefs(pageStore)
 
     const setFocusBlock = () => pageStore.setFocusBlock(props.block)
 
+    // 当进行拖拽时，将拖拽中的元素变为全透明
+    const style = computed<StyleValue | undefined>(() => {
+      return dragCollect.value.isDragging
+        ? {
+            opacity: 0,
+          }
+        : undefined
+    })
+
     // 对于支持 slot 的 widget，需要 渲染其所有的 slot
     const renderSlots = (): Slots | undefined => {
       if (!block.value.slots) return
       const slots = {}
       Object.keys(block.value.slots).forEach((slot) => {
-        slots[slot] = (): VNode => <SlotItem name={slot} blocks={block.value.slots[slot] || []} />
+        const blocks = block.value.slots[slot] || []
+        slots[slot] = (): VNode => (
+          <SlotItem name={slot} index={props.index} roadMap={props.roadMap} blocks={blocks} />
+        )
       })
       return slots as Slots
     }
-
-    // 渲染 widget
-    const render = () =>
-      h(
-        block.value.component,
-        {
-          bid: block.value.bid,
-          // 对于内部而言，属性应该是只读的，内部不可修改
-          props: readonly(block.value.props),
-          styles: readonly(block.value.styles),
-        },
-        renderSlots()
-      )
 
     return () => (
       <div
         class={[
           styles.widgetComponent,
           {
-            [styles.focus]: props.block.bid === focusBlock.value?.bid,
+            [styles.focus]: props.preview || props.block.bid === focusBlock.value?.bid,
+            [styles.hasSlot]: props.block.slots && Object.keys(props.block.slots).length > 0,
           },
         ]}
-        style={{ opacity: opacity.value }}
+        style={style.value}
         ref={(el) => setRef(el as Element)}
         data-handler-id={dropCollect.value.handlerId}
         data-label={block.value.label}
-        onClick={setFocusBlock}
+        onClick={withModifiers(setFocusBlock, ['stop'])}
       >
-        {render()}
+        {h(
+          block.value.component,
+          {
+            bid: block.value.bid,
+            // 对于内部而言，属性应该是只读的，内部不可修改
+            props: readonly(block.value.props),
+            styles: readonly(block.value.styles),
+          },
+          renderSlots()
+        )}
       </div>
     )
   },

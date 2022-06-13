@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { hasOwn } from '@spearjs/shared'
 import type { AppBlocks, AppBlock, AppBlockGroup } from '@editor/services'
-import { findBlockGroup } from '@editor/services'
 
 const createAppPage = ({
   title = '新页面',
@@ -66,24 +65,51 @@ export const useAppPagesStore = defineStore('pages', {
     updateBlocks(blocks: AppBlocks): void {
       this.currentPage.blocks = [...blocks]
     },
-    // 交换两个 block 的 位置
-    swapBlock(prevBid: string, nextBid: string): void {
-      // swap block
-      console.log(prevBid, nextBid)
-    },
-    addBlock(block: AppBlock | AppBlockGroup, groupKey?: string): void {
-      if (!groupKey) {
-        this.currentPage.blocks.push(block)
-        return
+    getBlocksByRoadMap(roadMap: string): AppBlocks {
+      const mapList = roadMap.split('|')
+      let i = 0,
+        blocks = this.currentPage.blocks
+      while (i < mapList.length) {
+        const [type, name, index] = mapList[i].split(':')
+        if (type === 'slot') {
+          blocks = blocks[index].slots[name]
+        }
+        if (type === 'group') {
+          blocks = blocks[index].blocks
+        }
+        i++
       }
-      const blockGroup = findBlockGroup(this.currentPage.blocks, groupKey)
-      blockGroup && blockGroup.blocks.push(block)
+      return blocks
     },
-    deleteBlock(bid: string): void {
-      // bid
-      console.log(bid)
+    addBlock(block: AppBlock | AppBlockGroup, roadMap?: string, insertTo?: number): void {
+      roadMap = roadMap || ''
+      const blocks = this.getBlocksByRoadMap(roadMap)
+      if (insertTo === undefined) {
+        blocks.push(block)
+      } else {
+        blocks.splice(insertTo, 0, block)
+      }
     },
-    setFocusBlock(block: AppBlock | null) {
+    deleteBlock(
+      index: number,
+      roadMap?: string,
+      done?: (block: AppBlock | AppBlockGroup) => void
+    ): AppBlock | AppBlockGroup {
+      roadMap = roadMap || ''
+      const blocks = this.getBlocksByRoadMap(roadMap)
+      const block = blocks[index]
+      done && done(block)
+      blocks.splice(index, 1)
+      return block
+    },
+    moveSameRoadMapBlock(source: number, target: number, roadMap?: string): void {
+      roadMap = roadMap || ''
+      const blocks = this.getBlocksByRoadMap(roadMap)
+      const block = blocks[source]
+      blocks.splice(source, 1)
+      blocks.splice(target, 0, block)
+    },
+    setFocusBlock(block: AppBlock | AppBlockGroup | null) {
       this.focusBlock = block
     },
   },
@@ -92,7 +118,7 @@ export const useAppPagesStore = defineStore('pages', {
 export interface AppPagesStore {
   pages: AppPageList
   currentPage: AppPageItem
-  focusBlock: AppBlock | null
+  focusBlock: AppBlock | AppBlockGroup | null
 }
 
 export type AppPageList = AppPageItem[]

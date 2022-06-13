@@ -9,12 +9,13 @@
   min-height: inherit;
 }
 
-.widget-component {
+.widget-component,
+.widget-component-group {
   @apply relative cursor-move;
 
   outline: solid 2px transparent;
   outline-offset: -2px;
-  transition: outline 0.2s ease-in-out;
+  transition: outline 0.2s ease-in-out, margin 0.2s ease-in-out;
 
   &::before {
     @apply inline-block absolute top-0 right-0 bottom-0 left-0 z-10 cursor-move;
@@ -22,11 +23,12 @@
     content: '';
   }
 
+  &:hover,
   &.focus {
     @apply outline-solid-blue-500;
 
     &::after {
-      @apply inline-block absolute top-0 -left-2 cursor-move;
+      @apply inline-block absolute top-0 left-0 cursor-move;
       @apply bg-blue-500 text-white -translate-x-full transform;
       @apply px-2 py-1.5 text-sm leading-3 rounded-sm font-bold;
 
@@ -34,18 +36,19 @@
     }
   }
 
-  &.dragging {
-    background: transparent;
-    opacity: 0.5;
+  &.has-slot::before {
+    display: none;
   }
-}
-
-.widget-component-group {
-  position: relative;
 }
 
 :global {
   .flip-list-move {
     transition: transform 0.3s;
   }
+}
+
+.drag-layer {
+  @apply fixed top-0 left-0 z-50 pointer-events-none;
+
+  width: inherit;
 }
