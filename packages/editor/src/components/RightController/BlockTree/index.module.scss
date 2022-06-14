@@ -1,0 +1,39 @@
+.blocks-tree-wrapper {
+  @apply w-full border-t-3 border-double pb-1;
+  @apply flex flex-col;
+  @apply text-sm;
+
+  height: 240px;
+  color: var(--c-text-light);
+
+  h3 {
+    @apply px-5 py-1 text-sm font-bold bg-light-300 border-b;
+
+    color: var(--c-text-lighter);
+  }
+}
+
+.blocks-tree {
+  @apply list-none;
+
+  & & {
+    @apply ml-2;
+  }
+}
+
+.tree-block-item {
+  @apply my-0;
+}
+
+.tree-title {
+  @apply pl-1 py-0.5 my-0 bg-transparent transition;
+  @apply hover:bg-light-500;
+}
+
+.tree-block-slot {
+  @apply ml-3 border-l;
+}
+
+.tree-slot-title {
+  @apply text-xs pl-1;
+}

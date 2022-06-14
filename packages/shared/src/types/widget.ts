@@ -1,5 +1,7 @@
 import type { Platform } from './platform'
-import type { RenderFunction, SetupContext } from 'vue'
+import type { App, RenderFunction, SetupContext } from 'vue'
+import type { Router } from 'vue-router'
+import type { WidgetProps } from './widgetProps'
 
 /**
  * widget 类型
@@ -52,56 +54,19 @@ export interface BaseWidget {
   label: string
   platform: WidgetPlatform
   type: WidgetType
-  enhance?: () => void
+  enhance?: (option: { app: App; router: Router }) => void
 }
-export interface ComponentWidget<Props = WidgetProps> extends BaseWidget {
+export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
   type: 'component'
   componentType: WidgetComponentType
   componentSubType?: WidgetComponentSubType
-  props: Props
-  slots?:
-    | ((
-        props: Record<
-          Props extends WidgetProps<infer K>
-            ? K extends WidgetPropsGroup
-              ? K['props'][number]['key']
-              : K extends WidgetPropItem
-              ? K['key']
-              : never
-            : never,
-          any
-        >
-      ) => string[])
-    | string[]
+  props: WidgetProps
+  slots?: ((props: P) => string[]) | string[]
   description: () => ReturnType<RenderFunction>
   preview: () => ReturnType<RenderFunction>
-  setup?: <
-    P = Record<
-      Props extends WidgetProps<infer K>
-        ? K extends WidgetPropsGroup
-          ? K['props'][number]['key']
-          : K extends WidgetPropItem
-          ? K['key']
-          : never
-        : never,
-      any
-    >,
-    RawBindings = object
-  >(
-    props: Readonly<P>,
-    ctx: SetupContext
-  ) => ComponentWidget['render'] | RawBindings
+  setup?: <RawBindings = object>(props: Readonly<P>, ctx: SetupContext) => RawBindings
   render?: (option: {
-    props: Record<
-      Props extends WidgetProps<infer K>
-        ? K extends WidgetPropsGroup
-          ? K['props'][number]['key']
-          : K extends WidgetPropItem
-          ? K['key']
-          : never
-        : never,
-      any
-    > & { [prop: string]: any }
+    props: P
     styles: {
       [prop: string]: string
     }
@@ -119,27 +84,4 @@ export interface WightService {
   type: string
   name: string
   fn: <T>() => () => T | Promise<T>
-}
-
-export type WidgetProps<T = WidgetPropsGroup | WidgetPropItem> = T[]
-
-export interface WidgetPropsGroup {
-  key: string
-  label: string
-  props: WidgetPropItem[]
-}
-
-export interface WidgetPropItem {
-  key: string
-  type: any
-  form: {
-    label: string
-    type: string
-    defaultValue: any
-    options?: {
-      label: string
-      key: string
-      defaultValue?: any
-    }[]
-  }
 }

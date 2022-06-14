@@ -31,35 +31,26 @@ export default {
   props: [
     {
       key: 'buttonText',
-      type: String,
-      form: {
-        label: '按钮文字',
-        type: 'input',
-        defaultValue: '按钮',
-      },
+      label: '按钮文字',
+      type: 'text',
+      defaultValue: '按钮',
     },
     {
       key: 'text',
-      type: Boolean,
-      form: {
-        label: '是否为文字按钮',
-        type: 'switch',
-        defaultValue: false,
-        desc: '',
-      },
+      label: '是否为文字按钮',
+      type: 'switch',
+      defaultValue: false,
     },
     {
       key: 'type',
-      type: String,
-      form: {
-        label: '按钮类型',
-        type: 'select',
-        defaultValue: 'primary',
-        options: [
-          { label: '主要按钮', value: 'primary' },
-          { label: '成功按钮', value: 'success' },
-        ],
-      },
+      label: '按钮类型',
+      type: 'select',
+      defaultValue: 'primary',
+      multiple: false,
+      options: [
+        { label: '主要按钮', value: 'primary' },
+        { label: '成功按钮', value: 'success' },
+      ],
     },
   ],
 } as ComponentWidget

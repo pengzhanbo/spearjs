@@ -1,4 +1,4 @@
-import type { ComponentWidget, WidgetPropItem, WidgetPropsGroup } from '@spearjs/shared'
+import { ComponentWidget, hasOwn, WidgetPropItem, WidgetProps } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
 import { generateBid, generateBlockGroupKey } from './idGenerator'
 
@@ -23,27 +23,6 @@ export interface AppBlock {
   slots: Record<string, AppBlocks>
 }
 
-export function getDefaultValue(type: any, defaultValue?: any): any {
-  if (defaultValue) {
-    return defaultValue
-  }
-  if (type === String) {
-    return ''
-  }
-  if (type === Object) {
-    return {}
-  }
-  if (type === Array) {
-    return []
-  }
-  if (type === Boolean) {
-    return !!defaultValue
-  }
-  if (type === Function) {
-    return () => {}
-  }
-}
-
 const blockIndex: Record<string, number> = {
   block: 0,
 }
@@ -58,21 +37,58 @@ const getBlockLabel = (label?: string): string => {
   return `${label}_${blockIndex[label]++}`
 }
 
-export const createBlock = (widget: ComponentWidget): AppBlock => {
-  const data = {}
-  const { props, slots = [] } = widget
-  props.forEach((prop) => {
-    if ((prop as WidgetPropsGroup).props) {
-      ;(prop as WidgetPropsGroup).props.forEach((prop: WidgetPropItem) => {
-        data[prop.key] = getDefaultValue(prop.type, prop?.form?.defaultValue)
+export function getDefaultValue(prop: WidgetPropItem): any {
+  switch (prop.type) {
+    case 'text':
+      return prop.defaultValue || ''
+    case 'number':
+      return prop.defaultValue || prop.min || 0
+    case 'select':
+      const multiple = hasOwn(prop, 'multiple') ? prop.multiple : false
+      if (multiple) {
+        return prop.defaultValue
+          ? Array.isArray(prop.defaultValue)
+            ? prop.defaultValue
+            : [prop.defaultValue]
+          : []
+      } else {
+        return prop.defaultValue || prop.options[0].value
+      }
+    case 'switch':
+      return hasOwn(prop, 'defaultValue') ? prop.defaultValue : false
+    case 'date':
+      return prop.defaultValue || new Date()
+    case 'array':
+      return (
+        prop.defaultValue || (hasOwn(prop.items, 'defaultValue') ? [prop.items.defaultValue] : [])
+      )
+    case 'object':
+      const obj = {}
+      prop.props.forEach((prop) => {
+        obj[prop.key] = getDefaultValue(prop)
       })
+      return obj
+    default:
+      return undefined
+  }
+}
+
+const createProps = (props: WidgetProps, result: Record<string, any> = {}): Record<string, any> => {
+  props.forEach((prop: WidgetPropItem) => {
+    if (prop.type === 'group') {
+      createProps(prop.props, result)
     } else {
-      prop = prop as WidgetPropItem
-      data[prop.key] = getDefaultValue(prop.type, prop?.form?.defaultValue)
+      result[prop.key] = getDefaultValue(prop)
     }
   })
+  return result
+}
+
+export const createBlock = (widget: ComponentWidget): AppBlock => {
+  const props = createProps(widget.props || [])
+  const { slots = [] } = widget
   const _slots = {}
-  ;(isFunction(slots) ? slots(data) : slots).forEach((name: string) => {
+  ;(isFunction(slots) ? slots(props) : slots).forEach((name: string) => {
     _slots[name] = []
   })
   return {
@@ -83,7 +99,7 @@ export const createBlock = (widget: ComponentWidget): AppBlock => {
       version: widget.version,
     },
     bid: generateBid(),
-    props: data,
+    props,
     styles: {},
     slots: _slots,
   }

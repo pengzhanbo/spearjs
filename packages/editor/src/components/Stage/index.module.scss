@@ -41,12 +41,6 @@
   }
 }
 
-:global {
-  .flip-list-move {
-    transition: transform 0.3s;
-  }
-}
-
 .drag-layer {
   @apply fixed top-0 left-0 z-50 pointer-events-none;
 

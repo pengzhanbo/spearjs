@@ -35,11 +35,13 @@ export default {
   props: [
     {
       key: 'cols',
-      type: Array,
-      form: {
+      label: '列',
+      type: 'array',
+      defaultValue: [12, 12],
+      items: {
+        type: 'number',
         label: '列',
-        type: '',
-        defaultValue: [12, 12],
+        defaultValue: 1,
       },
     },
   ],

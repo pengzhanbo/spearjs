@@ -9,7 +9,7 @@ import { ref } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
 import { tabs } from './tabs'
-import BlockTree from './BlockTree.vue'
+import BlockTree from './BlockTree'
 
 const activeTab = ref(tabs[0].key)
 
