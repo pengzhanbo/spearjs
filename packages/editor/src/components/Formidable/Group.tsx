@@ -3,6 +3,8 @@ import { defineComponent } from 'vue'
 import type { PropType, InjectionKey } from 'vue'
 import PropItem from './PropItem'
 
+import styles from './index.module.scss'
+
 export default defineComponent({
   name: 'FormidableNumberProp',
   props: {
@@ -17,8 +19,8 @@ export default defineComponent({
   },
   setup(props) {
     return () => (
-      <div>
-        <h4>{props.config.label}</h4>
+      <div class={styles.groupWrapper}>
+        <label class={styles.groupLabel}>{props.config.label}</label>
         {props.config.props.map((prop) => (
           <PropItem config={prop} injectKey={props.injectKey} />
         ))}

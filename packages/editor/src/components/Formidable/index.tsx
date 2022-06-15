@@ -6,6 +6,8 @@ import Group from './Group'
 import { useVModel } from '@vueuse/core'
 import { useFormDataProvide } from './hooks'
 
+import styles from './index.module.scss'
+
 export default defineComponent({
   name: 'Formidable',
   props: {
@@ -24,7 +26,14 @@ export default defineComponent({
     const injectKey = useFormDataProvide(model)
 
     return () => (
-      <ElForm labelWidth="auto" model={model.value}>
+      <ElForm
+        class={styles.formWrapper}
+        labelWidth="auto"
+        model={model.value}
+        inline
+        labelSuffix=":"
+        inlineMessage
+      >
         {props.config.map((prop) =>
           prop.type === 'group' ? (
             <Group config={prop} injectKey={injectKey} />

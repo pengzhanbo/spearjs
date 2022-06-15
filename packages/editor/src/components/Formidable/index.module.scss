@@ -1,0 +1,20 @@
+.form-wrapper {
+  & > :last-child {
+    @apply border-b-0;
+  }
+}
+
+.group-wrapper {
+  @apply relative border-t border-b mt-5 py-5;
+
+  .group-label {
+    @apply absolute top-0 left-5 px-2 text-sm font-bold;
+
+    background-color: var(--c-bg-container);
+    transform: translateY(-50%);
+  }
+
+  & + & {
+    @apply mt-0 border-t-0;
+  }
+}

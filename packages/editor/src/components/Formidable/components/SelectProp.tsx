@@ -24,7 +24,15 @@ export default defineComponent({
     const model = useFormData(props.injectKey)
 
     const options = computed(() => {
-      const { defaultValue: _d, type: _t, tips: _ti, options: _o, ...option } = props.config
+      const {
+        defaultValue: _d,
+        type: _t,
+        tips: _ti,
+        options: _o,
+        label: _l,
+        key: _k,
+        ...option
+      } = props.config
       return option
     })
     return () => (

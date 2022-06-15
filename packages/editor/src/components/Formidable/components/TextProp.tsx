@@ -19,7 +19,7 @@ export default defineComponent({
   setup(props) {
     const model = useFormData(props.injectKey)
 
-    const inputOptions = computed(() => {
+    const options = computed(() => {
       const config = props.config
       return {
         type: config.textarea ? 'textarea' : 'text',
@@ -32,7 +32,7 @@ export default defineComponent({
     return () => (
       <ElFormItem label={props.config.label} rules={props.config.rules} prop={props.config.key}>
         <p class="w-full flex items-center justify-start">
-          <ElInput class="flex-1" v-model={model.value[props.config.key]} {...inputOptions.value} />
+          <ElInput class="flex-1" v-model={model.value[props.config.key]} {...options.value} />
           {tips(props.config.tips)}
         </p>
       </ElFormItem>

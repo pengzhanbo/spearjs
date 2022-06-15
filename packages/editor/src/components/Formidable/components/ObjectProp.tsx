@@ -12,6 +12,10 @@ export default defineComponent({
       type: Symbol,
       required: true,
     },
+    dotKey: {
+      type: String,
+      default: '',
+    },
   },
   setup() {
     return () => <div>object</div>
