@@ -48,6 +48,7 @@
     "copy": "cpx \"src/**/*.css\" dist"
   },
   "dependencies": {
+    "element-plus": "^2.2.0",
     "vue": "^3.2.36",
     "vue-router": "^4.0.15"
   },

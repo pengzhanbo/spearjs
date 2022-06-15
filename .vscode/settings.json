@@ -12,6 +12,7 @@
   "scss.validate": false,
   "css.validate": false,
   "cSpell.words": [
+    "autosize",
     "bumpp",
     "commitlint",
     "esbuild",

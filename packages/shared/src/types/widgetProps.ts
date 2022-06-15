@@ -1,24 +1,27 @@
+import type { FormItemRule } from 'element-plus'
+
 export type WidgetPropsType =
   | 'text'
   | 'number'
   | 'select'
   | 'switch'
   | 'date'
+  | 'color'
   | 'group'
   | 'object'
   | 'array'
 
-export type WidgetPropItem<T = any, F = T> =
+export type WidgetPropItem =
   | WidgetTextProp
   | WidgetNumberProp
-  | WidgetSelectProp<T>
-  | WidgetSwitchProp<T, F>
+  | WidgetSelectProp
+  | WidgetSwitchProp
   | WidgetDateProp
   | WidgetObjectProp
-  | WidgetArrayProp<T, F>
-  | WidgetGroupProp
+  | WidgetColorProp
+  | WidgetArrayProp
 
-export type WidgetProps<T = any, F = T> = WidgetPropItem<T, F>[]
+export type WidgetProps = (WidgetPropItem | WidgetGroupProp)[]
 
 export interface WidgetBaseProp {
   key: string
@@ -30,14 +33,30 @@ export interface WidgetBaseProp {
 export interface WidgetGroupProp {
   type: 'group'
   label: string
-  props: WidgetProps
+  props: WidgetPropItem[]
 }
 
 export interface WidgetTextProp extends WidgetBaseProp {
   type: 'text'
   defaultValue?: string
-  maxLength: number
-  validator: (key: string) => boolean | RegExp
+  maxLength?: number
+  rules?: FormItemRule | FormItemRule[]
+  /**
+   * 是否使用 文本域
+   */
+  textarea?: boolean
+  /**
+   * 占位内容
+   */
+  placeholder?: string
+  /**
+   * 使用 textarea时，显示行数
+   */
+  rows?: number
+  /**
+   * 使用 textarea 时，是否自动撑开高度
+   */
+  autosize?: boolean | { minRows: number; maxRows: number }
 }
 
 export interface WidgetNumberProp extends WidgetBaseProp {
@@ -45,23 +64,61 @@ export interface WidgetNumberProp extends WidgetBaseProp {
   defaultValue?: number
   max?: number
   min?: number
+  /**
+   * 步进
+   */
+  step?: number
+  /**
+   * 显示精度
+   */
+  precision?: number
 }
+
+export interface WidgetSelectPropOptionsItem<T = any> {
+  label: string
+  value: T
+}
+
+export interface WidgetSelectPropOptionsGroup<T = any> {
+  label: string
+  options: WidgetSelectPropOptionsItem<T>[]
+}
+
+export type WidgetSelectPropOptions<T = any> = (
+  | WidgetSelectPropOptionsGroup<T>
+  | WidgetSelectPropOptionsItem<T>
+)[]
 
 export interface WidgetSelectProp<T = any> extends WidgetBaseProp {
   type: 'select'
   defaultValue?: T
-  options: {
-    label: string
-    value: T
-  }[]
-  multiple: boolean
+  options: WidgetSelectPropOptions<T>
+  multiple?: boolean
+  multipleLimit?: number
+  keyValue?: string
+  clearable?: boolean
+  collapseTags?: boolean
+  collapseTagsTooltip?: boolean
+  placeholder?: string
+  filterable?: boolean
+  allowCreate?: boolean
+  filterMethod?: (options: WidgetSelectPropOptions<T>) => WidgetSelectPropOptions<T>
+  remote?: boolean
+  remoteMethod: (query: string) => WidgetSelectPropOptions<T>
+  loading?: boolean
+  loadingText?: string
+  noMatchText?: string
+  noDataText?: string
+  defaultFirstOption?: boolean
 }
 
-export interface WidgetSwitchProp<T = any, F = T> extends WidgetBaseProp {
+export interface WidgetSwitchProp extends WidgetBaseProp {
   type: 'switch'
-  defaultValue?: boolean
-  truly?: T
-  falsely?: F
+  defaultValue?: boolean | string | number
+  activeText?: string
+  inactiveText?: string
+  activeValue?: boolean | string | number
+  inactiveValue?: boolean | string | number
 }
 
 export interface WidgetDateProp extends WidgetBaseProp {
@@ -69,22 +126,20 @@ export interface WidgetDateProp extends WidgetBaseProp {
   defaultValue?: Date
 }
 
+export interface WidgetColorProp extends WidgetBaseProp {
+  type: 'color'
+  defaultValue?: string
+  format?: 'hex' | 'rgb'
+}
+
 export interface WidgetObjectProp extends WidgetBaseProp {
   type: 'object'
   label: string
-  props: (
-    | WidgetTextProp
-    | WidgetNumberProp
-    | WidgetObjectProp
-    | WidgetDateProp
-    | WidgetSelectProp
-    | WidgetSwitchProp
-    | WidgetArrayProp
-  )[]
+  props: WidgetPropItem[]
 }
 
-export interface WidgetArrayProp<T = any, K = any, F = K> extends WidgetBaseProp {
+export interface WidgetArrayProp<T = any> extends WidgetBaseProp {
   type: 'array'
   defaultValue?: T[]
-  items: Omit<WidgetPropItem<K, F>, 'key'> & { defaultValue?: unknown }
+  items: Omit<WidgetPropItem, 'key'> & { defaultValue?: unknown }
 }

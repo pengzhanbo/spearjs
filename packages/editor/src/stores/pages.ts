@@ -112,6 +112,11 @@ export const useAppPagesStore = defineStore('pages', {
     setFocusBlock(block: AppBlock | AppBlockGroup | null) {
       this.focusBlock = block
     },
+    updateFocusBlockProps(props: Record<string, any>): void {
+      if (this.focusBlock && this.focusBlock.type === 'block') {
+        this.focusBlock.props = props
+      }
+    },
   },
 })
 

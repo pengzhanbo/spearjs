@@ -1,4 +1,4 @@
-import AttrsConfig from './AttrsConfig.vue'
+import AttrsConfig from './AttrsConfig'
 import StylesConfig from './StylesConfig.vue'
 import ActionConfig from './ActionsConfig.vue'
 import PageConfig from './PageConfig.vue'

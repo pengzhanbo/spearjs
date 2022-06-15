@@ -5,13 +5,30 @@ export default defineComponent({
 })
 </script>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ElTabs, ElTabPane } from 'element-plus'
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
 import { tabs } from './tabs'
 import BlockTree from './BlockTree'
+import { useAppPagesStore } from '@editor/stores'
 
-const activeTab = ref(tabs[0].key)
+const pageStore = useAppPagesStore()
+
+const tabEnabled = computed(() => {
+  const block = pageStore.focusBlock
+  const list = ['page-config', 'app-config']
+  if (block && block.type === 'block') list.push('attrs-config', 'styles-config', 'action-config')
+  return list
+})
+
+const activeTab = ref(tabEnabled.value[0])
+
+watch(
+  () => tabEnabled.value,
+  (list) => {
+    if (!list.includes(activeTab.value)) activeTab.value = list[0]
+  }
+)
 
 const isOpen = ref(true)
 const handleOpen = () => {
@@ -23,9 +40,14 @@ const handleOpen = () => {
     <div class="btn-arrow" @click="handleOpen">
       <component :is="isOpen ? DArrowRight : DArrowLeft" />
     </div>
-    <ElTabs v-model="activeTab" type="border-card" stretch class="right-controller-tabs">
+    <ElTabs v-model="activeTab" type="border-card" class="right-controller-tabs">
       <template v-for="tab in tabs" :key="tab.key">
-        <ElTabPane :label="tab.label" :name="tab.key" lazy>
+        <ElTabPane
+          :label="tab.label"
+          :name="tab.key"
+          :disabled="!tabEnabled.includes(tab.key)"
+          lazy
+        >
           <component :is="tab.tab" />
         </ElTabPane>
       </template>
@@ -47,6 +69,11 @@ const handleOpen = () => {
 
   &.open {
     transform: translate3d(0, 0, 0);
+  }
+
+  & :deep(.el-tabs__content) {
+    height: calc(100% - 40px);
+    overflow-y: auto;
   }
 
   .btn-arrow {

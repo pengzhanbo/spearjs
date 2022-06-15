@@ -1,5 +1,5 @@
 .blocks-tree-wrapper {
-  @apply w-full border-t-3 border-double pb-1;
+  @apply relative w-full border-t-3 border-double pb-1 z-10;
   @apply flex flex-col;
   @apply text-sm;
 
