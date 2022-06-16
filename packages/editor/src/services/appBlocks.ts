@@ -2,6 +2,8 @@ import type { ComponentWidget } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
 import { generateBid, generateBlockGroupKey } from './idGenerator'
 import { createProps } from './createProps'
+import { readonly } from 'vue'
+import cloneDeep from 'lodash-es/cloneDeep'
 
 const blockIndex: Record<string, number> = {
   block: 0,
@@ -18,10 +20,10 @@ const getBlockLabel = (label?: string): string => {
 }
 
 export const createBlock = (widget: ComponentWidget): AppBlock => {
-  const props = createProps(widget.props || [])
+  const props = cloneDeep(createProps(widget.props || []))
   const { slots = [] } = widget
   const _slots = {}
-  ;(isFunction(slots) ? slots(props) : slots).forEach((name: string) => {
+  ;(isFunction(slots) ? slots(readonly(props)) : slots).forEach((name: string) => {
     _slots[name] = []
   })
   return {

@@ -117,6 +117,16 @@ export const useAppPagesStore = defineStore('pages', {
         this.focusBlock.props = props
       }
     },
+    updateFocusBlockSlots(slotList: string[]): void {
+      if (this.focusBlock && this.focusBlock.type === 'block') {
+        const oldSlots = this.focusBlock.slots
+        const newSlots = {}
+        slotList.forEach((name) => {
+          newSlots[name] = oldSlots[name] || []
+        })
+        this.focusBlock.slots = newSlots
+      }
+    },
   },
 })
 

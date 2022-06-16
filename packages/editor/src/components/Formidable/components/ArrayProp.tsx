@@ -82,7 +82,7 @@ export default defineComponent({
                 />
               </PropItem>
             ))}
-            <ElFormItem>
+            <ElFormItem class="w-full">
               <ElButton
                 size="small"
                 type="primary"

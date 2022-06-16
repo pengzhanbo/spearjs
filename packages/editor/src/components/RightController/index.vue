@@ -17,18 +17,20 @@ const pageStore = useAppPagesStore()
 const tabEnabled = computed(() => {
   const block = pageStore.focusBlock
   const list = ['page-config', 'app-config']
-  if (block && block.type === 'block') list.push('attrs-config', 'styles-config', 'action-config')
+  if (block && block.type === 'block')
+    list.unshift('attrs-config', 'styles-config', 'action-config')
   return list
 })
 
 const activeTab = ref(tabEnabled.value[0])
 
-watch(
-  () => tabEnabled.value,
-  (list) => {
-    if (!list.includes(activeTab.value)) activeTab.value = list[0]
+watch([() => pageStore.focusBlock, () => tabEnabled.value], ([block, list]) => {
+  if (!block || block.type === 'group') {
+    if (!list.includes(activeTab.value)) activeTab.value = 'page-config'
+  } else {
+    activeTab.value = list[0]
   }
-)
+})
 
 const isOpen = ref(true)
 const handleOpen = () => {

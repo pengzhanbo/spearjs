@@ -3,11 +3,14 @@
 }
 
 .slot-placeholder {
-  @apply min-h-10 text-center text-xs py-1 border border-dashed border-gray-400;
+  @apply min-h-10 text-center text-xs py-1 border border-dashed border-gray-300;
 }
 
 .slot-container {
-  @apply border border-dashed border-gray-500;
+  outline: dashed 1px;
+  outline-offset: -1px;
+
+  @apply outline-gray-300;
 
   &.can-drop {
     @apply pb-2;

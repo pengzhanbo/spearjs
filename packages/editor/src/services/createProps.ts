@@ -45,7 +45,7 @@ export function getDefaultValue(prop: WidgetPropItem): any {
 
 export const createProps = (
   props: WidgetProps,
-  result: Record<string, any> = {}
+  result: Record<string, any> = Object.create({})
 ): Record<string, any> => {
   props.forEach((prop: WidgetPropItem | WidgetGroupProp) => {
     if (prop.type === 'group') {

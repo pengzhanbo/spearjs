@@ -1,7 +1,8 @@
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, watch } from 'vue'
 import Formidable from '../Formidable'
 import { useAppPagesStore } from '@editor/stores'
 import { findWidget } from '@editor/services'
+import { isFunction } from '@spearjs/shared'
 
 import styles from './index.module.scss'
 
@@ -36,6 +37,21 @@ export default defineComponent({
         pageStore.updateFocusBlockProps(_data)
       },
     })
+
+    /**
+     * 监听 组件实例的 props 变更，
+     * 如果 slots 定义为 一个函数，则需要执行后收集新的 slot name 数组
+     */
+    watch(
+      () => formData.value,
+      (data) => {
+        if (!widget.value || !block.value || block.value.type !== 'block') return
+        if (isFunction(widget.value.slots)) {
+          pageStore.updateFocusBlockSlots(widget.value.slots(data))
+        }
+      },
+      { deep: true }
+    )
 
     return () => (
       <div class={styles.tabPanelContainer}>
