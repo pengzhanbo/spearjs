@@ -1,6 +1,6 @@
 .form-wrapper {
   & > :last-child {
-    @apply border-b-0;
+    @apply border-b-0 mb-0;
   }
 }
 
@@ -16,5 +16,21 @@
 
   & + & {
     @apply mt-0 border-t-0;
+  }
+}
+
+.object-wrapper {
+  @apply relative bg-light-400 pt-4 pl-4 mb-4 border-b;
+
+  .object-title {
+    @apply flex justify-start items-center mb-4 text-sm font-bold;
+  }
+}
+
+.array-wrapper {
+  @apply relative bg-light-400 pt-4 pl-4 mb-4 border-b;
+
+  .array-title {
+    @apply flex justify-start items-center mb-4 text-sm font-bold;
   }
 }

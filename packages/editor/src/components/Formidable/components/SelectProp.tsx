@@ -6,7 +6,7 @@ import type {
 import { defineComponent, PropType, computed } from 'vue'
 import { ElFormItem, ElOption, ElOptionGroup, ElSelect } from 'element-plus'
 import { tips } from '../Tips'
-import { useFormData } from '../hooks'
+import { useDotProp, useFormData } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableSelectProp',
@@ -19,11 +19,25 @@ export default defineComponent({
       type: Symbol,
       required: true,
     },
+    dotKey: {
+      type: String,
+      default: '',
+    },
   },
   setup(props) {
     const model = useFormData(props.injectKey)
 
+    const dotKey = computed(() => {
+      return props.dotKey ? `${props.dotKey}.${props.config.key}` : props.config.key
+    })
+
+    const binding = useDotProp(model, dotKey)
+
     const options = computed(() => {
+      /* TODO select options 配置属性白名单优化
+       * 虽然这种模式可以拿到 options，但是存在隐患，
+       * 后面再改成白名单获取值
+       */
       const {
         defaultValue: _d,
         type: _t,
@@ -36,9 +50,9 @@ export default defineComponent({
       return option
     })
     return () => (
-      <ElFormItem label={props.config.label} prop={props.config.key}>
+      <ElFormItem label={props.config.label} prop={dotKey.value}>
         <p class="w-full flex items-center justify-start">
-          <ElSelect class="flex-1" v-model={model.value[props.config.key]} {...options.value}>
+          <ElSelect class="flex-1" v-model={binding.value} {...options.value}>
             {props.config.options.map((option) => {
               if ((option as WidgetSelectPropOptionsGroup).options) {
                 return (

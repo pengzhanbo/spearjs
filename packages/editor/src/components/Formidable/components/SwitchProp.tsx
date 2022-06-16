@@ -2,7 +2,7 @@ import type { WidgetSwitchProp } from '@spearjs/shared'
 import { defineComponent, PropType, computed } from 'vue'
 import { ElFormItem, ElSwitch } from 'element-plus'
 import { tips } from '../Tips'
-import { useFormData } from '../hooks'
+import { useFormData, useDotProp } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableSwitchProp',
@@ -15,9 +15,19 @@ export default defineComponent({
       type: Symbol,
       required: true,
     },
+    dotKey: {
+      type: String,
+      default: '',
+    },
   },
   setup(props) {
     const model = useFormData(props.injectKey)
+
+    const dotKey = computed(() => {
+      return props.dotKey ? `${props.dotKey}.${props.config.key}` : props.config.key
+    })
+
+    const binding = useDotProp(model, dotKey)
 
     const options = computed(() => {
       const { activeValue, inactiveValue, activeText, inactiveText } = props.config
@@ -32,9 +42,9 @@ export default defineComponent({
       return option
     })
     return () => (
-      <ElFormItem label={props.config.label} prop={props.config.key}>
+      <ElFormItem label={props.config.label} prop={dotKey.value}>
         <p class="w-full flex items-center justify-start">
-          <ElSwitch class="flex-1" v-model={model.value[props.config.key]} {...options.value} />
+          <ElSwitch class="flex-1" v-model={binding.value} {...options.value} />
           {tips(props.config.tips)}
         </p>
       </ElFormItem>

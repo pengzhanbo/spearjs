@@ -2,7 +2,7 @@ import type { WidgetTextProp } from '@spearjs/shared'
 import { computed, defineComponent, PropType } from 'vue'
 import { ElFormItem, ElInput } from 'element-plus'
 import { tips } from '../Tips'
-import { useFormData } from '../hooks'
+import { useFormData, useDotProp } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableTextProp',
@@ -15,9 +15,19 @@ export default defineComponent({
       type: Symbol,
       required: true,
     },
+    dotKey: {
+      type: String,
+      default: '',
+    },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const model = useFormData(props.injectKey)
+
+    const dotKey = computed(() => {
+      return props.dotKey ? `${props.dotKey}.${props.config.key}` : props.config.key
+    })
+
+    const text = useDotProp(model, dotKey)
 
     const options = computed(() => {
       const config = props.config
@@ -30,10 +40,11 @@ export default defineComponent({
     })
 
     return () => (
-      <ElFormItem label={props.config.label} rules={props.config.rules} prop={props.config.key}>
+      <ElFormItem label={props.config.label} rules={props.config.rules} prop={dotKey.value}>
         <p class="w-full flex items-center justify-start">
-          <ElInput class="flex-1" v-model={model.value[props.config.key]} {...options.value} />
+          <ElInput class="flex-1" v-model={text.value} {...options.value} />
           {tips(props.config.tips)}
+          {slots.default?.()}
         </p>
       </ElFormItem>
     )

@@ -1,4 +1,4 @@
-import { hasOwn, WidgetGroupProp } from '@spearjs/shared'
+import { hasOwn, isArray, WidgetGroupProp } from '@spearjs/shared'
 import type { WidgetPropItem, WidgetProps } from '@spearjs/shared'
 
 export function getDefaultValue(prop: WidgetPropItem): any {
@@ -26,13 +26,16 @@ export function getDefaultValue(prop: WidgetPropItem): any {
     case 'date':
       return prop.defaultValue || new Date()
     case 'array':
-      return (
-        prop.defaultValue || (hasOwn(prop.items, 'defaultValue') ? [prop.items.defaultValue] : [])
-      )
+      if (prop.defaultValue) return prop.defaultValue
+      if (isArray(prop.items)) {
+        return prop.items.map((item) => item.defaultValue)
+      } else {
+        return new Array(prop.minLength || 0).fill(prop.items.defaultValue)
+      }
     case 'object':
-      const obj = {}
+      const obj = prop.defaultValue || {}
       prop.props.forEach((prop) => {
-        obj[prop.key] = getDefaultValue(prop)
+        obj[prop.key] = obj[prop.key] || getDefaultValue(prop)
       })
       return obj
     default:

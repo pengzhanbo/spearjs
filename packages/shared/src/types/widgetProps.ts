@@ -135,11 +135,24 @@ export interface WidgetColorProp extends WidgetBaseProp {
 export interface WidgetObjectProp extends WidgetBaseProp {
   type: 'object'
   label: string
+  defaultValue?: Record<string, any>
   props: WidgetPropItem[]
 }
 
-export interface WidgetArrayProp<T = any> extends WidgetBaseProp {
+export type WidgetArrayPropItem =
+  | Omit<WidgetTextProp, 'key'>
+  | Omit<WidgetNumberProp, 'key'>
+  | Omit<WidgetSelectProp, 'key'>
+  | Omit<WidgetSwitchProp, 'key'>
+  | Omit<WidgetDateProp, 'key'>
+  | Omit<WidgetColorProp, 'key'>
+  | Omit<WidgetObjectProp, 'key'>
+  | Omit<WidgetArrayProp, 'key'>
+
+export interface WidgetArrayProp extends WidgetBaseProp {
   type: 'array'
-  defaultValue?: T[]
-  items: Omit<WidgetPropItem, 'key'> & { defaultValue?: unknown }
+  defaultValue?: any[]
+  maxLength?: number
+  minLength?: number
+  items: WidgetArrayPropItem | WidgetArrayPropItem[]
 }

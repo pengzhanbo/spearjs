@@ -121,5 +121,35 @@ export default {
         },
       ],
     },
+    {
+      type: 'object',
+      label: '对象测试',
+      key: 'obj',
+      tips: '对象测试描述',
+      props: [
+        {
+          key: 'aa',
+          type: 'text',
+          label: '文本',
+          tips: '对象文本属性 obj.aa',
+          defaultValue: '1',
+          placeholder: '请填入文本',
+        },
+      ],
+    },
+    {
+      type: 'array',
+      label: '数组测试',
+      key: 'cols',
+      tips: '数组测试描述',
+      defaultValue: ['1', '2'],
+      maxLength: 0,
+      minLength: 0,
+      items: {
+        type: 'text',
+        label: 'col',
+        defaultValue: '1',
+      },
+    },
   ],
 } as ComponentWidget

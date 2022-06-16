@@ -1,7 +1,8 @@
 import type { WidgetGroupProp } from '@spearjs/shared'
 import { defineComponent } from 'vue'
-import type { PropType, InjectionKey } from 'vue'
+import type { PropType } from 'vue'
 import PropItem from './PropItem'
+import type { FormInjectKey } from './hooks'
 
 import styles from './index.module.scss'
 
@@ -13,7 +14,7 @@ export default defineComponent({
       required: true,
     },
     injectKey: {
-      type: Symbol as PropType<InjectionKey<symbol>>,
+      type: Symbol as PropType<FormInjectKey>,
       required: true,
     },
   },
