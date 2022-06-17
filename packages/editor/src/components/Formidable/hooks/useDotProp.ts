@@ -1,3 +1,4 @@
+import { isEmpty, WidgetPropItem } from '@spearjs/shared'
 import { computed, ComputedRef } from 'vue'
 import type { FormData } from './useFormData'
 
@@ -30,4 +31,11 @@ export const useDotProp = <T = any>(model: FormData, dotKey: ComputedRef<string>
   })
 
   return binding
+}
+
+export const useDotKey = (props: { dotKey: string; config: WidgetPropItem }) => {
+  return computed(() => {
+    const dotKey = props.dotKey
+    return !isEmpty(dotKey) ? `${dotKey}.${props.config.key}` : props.config.key
+  })
 }

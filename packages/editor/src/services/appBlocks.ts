@@ -2,6 +2,7 @@ import type { ComponentWidget } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
 import { generateBid, generateBlockGroupKey } from './idGenerator'
 import { createProps } from './createProps'
+import { createStyles } from './createStyles'
 import { readonly } from 'vue'
 import cloneDeep from 'lodash-es/cloneDeep'
 
@@ -35,7 +36,7 @@ export const createBlock = (widget: ComponentWidget): AppBlock => {
     },
     bid: generateBid(),
     props,
-    styles: {},
+    styles: cloneDeep(createStyles(widget)),
     slots: _slots,
   }
 }

@@ -59,7 +59,9 @@ export default defineComponent({
           <span>组件名：{block.value?.label}</span>
           <span>组件ID: {block.value?.bid}</span>
         </p>
-        {widget.value ? <Formidable config={widget.value.props} v-model={formData.value} /> : null}
+        {widget.value ? (
+          <Formidable config={widget.value.props || []} v-model={formData.value} />
+        ) : null}
       </div>
     )
   },

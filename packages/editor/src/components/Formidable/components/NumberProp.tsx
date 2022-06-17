@@ -1,8 +1,9 @@
 import type { WidgetNumberProp } from '@spearjs/shared'
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
+import type { PropType } from 'vue'
 import { ElFormItem, ElInputNumber } from 'element-plus'
 import { tips } from '../Tips'
-import { useFormData, useDotProp } from '../hooks'
+import { useFormData, useDotProp, useDotKey, FormInjectKey } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableNumberProp',
@@ -12,7 +13,7 @@ export default defineComponent({
       required: true,
     },
     injectKey: {
-      type: Symbol,
+      type: Symbol as PropType<FormInjectKey>,
       required: true,
     },
     dotKey: {
@@ -20,13 +21,9 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const model = useFormData(props.injectKey)
-
-    const dotKey = computed(() => {
-      return props.dotKey ? `${props.dotKey}.${props.config.key}` : props.config.key
-    })
-
+    const dotKey = useDotKey(props)
     const number = useDotProp(model, dotKey)
 
     const options = computed(() => {
@@ -35,10 +32,11 @@ export default defineComponent({
     })
 
     return () => (
-      <ElFormItem label={props.config.label} prop={dotKey.value}>
+      <ElFormItem label={props.config.label} labelWidth="auto" prop={dotKey.value}>
         <p class="w-full flex items-center justify-start">
           <ElInputNumber class="flex-1" v-model={number.value} {...options.value} />
           {tips(props.config.tips)}
+          {slots.default?.()}
         </p>
       </ElFormItem>
     )

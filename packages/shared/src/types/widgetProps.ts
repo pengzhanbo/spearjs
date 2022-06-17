@@ -104,7 +104,7 @@ export interface WidgetSelectProp<T = any> extends WidgetBaseProp {
   allowCreate?: boolean
   filterMethod?: (options: WidgetSelectPropOptions<T>) => WidgetSelectPropOptions<T>
   remote?: boolean
-  remoteMethod: (query: string) => WidgetSelectPropOptions<T>
+  remoteMethod?: (query: string) => WidgetSelectPropOptions<T>
   loading?: boolean
   loadingText?: string
   noMatchText?: string

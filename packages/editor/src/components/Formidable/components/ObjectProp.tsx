@@ -1,7 +1,9 @@
 import type { WidgetObjectProp } from '@spearjs/shared'
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
 import { tips } from '../Tips'
 import PropItem from '../PropItem'
+import { FormInjectKey, useDotKey } from '../hooks'
 
 import styles from '../index.module.scss'
 
@@ -13,7 +15,7 @@ export default defineComponent({
       required: true,
     },
     injectKey: {
-      type: Symbol,
+      type: Symbol as PropType<FormInjectKey>,
       required: true,
     },
     dotKey: {
@@ -21,19 +23,20 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
-    const dotKey = computed(() => {
-      return props.dotKey ? `${props.dotKey}.${props.config.key}` : props.config.key
-    })
+  setup(props, { slots }) {
+    const dotKey = useDotKey(props)
     return () => (
       <div class={styles.objectWrapper}>
-        <p class={styles.objectTitle}>
-          <span>{props.config.label}</span>
-          {tips(props.config.tips)}
-        </p>
-        {props.config.props.map((prop) => (
-          <PropItem config={prop} injectKey={props.injectKey} dotKey={dotKey.value} />
-        ))}
+        <div class="flex-1">
+          <p class={styles.objectTitle}>
+            <span>{props.config.label}</span>
+            {tips(props.config.tips)}
+          </p>
+          {props.config.props.map((prop) => (
+            <PropItem config={prop} injectKey={props.injectKey} dotKey={dotKey.value} />
+          ))}
+        </div>
+        {slots.default?.()}
       </div>
     )
   },

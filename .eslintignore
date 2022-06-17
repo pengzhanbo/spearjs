@@ -5,7 +5,9 @@ node_modules
 *.woff
 *.ttf
 dist
+**/dist
 .husky
 .local
 .DS_Store
+.mind
 **/*.log*

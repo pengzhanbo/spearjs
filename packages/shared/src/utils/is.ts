@@ -15,6 +15,8 @@ export const isSet = (val: unknown): boolean => checkType(val) === 'Set'
 
 export const isDate = (val: unknown): val is Date => val instanceof Date
 
+export const isEmpty = (val: unknown): boolean => val === undefined || val === '' || val === null
+
 /**
  * Check if a value is plain object
  */

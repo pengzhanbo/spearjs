@@ -1,11 +1,12 @@
 import { useAppPagesStore } from '@editor/stores'
-import { computed, defineComponent, h, readonly, VNode, watch, withModifiers } from 'vue'
-import type { PropType, Slots, StyleValue } from 'vue'
+import { computed, defineComponent, h, readonly, watch, withModifiers } from 'vue'
+import type { PropType, StyleValue } from 'vue'
 import { createWidgetComponent, findWidget } from '@editor/services'
 import type { AppBlock } from '@editor/services'
 import { useBlockDnd } from './hooks'
 import { storeToRefs } from 'pinia'
 import SlotItem from './SlotItem'
+import type { WidgetSlots } from '@spearjs/shared'
 
 import styles from './index.module.scss'
 
@@ -81,16 +82,22 @@ export default defineComponent({
     })
 
     // 对于支持 slot 的 widget，需要 渲染其所有的 slot
-    const renderSlots = (): Slots | undefined => {
+    const renderSlots = (): WidgetSlots | undefined => {
       if (!block.value.slots) return
       const slots = {}
       Object.keys(block.value.slots).forEach((slot) => {
         const blocks = block.value.slots[slot] || []
-        slots[slot] = (): VNode => (
-          <SlotItem name={slot} index={props.index} roadMap={props.roadMap} blocks={blocks} />
+        slots[slot] = (option = {}) => (
+          <SlotItem
+            name={slot}
+            index={props.index}
+            roadMap={props.roadMap}
+            blocks={blocks}
+            option={option}
+          />
         )
       })
-      return slots as Slots
+      return slots as WidgetSlots
     }
 
     return () => (

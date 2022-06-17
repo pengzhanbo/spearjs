@@ -31,6 +31,14 @@ export const getWidgetComponentList = async ({
       componentType: 'basis',
       url: '',
     },
+    {
+      id: 'widget-flex',
+      version: '1.0.0',
+      label: 'flex布局',
+      type: 'component',
+      componentType: 'basis',
+      url: '',
+    },
   ]
 }
 

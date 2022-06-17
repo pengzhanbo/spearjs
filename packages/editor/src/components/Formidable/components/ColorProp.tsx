@@ -1,5 +1,6 @@
 import type { WidgetColorProp } from '@spearjs/shared'
 import { defineComponent, PropType } from 'vue'
+import { FormInjectKey } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableColorProp',
@@ -9,7 +10,7 @@ export default defineComponent({
       required: true,
     },
     injectKey: {
-      type: Symbol,
+      type: Symbol as PropType<FormInjectKey>,
       required: true,
     },
   },

@@ -7,8 +7,12 @@ import DateProp from './DateProp'
 import ArrayProp from './ArrayProp'
 import ObjectProp from './ObjectProp'
 import type { WidgetPropsType } from '@spearjs/shared'
+import type { DefineComponent } from 'vue'
 
-export const components: Record<Exclude<WidgetPropsType, 'group'>, any> = {
+export const components: Record<
+  Exclude<WidgetPropsType, 'group'>,
+  DefineComponent<any, any, any>
+> = {
   text: TextProp,
   number: NumberProp,
   select: SelectProp,

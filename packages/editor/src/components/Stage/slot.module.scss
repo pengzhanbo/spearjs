@@ -1,18 +1,17 @@
 .block-slot {
   @apply block;
-}
 
-.slot-placeholder {
-  @apply min-h-10 text-center text-xs py-1 border border-dashed border-gray-300;
-}
-
-.slot-container {
+  contain: layout;
   outline: dashed 1px;
-  outline-offset: -1px;
+  outline-offset: 0;
 
-  @apply outline-gray-300;
+  @apply outline-gray-200;
 
   &.can-drop {
     @apply pb-2;
   }
+}
+
+.slot-placeholder {
+  @apply min-h-10 text-center text-xs py-1 border border-dashed border-gray-200;
 }

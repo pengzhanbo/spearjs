@@ -1,9 +1,12 @@
-import { isArray, WidgetArrayProp, WidgetArrayPropItem } from '@spearjs/shared'
-import { defineComponent, computed, PropType } from 'vue'
+import { isArray } from '@spearjs/shared'
+import type { WidgetArrayProp, WidgetArrayPropItem } from '@spearjs/shared'
+import { defineComponent, computed } from 'vue'
+import type { PropType } from 'vue'
 import { tips } from '../Tips'
 import PropItem from '../PropItem'
-import { useFormData, useDotProp } from '../hooks'
+import { useFormData, useDotProp, useDotKey, FormInjectKey } from '../hooks'
 import { ElFormItem, ElButton } from 'element-plus'
+import cloneDeep from 'lodash-es/cloneDeep'
 
 import styles from '../index.module.scss'
 
@@ -15,7 +18,7 @@ export default defineComponent({
       required: true,
     },
     injectKey: {
-      type: Symbol,
+      type: Symbol as PropType<FormInjectKey>,
       required: true,
     },
     dotKey: {
@@ -23,11 +26,9 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const model = useFormData(props.injectKey)
-    const dotKey = computed(() => {
-      return props.dotKey ? `${props.dotKey}.${props.config.key}` : props.config.key
-    })
+    const dotKey = useDotKey(props)
     const array = useDotProp<any[]>(model, dotKey)
 
     const maxLength = computed(() => props.config.maxLength || Infinity)
@@ -38,7 +39,7 @@ export default defineComponent({
     const addItem = () => {
       if (isArray(props.config.items)) return
       if (array.value.length < maxLength.value) {
-        array.value.push(props.config.items.defaultValue)
+        array.value.push(cloneDeep(props.config.items.defaultValue))
       }
     }
 
@@ -51,50 +52,53 @@ export default defineComponent({
 
     return () => (
       <div class={styles.arrayWrapper}>
-        <p class={styles.arrayTitle}>
-          <span>{props.config.label}</span>
-          {tips(props.config.tips)}
-        </p>
-        {isArray(props.config.items) ? (
-          props.config.items.map((item, index) => (
-            <PropItem
-              config={{ key: `${index}`, ...item }}
-              injectKey={props.injectKey}
-              dotKey={dotKey.value}
-            />
-          ))
-        ) : (
-          <>
-            {array.value.map((_, index) => (
+        <div class="flex-1">
+          <p class={styles.arrayTitle}>
+            <span>{props.config.label}</span>
+            {tips(props.config.tips)}
+          </p>
+          {isArray(props.config.items) ? (
+            props.config.items.map((item, index) => (
               <PropItem
-                config={{ key: `${index}`, ...(props.config.items as WidgetArrayPropItem) }}
+                config={{ ...item, key: `${index}` }}
                 injectKey={props.injectKey}
                 dotKey={dotKey.value}
-              >
+              />
+            ))
+          ) : (
+            <>
+              {array.value.map((_, index) => (
+                <PropItem
+                  config={{ ...(props.config.items as WidgetArrayPropItem), key: `${index}` }}
+                  injectKey={props.injectKey}
+                  dotKey={dotKey.value}
+                >
+                  <ElButton
+                    class="ml-4"
+                    size="small"
+                    type="danger"
+                    icon="Delete"
+                    circle
+                    disabled={!canDelete.value}
+                    onClick={() => deleteItem(index)}
+                  />
+                </PropItem>
+              ))}
+              <ElFormItem class="w-full">
                 <ElButton
-                  class="ml-4"
                   size="small"
-                  type="danger"
-                  icon="Delete"
-                  circle
-                  disabled={!canDelete.value}
-                  onClick={() => deleteItem(index)}
-                />
-              </PropItem>
-            ))}
-            <ElFormItem class="w-full">
-              <ElButton
-                size="small"
-                type="primary"
-                icon="CirclePlus"
-                disabled={!canAdd.value}
-                onClick={addItem}
-              >
-                添加新项
-              </ElButton>
-            </ElFormItem>
-          </>
-        )}
+                  type="primary"
+                  icon="CirclePlus"
+                  disabled={!canAdd.value}
+                  onClick={addItem}
+                >
+                  添加新项
+                </ElButton>
+              </ElFormItem>
+            </>
+          )}
+        </div>
+        {slots.default?.()}
       </div>
     )
   },

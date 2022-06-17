@@ -1,3 +1,8 @@
+/**
+ * 渲染 widget component slot。
+ * 每个 slot 也被当做是一个 blocks 来进行处理；
+ * 并且支持 传入 class 以及 style 来控制 slot容器的表现；
+ */
 import { AppBlocks } from '@editor/services'
 import { computed, defineComponent, toRefs } from 'vue'
 import type { PropType } from 'vue'
@@ -5,6 +10,7 @@ import Blocks from './Blocks'
 import { useBlocksDrop } from './hooks'
 
 import styles from './slot.module.scss'
+import { isArray, WidgetSlotOptions } from '@spearjs/shared'
 
 export default defineComponent({
   name: 'BlockSlot',
@@ -25,6 +31,10 @@ export default defineComponent({
       type: Array as PropType<AppBlocks>,
       default: () => [],
     },
+    option: {
+      type: Object as PropType<WidgetSlotOptions>,
+      default: () => ({}),
+    },
   },
   setup(props) {
     const { blocks, name } = toRefs(props)
@@ -36,18 +46,27 @@ export default defineComponent({
 
     const { dropCollect, setRef } = useBlocksDrop(roadMap)
 
+    const slotClass = computed(() => {
+      const list = [styles.blockSlot, dropCollect.value.canDrop ? styles.canDrop : '']
+      if (props.option.class) {
+        isArray(props.option.class)
+          ? list.push(...props.option.class)
+          : list.push(props.option.class)
+      }
+      return list
+    })
+
     return () => (
       <div
-        class={styles.blockSlot}
+        class={slotClass.value}
         ref={(el) => setRef(el as HTMLElement)}
         data-handler-id={dropCollect.value.handlerId}
+        style={props.option.style}
       >
         {blocks.value.length === 0 ? (
           <div class={styles.slotPlaceholder}>组件拖到此slot:{name.value}</div>
         ) : (
-          <div class={[styles.slotContainer, dropCollect.value.canDrop ? styles.canDrop : '']}>
-            <Blocks blocks={blocks.value} roadMap={roadMap.value} />
-          </div>
+          <Blocks blocks={blocks.value} roadMap={roadMap.value} />
         )}
       </div>
     )

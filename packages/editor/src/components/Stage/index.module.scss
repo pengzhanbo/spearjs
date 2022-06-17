@@ -13,6 +13,7 @@
 .widget-component-group {
   @apply relative cursor-move;
 
+  contain: layout;
   outline: solid 2px transparent;
   outline-offset: 0;
   transition: outline 0.2s ease-in-out, margin 0.2s ease-in-out;

@@ -1,5 +1,5 @@
 import type { Platform } from './platform'
-import type { App, RenderFunction, SetupContext } from 'vue'
+import type { App, CSSProperties, RenderFunction, SetupContext, VNode } from 'vue'
 import type { Router } from 'vue-router'
 import type { WidgetProps } from './widgetProps'
 
@@ -48,6 +48,13 @@ export type WidgetMap = Widget[]
 
 export type Widget = ComponentWidget | ServiceWidget
 
+export type WidgetStyles = WidgetProps
+
+export interface WidgetComponentLayer {
+  display?: 'inline-block' | 'block'
+  zIndex?: number
+}
+
 export interface BaseWidget {
   id: string
   version: string
@@ -60,8 +67,13 @@ export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
   type: 'component'
   componentType: WidgetComponentType
   componentSubType?: WidgetComponentSubType
-  props: WidgetProps
+  props?: WidgetProps
   slots?: ((props: P) => string[]) | string[]
+  styles?: WidgetStyles
+  /**
+   * 组件所在层控制
+   */
+  layer?: WidgetComponentLayer
   description: () => ReturnType<RenderFunction>
   preview: () => ReturnType<RenderFunction>
   setup?: <RawBindings = object>(props: Readonly<P>, ctx: SetupContext) => RawBindings
@@ -70,6 +82,7 @@ export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
     styles: {
       [prop: string]: string
     }
+    slots: WidgetSlots
     [prop: string]: any
   }) => ReturnType<RenderFunction>
 }
@@ -84,4 +97,12 @@ export interface WightService {
   type: string
   name: string
   fn: <T>() => () => T | Promise<T>
+}
+
+export interface WidgetSlotOptions {
+  class?: string | string[]
+  style?: CSSProperties
+}
+export interface WidgetSlots {
+  [slotName: string]: (options?: WidgetSlotOptions) => VNode
 }

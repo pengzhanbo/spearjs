@@ -3,10 +3,11 @@ import type {
   WidgetSelectPropOptionsGroup,
   WidgetSelectPropOptionsItem,
 } from '@spearjs/shared'
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
+import type { PropType } from 'vue'
 import { ElFormItem, ElOption, ElOptionGroup, ElSelect } from 'element-plus'
 import { tips } from '../Tips'
-import { useDotProp, useFormData } from '../hooks'
+import { useDotProp, useFormData, useDotKey, FormInjectKey } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableSelectProp',
@@ -16,7 +17,7 @@ export default defineComponent({
       required: true,
     },
     injectKey: {
-      type: Symbol,
+      type: Symbol as PropType<FormInjectKey>,
       required: true,
     },
     dotKey: {
@@ -24,12 +25,10 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const model = useFormData(props.injectKey)
 
-    const dotKey = computed(() => {
-      return props.dotKey ? `${props.dotKey}.${props.config.key}` : props.config.key
-    })
+    const dotKey = useDotKey(props)
 
     const binding = useDotProp(model, dotKey)
 
@@ -50,7 +49,7 @@ export default defineComponent({
       return option
     })
     return () => (
-      <ElFormItem label={props.config.label} prop={dotKey.value}>
+      <ElFormItem label={props.config.label} labelWidth="auto" prop={dotKey.value}>
         <p class="w-full flex items-center justify-start">
           <ElSelect class="flex-1" v-model={binding.value} {...options.value}>
             {props.config.options.map((option) => {
@@ -69,6 +68,7 @@ export default defineComponent({
             })}
           </ElSelect>
           {tips(props.config.tips)}
+          {slots.default?.()}
         </p>
       </ElFormItem>
     )
