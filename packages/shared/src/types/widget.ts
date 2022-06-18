@@ -1,6 +1,6 @@
-import type { Platform } from './platform'
 import type { App, CSSProperties, RenderFunction, SetupContext, VNode } from 'vue'
 import type { Router } from 'vue-router'
+import type { Platform } from './platform'
 import type { WidgetProps } from './widgetProps'
 
 /**

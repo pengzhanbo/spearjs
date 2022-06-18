@@ -1,16 +1,18 @@
 <script lang="ts">
+// eslint-disable-next-line import/order,import/no-duplicates
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'RightController',
 })
 </script>
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
-import { ElTabs, ElTabPane } from 'element-plus'
-import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
-import { tabs } from './tabs'
-import BlockTree from './BlockTree'
 import { useAppPagesStore } from '@editor/stores'
+import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
+import { ElTabPane, ElTabs } from 'element-plus'
+// eslint-disable-next-line import/no-duplicates
+import { computed, ref, watch } from 'vue'
+import BlockTree from './BlockTree'
+import { tabs } from './tabs'
 
 const pageStore = useAppPagesStore()
 

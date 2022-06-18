@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
+import type { AppBlock, AppBlockGroup, AppBlocks } from '@editor/services'
 import { hasOwn } from '@spearjs/shared'
-import type { AppBlocks, AppBlock, AppBlockGroup } from '@editor/services'
+import { defineStore } from 'pinia'
 
 const createAppPage = ({
   title = '新页面',

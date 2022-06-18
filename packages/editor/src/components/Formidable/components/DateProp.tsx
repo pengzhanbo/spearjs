@@ -1,6 +1,7 @@
 import type { WidgetDateProp } from '@spearjs/shared'
-import { defineComponent, PropType } from 'vue'
-import { FormInjectKey } from '../hooks'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import type { FormInjectKey } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableDateProp',

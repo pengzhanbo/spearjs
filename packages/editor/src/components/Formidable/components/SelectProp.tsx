@@ -3,11 +3,12 @@ import type {
   WidgetSelectPropOptionsGroup,
   WidgetSelectPropOptionsItem,
 } from '@spearjs/shared'
-import { defineComponent, computed } from 'vue'
-import type { PropType } from 'vue'
 import { ElFormItem, ElOption, ElOptionGroup, ElSelect } from 'element-plus'
+import { computed, defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import type { FormInjectKey } from '../hooks'
+import { useDotKey, useDotProp, useFormData } from '../hooks'
 import { tips } from '../Tips'
-import { useDotProp, useFormData, useDotKey, FormInjectKey } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableSelectProp',

@@ -1,5 +1,5 @@
-import { ComponentWidget } from '@spearjs/shared'
-import { CSSProperties } from 'vue'
+import type { ComponentWidget } from '@spearjs/shared'
+import type { CSSProperties } from 'vue'
 
 export default {
   id: 'widget-flex',

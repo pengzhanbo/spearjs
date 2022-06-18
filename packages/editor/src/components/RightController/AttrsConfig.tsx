@@ -1,9 +1,8 @@
-import { defineComponent, computed, watch } from 'vue'
-import Formidable from '../Formidable'
-import { useAppPagesStore } from '@editor/stores'
 import { findWidget } from '@editor/services'
+import { useAppPagesStore } from '@editor/stores'
 import { isFunction } from '@spearjs/shared'
-
+import { computed, defineComponent, watch } from 'vue'
+import Formidable from '../Formidable'
 import styles from './index.module.scss'
 
 export default defineComponent({

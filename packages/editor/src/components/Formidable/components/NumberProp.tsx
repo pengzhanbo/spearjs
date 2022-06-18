@@ -1,9 +1,10 @@
 import type { WidgetNumberProp } from '@spearjs/shared'
-import { defineComponent, computed } from 'vue'
-import type { PropType } from 'vue'
 import { ElFormItem, ElInputNumber } from 'element-plus'
+import { computed, defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import type { FormInjectKey } from '../hooks'
+import { useDotKey, useDotProp, useFormData } from '../hooks'
 import { tips } from '../Tips'
-import { useFormData, useDotProp, useDotKey, FormInjectKey } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableNumberProp',

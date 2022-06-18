@@ -1,5 +1,7 @@
-import { isEmpty, WidgetPropItem } from '@spearjs/shared'
-import { computed, ComputedRef } from 'vue'
+import type { WidgetPropItem } from '@spearjs/shared'
+import { isEmpty } from '@spearjs/shared'
+import type { ComputedRef } from 'vue'
+import { computed } from 'vue'
 import type { FormData } from './useFormData'
 
 function setDotProp(model: Record<string, any>, dotKey: string, value?: any): void {

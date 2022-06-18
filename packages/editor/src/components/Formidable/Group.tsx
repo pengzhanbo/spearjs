@@ -1,10 +1,9 @@
 import type { WidgetGroupProp } from '@spearjs/shared'
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
-import PropItem from './PropItem'
 import type { FormInjectKey } from './hooks'
-
 import styles from './index.module.scss'
+import PropItem from './PropItem'
 
 export default defineComponent({
   name: 'FormidableNumberProp',

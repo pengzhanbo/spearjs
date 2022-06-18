@@ -1,9 +1,10 @@
-import { loadEnv, defineConfig, UserConfig } from 'vite'
+import { resolve } from 'path'
+import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import type { UserConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import windicss from 'vite-plugin-windicss'
-import legacy from '@vitejs/plugin-legacy'
-import { resolve } from 'path'
 
 export default defineConfig(({ mode }): UserConfig => {
   const { VITE_BASE_URL } = loadEnv(mode, process.cwd())

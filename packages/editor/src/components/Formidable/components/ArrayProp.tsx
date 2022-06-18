@@ -1,14 +1,14 @@
 import { isArray } from '@spearjs/shared'
 import type { WidgetArrayProp, WidgetArrayPropItem } from '@spearjs/shared'
-import { defineComponent, computed } from 'vue'
-import type { PropType } from 'vue'
-import { tips } from '../Tips'
-import PropItem from '../PropItem'
-import { useFormData, useDotProp, useDotKey, FormInjectKey } from '../hooks'
-import { ElFormItem, ElButton } from 'element-plus'
+import { ElButton, ElFormItem } from 'element-plus'
 import cloneDeep from 'lodash-es/cloneDeep'
-
+import { computed, defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import type { FormInjectKey } from '../hooks'
+import { useDotKey, useDotProp, useFormData } from '../hooks'
 import styles from '../index.module.scss'
+import PropItem from '../PropItem'
+import { tips } from '../Tips'
 
 export default defineComponent({
   name: 'FormidableArrayProp',

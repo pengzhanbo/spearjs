@@ -24,7 +24,6 @@
     "unplugin",
     "vant",
     "vitejs",
-    "vuedraggable",
     "windi",
     "windicss"
   ],
@@ -43,29 +42,7 @@
   },
   "todo-tree.highlights.enabled": true,
   "[markdown]": {
-    "files.trimTrailingWhitespace": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "files.trimTrailingWhitespace": false
   },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typecriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

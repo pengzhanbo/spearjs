@@ -1,11 +1,10 @@
-import { defineComponent } from 'vue'
-import Stage from '../Stage'
-import Navbar from '../Navbar/index.vue'
-import LeftSidebar from '../LeftSidebar/index.vue'
-import RightController from '../RightController/index.vue'
+import type { Ref } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import { useStagePosition } from '../../hooks/useStagePosition'
-import { computed, ref, Ref, onMounted } from 'vue'
-
+import LeftSidebar from '../LeftSidebar/index.vue'
+import Navbar from '../Navbar/index.vue'
+import RightController from '../RightController/index.vue'
+import Stage from '../Stage'
 import styles from './index.module.scss'
 
 export default defineComponent({

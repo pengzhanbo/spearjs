@@ -1,9 +1,10 @@
 import type { WidgetTextProp } from '@spearjs/shared'
+import { ElFormItem, ElInput } from 'element-plus'
 import { computed, defineComponent } from 'vue'
 import type { PropType } from 'vue'
-import { ElFormItem, ElInput } from 'element-plus'
+import type { FormInjectKey } from '../hooks'
+import { useDotKey, useDotProp, useFormData } from '../hooks'
 import { tips } from '../Tips'
-import { useFormData, useDotProp, useDotKey, FormInjectKey } from '../hooks'
 
 export default defineComponent({
   name: 'FormidableTextProp',

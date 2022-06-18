@@ -5,8 +5,15 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": {
+      "@editor/*": ["./packages/editor/src/*"],
+      "@spearjs/*": ["./packages/*/src/index.ts"]
+    }
+  },
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
   },
   "include": ["packages/**/*", "docs/**/*", "widgets/**/*"],
-  "exclude": ["node_modules", "**/dist"]
+  "exclude": ["node_modules", "dist"]
 }

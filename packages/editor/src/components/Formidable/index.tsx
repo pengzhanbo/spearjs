@@ -1,12 +1,12 @@
 import type { WidgetProps } from '@spearjs/shared'
-import { defineComponent, PropType } from 'vue'
-import { ElForm } from 'element-plus'
-import PropItem from './PropItem'
-import Group from './Group'
 import { useVModel } from '@vueuse/core'
+import { ElForm } from 'element-plus'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import Group from './Group'
 import { useFormDataProvide } from './hooks'
-
 import styles from './index.module.scss'
+import PropItem from './PropItem'
 
 export default defineComponent({
   name: 'Formidable',

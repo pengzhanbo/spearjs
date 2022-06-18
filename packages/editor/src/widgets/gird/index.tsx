@@ -1,5 +1,5 @@
-import { ComponentWidget } from '@spearjs/shared'
-import { ElRow, ElCol } from 'element-plus'
+import type { ComponentWidget } from '@spearjs/shared'
+import { ElCol, ElRow } from 'element-plus'
 
 export default {
   label: '栅格布局',

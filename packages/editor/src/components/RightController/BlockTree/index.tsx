@@ -1,8 +1,7 @@
-import { defineComponent } from 'vue'
-import Blocks from './Blocks'
 import { useAppPagesStore } from '@editor/stores'
 import { storeToRefs } from 'pinia'
-
+import { defineComponent } from 'vue'
+import Blocks from './Blocks'
 import styles from './index.module.scss'
 
 export default defineComponent({

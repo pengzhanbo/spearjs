@@ -1,5 +1,5 @@
-import { hasOwn, isArray, WidgetGroupProp } from '@spearjs/shared'
-import type { WidgetPropItem, WidgetProps } from '@spearjs/shared'
+import { hasOwn, isArray } from '@spearjs/shared'
+import type { WidgetGroupProp, WidgetPropItem, WidgetProps } from '@spearjs/shared'
 
 export function getDefaultValue(prop: WidgetPropItem): any {
   switch (prop.type) {

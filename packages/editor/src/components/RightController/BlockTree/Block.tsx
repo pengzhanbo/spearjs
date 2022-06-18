@@ -1,10 +1,10 @@
-import { AppBlock } from '@editor/services'
-import { defineComponent, PropType, VNode } from 'vue'
-import SlotItem from './SlotItem'
-import { ElIcon } from 'element-plus'
+import type { AppBlock } from '@editor/services'
 import { ScaleToOriginal } from '@element-plus/icons-vue'
-
+import { ElIcon } from 'element-plus'
+import type { PropType, VNode } from 'vue'
+import { defineComponent } from 'vue'
 import styles from './index.module.scss'
+import SlotItem from './SlotItem'
 
 export default defineComponent({
   name: 'TreeBlock',

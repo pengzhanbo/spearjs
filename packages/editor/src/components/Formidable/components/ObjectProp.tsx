@@ -1,11 +1,11 @@
 import type { WidgetObjectProp } from '@spearjs/shared'
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
-import { tips } from '../Tips'
-import PropItem from '../PropItem'
-import { FormInjectKey, useDotKey } from '../hooks'
-
+import type { FormInjectKey } from '../hooks'
+import { useDotKey } from '../hooks'
 import styles from '../index.module.scss'
+import PropItem from '../PropItem'
+import { tips } from '../Tips'
 
 export default defineComponent({
   name: 'FormidableObjectProp',
