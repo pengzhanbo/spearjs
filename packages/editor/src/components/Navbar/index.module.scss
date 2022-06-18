@@ -1,0 +1,30 @@
+.site-brand {
+  @apply flex items-center mr-8 select-none;
+
+  img {
+    width: 32px;
+  }
+
+  span {
+    @apply ml-4 text-2xl font-bold;
+
+    color: var(--c-brand);
+  }
+}
+
+.spear-header {
+  @apply flex items-center fixed z-50 top-0 left-0 w-full h-12 px-9 shadow-md;
+
+  background-color: var(--c-bg-navbar);
+
+  .header-item {
+    @apply flex items-center mr-8 text-sm cursor-pointer font-bold;
+
+    color: var(--c-text);
+    transition: color var(--t-color);
+
+    &:hover {
+      color: var(--c-brand);
+    }
+  }
+}

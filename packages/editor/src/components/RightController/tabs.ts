@@ -1,9 +1,9 @@
 import type { Component } from 'vue'
-import ActionConfig from './ActionsConfig.vue'
-import AppConfig from './AppConfig.vue'
+import ActionConfig from './ActionsConfig'
+import AppConfig from './AppConfig'
 import AttrsConfig from './AttrsConfig'
-import PageConfig from './PageConfig.vue'
-import StylesConfig from './StylesConfig.vue'
+import PageConfig from './PageConfig'
+import StylesConfig from './StylesConfig'
 
 export interface RightControllerTabItem {
   key: string

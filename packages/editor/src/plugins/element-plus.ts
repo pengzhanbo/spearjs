@@ -1,11 +1,11 @@
 import 'element-plus/dist/index.css'
+import { Check, Delete, Edit, Message, Search, Star } from '@element-plus/icons-vue'
 import ElementPlus from 'element-plus'
 import type { App } from 'vue'
-import * as ElementPlusIcons from '@element-plus/icons-vue'
+
+const iconList = [Search, Delete, Edit, Check, Message, Star]
 
 export function setupElementPlus(app: App) {
-  app.use(ElementPlus)
-  for (const [key, component] of Object.entries(ElementPlusIcons)) {
-    app.component(key, component)
-  }
+  app.use(ElementPlus as any)
+  iconList.forEach((icon) => app.component(icon.name, icon))
 }

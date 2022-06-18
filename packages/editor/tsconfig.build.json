@@ -1,6 +1,6 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "rootDir": "./",
     "composite": false,
     "incremental": false,
     "target": "esnext",
@@ -15,7 +15,7 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
-    "types": ["vite/client", "element-plus/global"],
+    "types": ["vite/client"],
     "paths": {
       "@editor/*": ["./src/*"]
     }

@@ -1,9 +1,8 @@
+import Formidable from '@editor/components/Formidable'
 import { findWidget } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import { isFunction } from '@spearjs/shared'
 import { computed, defineComponent, watch } from 'vue'
-import Formidable from '../Formidable'
-import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'AttrsConfig',
@@ -53,7 +52,7 @@ export default defineComponent({
     )
 
     return () => (
-      <div class={styles.tabPanelContainer}>
+      <div>
         <p class="flex justify-between items-center text-sm font-bold pb-2 border-b mb-4">
           <span>组件名：{block.value?.label}</span>
           <span>组件ID: {block.value?.bid}</span>

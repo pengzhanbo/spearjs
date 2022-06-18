@@ -3,6 +3,7 @@ import { useAppPagesStore } from '@editor/stores'
 import type { AppPageItem } from '@editor/stores'
 import { CirclePlus, Close, Edit, HomeFilled } from '@element-plus/icons-vue'
 import {
+  ElButton,
   ElDialog,
   ElForm,
   ElFormItem,
@@ -66,14 +67,12 @@ const submitDialog = (): void => {
   }
 }
 const removePage = async (page: PageOption, index: number): Promise<void> => {
-  try {
-    await ElMessageBox.confirm(`是否删除 ${page.title} ?`, '警告', {
-      confirmButtonText: '确认',
-      cancelButtonText: '取消',
-      type: 'warning',
-    })
-    pageStore.removePage(index)
-  } catch {}
+  await ElMessageBox.confirm(`是否删除 ${page.title} ?`, '警告', {
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+    type: 'warning',
+  })
+  pageStore.removePage(index)
 }
 </script>
 <template>

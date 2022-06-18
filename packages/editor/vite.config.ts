@@ -45,7 +45,7 @@ export default defineConfig(({ mode }): UserConfig => {
       },
     },
     optimizeDeps: {
-      include: ['@vueuse/core', 'element-plus', 'lodash-es'],
+      include: ['@vueuse/core', 'element-plus', 'lodash-es', 'vue3-dnd'],
     },
   }
 })

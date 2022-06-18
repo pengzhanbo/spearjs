@@ -1,5 +1,5 @@
-import { Router } from 'vue-router'
 import NProgress from 'nprogress'
+import type { Router } from 'vue-router'
 import 'nprogress/nprogress.css'
 
 NProgress.configure({ showSpinner: false })

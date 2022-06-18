@@ -1,3 +1,4 @@
+import { CirclePlus, Delete } from '@element-plus/icons-vue'
 import { isArray } from '@spearjs/shared'
 import type { WidgetArrayProp, WidgetArrayPropItem } from '@spearjs/shared'
 import { ElButton, ElFormItem } from 'element-plus'
@@ -77,7 +78,7 @@ export default defineComponent({
                     class="ml-4"
                     size="small"
                     type="danger"
-                    icon="Delete"
+                    icon={Delete}
                     circle
                     disabled={!canDelete.value}
                     onClick={() => deleteItem(index)}
@@ -88,7 +89,7 @@ export default defineComponent({
                 <ElButton
                   size="small"
                   type="primary"
-                  icon="CirclePlus"
+                  icon={CirclePlus}
                   disabled={!canAdd.value}
                   onClick={addItem}
                 >

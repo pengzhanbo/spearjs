@@ -8,6 +8,8 @@
 
 后端基于 nestjs
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e9844840-9795-40f7-bced-d0e9cc78d2c0/deploy-status)](https://app.netlify.com/sites/spearjs/deploys)
+
 ## Usage
 
 ```sh
