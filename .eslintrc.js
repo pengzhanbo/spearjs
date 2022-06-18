@@ -66,6 +66,7 @@ module.exports = defineConfig({
           '**/tsup.config.js',
           '**/vitest.config.js',
           '**/vite.config.ts',
+          '**/windi.config.ts',
         ],
         optionalDependencies: false,
         peerDependencies: false,
