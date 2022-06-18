@@ -4,6 +4,7 @@ import { ElForm } from 'element-plus'
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import Group from './Group'
+import type { FormData } from './hooks'
 import { useFormDataProvide } from './hooks'
 import styles from './index.module.scss'
 import PropItem from './PropItem'
@@ -23,8 +24,11 @@ export default defineComponent({
   setup(props, { emit }) {
     const model = useVModel(props, 'modelValue', emit)
 
-    const injectKey = useFormDataProvide(model)
+    const injectKey = useFormDataProvide(model as unknown as FormData)
 
+    /* BUG form item 存在 嵌套行为导致了 labelWidth 计算有问题
+     * 这是一个 element-plus 内部抛出的 debug warn
+     */
     return () => (
       <ElForm
         class={styles.formWrapper}

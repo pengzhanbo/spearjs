@@ -1,14 +1,16 @@
 <script lang="ts">
+// eslint-disable-next-line import/order,import/no-duplicates
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'LeftSidebar',
 })
 </script>
 <script lang="ts" setup>
-import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
-import { tabs } from './tabs'
+import { ElIcon, ElTabPane, ElTabs } from 'element-plus'
+// eslint-disable-next-line import/no-duplicates
 import { ref } from 'vue'
+import { tabs } from './tabs'
 
 const activeTab = ref(tabs[0].key)
 

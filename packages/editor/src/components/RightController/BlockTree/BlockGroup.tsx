@@ -1,8 +1,9 @@
-import { AppBlockGroup } from '@editor/services'
-import { computed, defineComponent, PropType } from 'vue'
-import Blocks from './Blocks'
-import { ElIcon } from 'element-plus'
+import type { AppBlockGroup } from '@editor/services'
 import { Folder } from '@element-plus/icons-vue'
+import { ElIcon } from 'element-plus'
+import type { PropType } from 'vue'
+import { computed, defineComponent } from 'vue'
+import Blocks from './Blocks'
 
 export default defineComponent({
   name: 'TreeBlockGroup',

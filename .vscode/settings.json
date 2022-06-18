@@ -20,6 +20,7 @@
     "pinia",
     "pnpm",
     "spearjs",
+    "tsbuildinfo",
     "tsup",
     "unplugin",
     "vant",

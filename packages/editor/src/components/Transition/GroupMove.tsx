@@ -1,4 +1,4 @@
-import { TransitionGroup, defineComponent } from 'vue'
+import { defineComponent, TransitionGroup } from 'vue'
 
 export default defineComponent({
   name: 'GroupMove',

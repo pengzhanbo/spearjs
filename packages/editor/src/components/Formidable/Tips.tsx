@@ -1,5 +1,5 @@
-import { ElTooltip, ElIcon } from 'element-plus'
 import { InfoFilled } from '@element-plus/icons-vue'
+import { ElIcon, ElTooltip } from 'element-plus'
 
 export const tips = (tips?: string) => {
   return tips ? (

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { getWidgetComponentList, WidgetComponentItem } from '@editor/services/widget'
+import type { WidgetComponentItem } from '@editor/services/widget'
+import { getWidgetComponentList } from '@editor/services/widget'
 import { ref } from 'vue'
 import WidgetPreview from '../WidgetPreview'
 

@@ -1,7 +1,7 @@
-import { AppBlocks } from '@editor/services'
-import { defineComponent, PropType, computed } from 'vue'
+import type { AppBlocks } from '@editor/services'
+import type { PropType } from 'vue'
+import { computed, defineComponent } from 'vue'
 import Blocks from './Blocks'
-
 import styles from './index.module.scss'
 
 export default defineComponent({

@@ -1,12 +1,11 @@
-import type { PropType } from 'vue'
-import { defineComponent } from 'vue'
+import { WIDGET_DND_TYPE } from '@editor/common'
 import type { WidgetComponentItem } from '@editor/services/widget'
 import { findWidget } from '@editor/services/widget'
-import { ElIcon, ElPopover } from 'element-plus'
 import { InfoFilled } from '@element-plus/icons-vue'
+import { ElIcon, ElPopover } from 'element-plus'
+import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
 import { useDrag } from 'vue3-dnd'
-import { WIDGET_DND_TYPE } from '@editor/common'
-
 import styles from './index.module.scss'
 
 export default defineComponent({

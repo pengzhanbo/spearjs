@@ -1,7 +1,7 @@
 import type { AppBlock } from '@editor/services'
 import { ScaleToOriginal } from '@element-plus/icons-vue'
 import { ElIcon } from 'element-plus'
-import type { PropType, VNode } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent } from 'vue'
 import styles from './index.module.scss'
 import SlotItem from './SlotItem'
@@ -23,9 +23,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const renderSlots = (): VNode[] | undefined => {
+    const renderSlots = (): Component[] | undefined => {
       if (!props.block.slots) return
-      const slots: VNode[] = []
+      const slots: Component[] = []
       Object.keys(props.block.slots).forEach((slot) => {
         const blocks = props.block.slots[slot] || []
         if (blocks.length) {

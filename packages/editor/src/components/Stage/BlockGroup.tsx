@@ -1,10 +1,10 @@
-import { computed, defineComponent, PropType, watch, withModifiers } from 'vue'
-import Blocks from './Blocks'
-import { AppBlockGroup } from '@editor/services'
-import { useBlockDnd } from './hooks'
+import type { AppBlockGroup } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import { storeToRefs } from 'pinia'
-
+import type { PropType } from 'vue'
+import { computed, defineComponent, watch, withModifiers } from 'vue'
+import Blocks from './Blocks'
+import { useBlockDnd } from './hooks'
 import styles from './index.module.scss'
 
 export default defineComponent({

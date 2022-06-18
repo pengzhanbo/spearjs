@@ -11,14 +11,13 @@
  * mouseup事件应该是在 dragend中被阻止冒泡了
  * dragend 是在默认动画行为结束后才触发
  */
-import { defineComponent, computed } from 'vue'
-import { useDragLayer } from 'vue3-dnd'
 import { WIDGET_DND_TYPE } from '@editor/common'
 import { findBlockByBid } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import { computed, defineComponent } from 'vue'
+import { useDragLayer } from 'vue3-dnd'
 import Block from './Block'
 import BlockGroup from './BlockGroup'
-
 import styles from './index.module.scss'
 
 export default defineComponent({

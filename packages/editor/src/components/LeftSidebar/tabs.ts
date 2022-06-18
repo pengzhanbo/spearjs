@@ -1,10 +1,10 @@
-import { Box, Grid, ScaleToOriginal, HotWater, Reading, Coin } from '@element-plus/icons-vue'
+import { Box, Coin, Grid, HotWater, Reading, ScaleToOriginal } from '@element-plus/icons-vue'
 import BasisComponent from './BasisComponent.vue'
-import ContainerComponent from './ContainerComponent.vue'
 import BusinessComponent from './BusinessComponent.vue'
+import ContainerComponent from './ContainerComponent.vue'
+import DataModel from './DataModel.vue'
 import ModuleComponent from './ModuleComponent.vue'
 import PageTree from './PageTree.vue'
-import DataModel from './DataModel.vue'
 
 export const tabs = [
   {

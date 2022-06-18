@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import type { Ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useAppPagesStore } from '@editor/stores'
 import type { AppPageItem } from '@editor/stores'
+import { CirclePlus, Close, Edit, HomeFilled } from '@element-plus/icons-vue'
 import {
-  ElIcon,
-  ElTooltip,
   ElDialog,
   ElForm,
   ElFormItem,
+  ElIcon,
   ElInput,
   ElMessage,
   ElMessageBox,
+  ElTooltip,
 } from 'element-plus'
-import { CirclePlus, Edit, Close, HomeFilled } from '@element-plus/icons-vue'
+import { storeToRefs } from 'pinia'
+import type { Ref } from 'vue'
+import { computed, ref } from 'vue'
 
 type PageOption = Pick<AppPageItem, 'title' | 'path'>
 

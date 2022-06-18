@@ -1,12 +1,14 @@
 <script lang="ts">
+// eslint-disable-next-line import/order,import/no-duplicates
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Navbar',
 })
 </script>
 <script lang="ts" setup>
-import SiteBrand from './SiteBrand.vue'
+// eslint-disable-next-line import/order
 import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
+import SiteBrand from './SiteBrand.vue'
 </script>
 <template>
   <header class="spear-header">

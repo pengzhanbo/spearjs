@@ -1,7 +1,8 @@
-import { defineComponent, PropType, TransitionGroup } from 'vue'
-import BlockGroup from './BlockGroup'
+import type { AppBlock, AppBlockGroup, AppBlocks } from '@editor/services'
+import type { PropType } from 'vue'
+import { defineComponent, TransitionGroup } from 'vue'
 import Block from './Block'
-import type { AppBlockGroup, AppBlock, AppBlocks } from '@editor/services'
+import BlockGroup from './BlockGroup'
 
 export default defineComponent({
   name: 'AppBlocks',

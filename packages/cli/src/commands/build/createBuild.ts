@@ -1,5 +1,5 @@
-import { BuildCommand } from './types'
 import { debug } from '@spearjs/utils'
+import type { BuildCommand } from './types'
 
 export const createBuild = (): BuildCommand => {
   const log = debug('spearjs:cli/build')

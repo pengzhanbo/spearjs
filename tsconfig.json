@@ -8,12 +8,13 @@
     "types": ["vite/client"],
     "paths": {
       "@editor/*": ["./packages/editor/src/*"],
-      "@spearjs/*": ["./packages/*/src/index.ts"]
+      "@spearjs/*": ["./packages/*/src/index.ts"],
+      "@spearjs/shared/*": ["./packages/shared/src/*/index.ts"]
     }
   },
   "vueCompilerOptions": {
     "experimentalDisableTemplateSupport": true
   },
-  "include": ["packages/**/*", "docs/**/*", "widgets/**/*"],
+  "include": ["./packages/**/*", "./docs/**/*", "./widgets/**/*"],
   "exclude": ["node_modules", "dist"]
 }

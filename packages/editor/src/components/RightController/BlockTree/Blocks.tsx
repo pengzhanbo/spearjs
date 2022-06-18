@@ -1,9 +1,8 @@
+import type { AppBlocks } from '@editor/services'
 import { defineComponent, TransitionGroup } from 'vue'
 import type { PropType } from 'vue'
-import type { AppBlocks } from '@editor/services'
 import Block from './Block'
 import BlockGroup from './BlockGroup'
-
 import styles from './index.module.scss'
 
 export default defineComponent({

@@ -1,8 +1,8 @@
 import type {
-  WidgetPlatform,
-  WidgetComponentType,
-  WidgetComponentSubType,
   EditorProps,
+  WidgetComponentSubType,
+  WidgetComponentType,
+  WidgetPlatform,
 } from '@spearjs/shared'
 import type { VNode } from 'vue'
 interface UserBasicConfig {
