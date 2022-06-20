@@ -72,12 +72,26 @@ export default defineComponent({
     const setFocusBlock = () => pageStore.setFocusBlock(props.block)
 
     // 当进行拖拽时，将拖拽中的元素变为全透明
-    const style = computed<StyleValue | undefined>(() => {
-      return dragCollect.value.isDragging
-        ? {
-            opacity: 0,
+    const opacity = computed(() => {
+      return dragCollect.value.isDragging ? 0 : block.value.styles.opacity || 1
+    })
+    const borderKey = ['borderTop', 'borderRight', 'borderBottom', 'borderLeft']
+    const blockStyles = computed(() => {
+      const style: StyleValue = {}
+      Object.keys(block.value.styles).forEach((key) => {
+        if (block.value.styles[key] && key !== 'border') {
+          style[key] = block.value.styles[key]
+        } else {
+          if (borderKey.includes(key)) {
+            style[key] = block.value.styles['border']
           }
-        : undefined
+        }
+      })
+      // 强制转换其他定位方式为 absolute
+      if (block.value.styles.position !== '' && block.value.styles.position !== 'relative') {
+        style.position = 'absolute'
+      }
+      return style
     })
 
     // 对于支持 slot 的 widget，需要 渲染其所有的 slot
@@ -108,7 +122,7 @@ export default defineComponent({
             [styles.hasSlot]: props.block.slots && Object.keys(props.block.slots).length > 0,
           },
         ]}
-        style={style.value}
+        style={[blockStyles.value, { opacity: opacity.value }]}
         ref={(el) => setRef(el as Element)}
         data-handler-id={dropCollect.value.handlerId}
         data-label={block.value.label}

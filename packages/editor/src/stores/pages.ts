@@ -117,6 +117,11 @@ export const useAppPagesStore = defineStore('pages', {
         this.focusBlock.props = props
       }
     },
+    updateFocusBlockStyles(styles: Record<string, any>): void {
+      if (this.focusBlock && this.focusBlock.type === 'block') {
+        this.focusBlock.styles = styles
+      }
+    },
     updateFocusBlockSlots(slotList: string[]): void {
       if (this.focusBlock && this.focusBlock.type === 'block') {
         const oldSlots = this.focusBlock.slots

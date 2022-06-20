@@ -1,12 +1,22 @@
 import type { FormItemRule } from 'element-plus'
+import type { CSSProperties } from 'vue'
 
+/**
+ * text 文本输入框 | number 数组输入框 | select 下拉选择器 | radio 单选框 |
+ * checkbox 复选框 | color 颜色选择器 | border 边框选择器 | slider 滑动条 |
+ * group 分组 | object 对象配置 | array 数组配置
+ */
 export type WidgetPropsType =
   | 'text'
   | 'number'
   | 'select'
   | 'switch'
+  | 'radio'
+  | 'checkbox'
   | 'date'
   | 'color'
+  | 'border'
+  | 'slider'
   | 'group'
   | 'object'
   | 'array'
@@ -16,30 +26,78 @@ export type WidgetPropItem =
   | WidgetNumberProp
   | WidgetSelectProp
   | WidgetSwitchProp
+  | WidgetCheckboxProp
+  | WidgetSliderProp
+  | WidgetRadioProp
   | WidgetDateProp
-  | WidgetObjectProp
   | WidgetColorProp
+  | WidgetBorderProp
+  | WidgetObjectProp
   | WidgetArrayProp
 
 export type WidgetProps = (WidgetPropItem | WidgetGroupProp)[]
 
 export interface WidgetBaseProp {
+  /**
+   * prop key
+   */
   key: string
+  /**
+   * 配置类型
+   */
   type: WidgetPropsType
+  /**
+   * 显示 label
+   */
   label: string
+  /**
+   * 提示信息
+   */
   tips?: string
 }
 
+/**
+ * props 分组配置
+ *
+ * 分组有利于 分类 不同的 prop，
+ * 用更加清晰的方式组织你的props
+ */
 export interface WidgetGroupProp {
   type: 'group'
   label: string
+  /**
+   * 是否展开
+   */
+  spread?: boolean
+  /**
+   * 是否强制展开
+   */
+  forgetSpread?: boolean
+  /**
+   * 提示信息
+   */
+  tips?: string
   props: WidgetPropItem[]
 }
 
+/**
+ * 文本类型 prop 配置
+ *
+ * 支持配置 textarea
+ */
 export interface WidgetTextProp extends WidgetBaseProp {
   type: 'text'
+  /**
+   * 默认值
+   */
   defaultValue?: string
+  /**
+   * 文本长度
+   */
   maxLength?: number
+  /**
+   * 校验规则
+   */
   rules?: FormItemRule | FormItemRule[]
   /**
    * 是否使用 文本域
@@ -59,10 +117,22 @@ export interface WidgetTextProp extends WidgetBaseProp {
   autosize?: boolean | { minRows: number; maxRows: number }
 }
 
+/**
+ * 配置 数字类型 prop
+ */
 export interface WidgetNumberProp extends WidgetBaseProp {
   type: 'number'
+  /**
+   * 默认值
+   */
   defaultValue?: number
+  /**
+   * 最大值
+   */
   max?: number
+  /**
+   * 最小值
+   */
   min?: number
   /**
    * 步进
@@ -121,6 +191,43 @@ export interface WidgetSwitchProp extends WidgetBaseProp {
   inactiveValue?: boolean | string | number
 }
 
+export interface WidgetRadioProp extends WidgetBaseProp {
+  type: 'radio'
+  defaultValue?: any
+  options: {
+    label: string
+    value: any
+  }[]
+  border?: boolean
+  button?: boolean
+}
+
+export interface WidgetCheckboxProp extends WidgetBaseProp {
+  type: 'checkbox'
+  defaultValue?: any
+  border?: boolean
+  button?: boolean
+  options: {
+    label: string
+    value: any
+  }
+  checkAll?: boolean
+  min?: number
+  max?: number
+}
+
+export interface WidgetSliderProp extends WidgetBaseProp {
+  type: 'slider'
+  defaultValue?: number | [number, number]
+  min?: number
+  max?: number
+  step?: number
+  showInput?: boolean
+  range?: boolean
+  showStops?: boolean
+  marks?: Record<number | string, string | { style?: CSSProperties; label: string }>
+}
+
 export interface WidgetDateProp extends WidgetBaseProp {
   type: 'date'
   defaultValue?: Date
@@ -129,7 +236,20 @@ export interface WidgetDateProp extends WidgetBaseProp {
 export interface WidgetColorProp extends WidgetBaseProp {
   type: 'color'
   defaultValue?: string
-  format?: 'hex' | 'rgb'
+  colorFormat?: 'hsl' | 'hsv' | 'hex' | 'rgb'
+  showAlpha?: boolean
+  predefine?: string[]
+}
+
+export interface WidgetBorderProp extends WidgetBaseProp {
+  type: 'border'
+  /**
+   * 默认值的书写顺序必须是 `border-width border-style border-color`
+   */
+  defaultValue?: `${string} ${string} ${string}`
+  colorFormat: 'hsl' | 'hsv' | 'hex' | 'rgb'
+  showAlpha?: boolean
+  predefine?: string[]
 }
 
 export interface WidgetObjectProp extends WidgetBaseProp {
@@ -144,8 +264,12 @@ export type WidgetArrayPropItem =
   | Omit<WidgetNumberProp, 'key'>
   | Omit<WidgetSelectProp, 'key'>
   | Omit<WidgetSwitchProp, 'key'>
+  | Omit<WidgetRadioProp, 'key'>
+  | Omit<WidgetCheckboxProp, 'key'>
+  | Omit<WidgetSliderProp, 'key'>
   | Omit<WidgetDateProp, 'key'>
   | Omit<WidgetColorProp, 'key'>
+  | Omit<WidgetBorderProp, 'key'>
   | Omit<WidgetObjectProp, 'key'>
   | Omit<WidgetArrayProp, 'key'>
 

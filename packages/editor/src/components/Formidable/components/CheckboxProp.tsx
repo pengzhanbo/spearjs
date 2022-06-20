@@ -1,4 +1,4 @@
-import type { WidgetColorProp } from '@spearjs/shared'
+import type { WidgetCheckboxProp } from '@spearjs/shared'
 import { ElColorPicker, ElFormItem } from 'element-plus'
 import { computed, defineComponent } from 'vue'
 import type { PropType } from 'vue'
@@ -6,11 +6,12 @@ import type { FormInjectKey } from '../hooks'
 import { useDotKey, useDotProp, useFormData } from '../hooks'
 import { tips } from '../Tips'
 
+// TODO Checkbox Prop
 export default defineComponent({
   name: 'FormidableColorProp',
   props: {
     config: {
-      type: Object as PropType<WidgetColorProp>,
+      type: Object as PropType<WidgetCheckboxProp>,
       required: true,
     },
     injectKey: {
@@ -28,8 +29,9 @@ export default defineComponent({
     const color = useDotProp(model, dotKey)
 
     const options = computed(() => {
-      const { colorFormat, showAlpha, predefine } = props.config
-      return { colorFormat, showAlpha, predefine }
+      // const { colorFormat, showAlpha, predefine } = props.config
+      // return { colorFormat, showAlpha, predefine }
+      return {}
     })
 
     return () => (

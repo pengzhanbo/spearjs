@@ -52,7 +52,7 @@ export default defineComponent({
     )
 
     return () => (
-      <div>
+      <>
         <p class="flex justify-between items-center text-sm font-bold pb-2 border-b mb-4">
           <span>组件名：{block.value?.label}</span>
           <span>组件ID: {block.value?.bid}</span>
@@ -60,7 +60,7 @@ export default defineComponent({
         {widget.value ? (
           <Formidable config={widget.value.props || []} v-model={formData.value} />
         ) : null}
-      </div>
+      </>
     )
   },
 })

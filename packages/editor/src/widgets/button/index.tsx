@@ -1,4 +1,4 @@
-import { ComponentWidget } from '@spearjs/shared'
+import type { ComponentWidget } from '@spearjs/shared'
 import { ElButton } from 'element-plus'
 
 export default {
@@ -20,15 +20,16 @@ export default {
   preview: () => {
     return <ElButton type="primary">按钮</ElButton>
   },
-  render({ props, styles }) {
+  render({ props }) {
     const { buttonText, ...otherProps } = props
     return buttonText ? (
-      <ElButton style={styles} {...otherProps}>
-        {buttonText}
-      </ElButton>
+      <ElButton {...otherProps}>{buttonText}</ElButton>
     ) : (
-      <ElButton style={styles} {...otherProps} />
+      <ElButton {...otherProps} />
     )
+  },
+  layer: {
+    display: 'inline-block',
   },
   props: [
     {
@@ -104,52 +105,14 @@ export default {
             { label: 'Delete', value: 'Delete' },
           ],
         },
-      ],
-    },
-    {
-      type: 'group',
-      label: '分组',
-      props: [
         {
-          key: 'num',
-          label: '数字',
-          type: 'number',
-          defaultValue: 1,
-          step: 1,
-          min: 0,
-          max: 999,
+          key: 'color',
+          label: '按钮颜色',
+          type: 'color',
+          defaultValue: '',
+          showAlpha: true,
         },
       ],
-    },
-    {
-      type: 'object',
-      label: '对象测试',
-      key: 'obj',
-      tips: '对象测试描述',
-      props: [
-        {
-          key: 'aa',
-          type: 'text',
-          label: '文本',
-          tips: '对象文本属性 obj.aa',
-          defaultValue: '1',
-          placeholder: '请填入文本',
-        },
-      ],
-    },
-    {
-      type: 'array',
-      label: '数组测试',
-      key: 'cols',
-      tips: '数组测试描述',
-      defaultValue: ['1', '2'],
-      maxLength: 0,
-      minLength: 0,
-      items: {
-        type: 'text',
-        label: 'col',
-        defaultValue: '1',
-      },
     },
   ],
 } as ComponentWidget

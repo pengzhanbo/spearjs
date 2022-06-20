@@ -1,26 +1,38 @@
-import { ComponentWidget, WidgetComponentLayer } from '@spearjs/shared'
-import type { CSSProperties } from 'vue'
-import { createProps } from './createProps'
+import type { ComponentWidget, WidgetComponentLayer } from '@spearjs/shared'
 
-export interface AppBlockStyles {
-  layer: CSSProperties
-  custom: CSSProperties
+export type AppBlockStyles = WidgetComponentLayer
+
+export const createLayerStyles = (layer: WidgetComponentLayer = {}): WidgetComponentLayer => {
+  return Object.assign(
+    {
+      display: 'block',
+      zIndex: 1,
+      paddingTop: '',
+      paddingRight: '',
+      paddingBottom: '',
+      paddingLeft: '',
+      marginTop: '',
+      marginRight: '',
+      marginBottom: '',
+      marginLeft: '',
+      border: '',
+      borderTop: '',
+      borderRight: '',
+      borderBottom: '',
+      borderLeft: '',
+      position: '',
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      opacity: 1,
+      width: '',
+      height: '',
+    } as WidgetComponentLayer,
+    layer
+  )
 }
 
-export const createLayerStyles = (layer?: WidgetComponentLayer): CSSProperties => {
-  return {
-    display: layer?.display || 'block',
-    zIndex: layer?.zIndex || 0,
-    paddingTop: '0',
-    paddingRight: '0',
-    paddingBottom: '0',
-    paddingLeft: '0',
-    padding: '0',
-  }
-}
 export const createStyles = (widget: ComponentWidget) => {
-  return {
-    layer: createLayerStyles(widget.layer),
-    custom: createProps(widget.styles || []),
-  }
+  return createLayerStyles(widget.layer)
 }

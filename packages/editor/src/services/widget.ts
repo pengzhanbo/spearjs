@@ -1,5 +1,5 @@
-import type { ComponentWidget } from '@spearjs/shared'
 import { spearJs } from '@editor/common'
+import type { ComponentWidget } from '@spearjs/shared'
 
 export interface WidgetComponentItem {
   id: string
@@ -11,9 +11,8 @@ export interface WidgetComponentItem {
 }
 
 export const getWidgetComponentList = async ({
-  type = 'basis',
+  _type = 'basis',
 }): Promise<WidgetComponentItem[]> => {
-  console.log(type)
   return [
     {
       id: 'button',

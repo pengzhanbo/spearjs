@@ -3,9 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "esnext",
-    "strict": true,
     "jsx": "preserve",
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "paths": {
       "@editor/*": ["./packages/editor/src/*"],
       "@spearjs/*": ["./packages/*/src/index.ts"],

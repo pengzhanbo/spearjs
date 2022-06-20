@@ -1,10 +1,11 @@
 import type { ComponentWidget } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
-import { generateBid, generateBlockGroupKey } from './idGenerator'
-import { createProps } from './createProps'
-import { createStyles } from './createStyles'
-import { readonly } from 'vue'
 import cloneDeep from 'lodash-es/cloneDeep'
+import { readonly } from 'vue'
+import { createProps } from './createProps'
+import type { AppBlockStyles } from './createStyles'
+import { createStyles } from './createStyles'
+import { generateBid, generateBlockGroupKey } from './idGenerator'
 
 const blockIndex: Record<string, number> = {
   block: 0,
@@ -89,6 +90,6 @@ export interface AppBlock {
   }
   bid: string
   props: Record<string, any>
-  styles: Record<string, any>
+  styles: AppBlockStyles
   slots: Record<string, AppBlocks>
 }

@@ -8,10 +8,23 @@
   @apply relative border-t border-b mt-5 py-5;
 
   .group-label {
-    @apply absolute top-0 left-5 px-2 text-sm font-bold;
+    @apply absolute top-0 left-5 px-2 text-sm font-bold flex items-center cursor-pointer;
 
     background-color: var(--c-bg-container);
     transform: translateY(-50%);
+
+    span:first-of-type {
+      @apply mr-2;
+    }
+  }
+
+  .group-icon {
+    transform: rotate(0deg);
+    @apply transition transition-transform;
+
+    &.open {
+      transform: rotate(90deg);
+    }
   }
 
   & + & {

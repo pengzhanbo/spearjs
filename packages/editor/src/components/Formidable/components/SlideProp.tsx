@@ -1,5 +1,5 @@
-import type { WidgetColorProp } from '@spearjs/shared'
-import { ElColorPicker, ElFormItem } from 'element-plus'
+import type { WidgetSliderProp } from '@spearjs/shared'
+import { ElFormItem, ElSlider } from 'element-plus'
 import { computed, defineComponent } from 'vue'
 import type { PropType } from 'vue'
 import type { FormInjectKey } from '../hooks'
@@ -7,10 +7,10 @@ import { useDotKey, useDotProp, useFormData } from '../hooks'
 import { tips } from '../Tips'
 
 export default defineComponent({
-  name: 'FormidableColorProp',
+  name: 'FormidableSliderProp',
   props: {
     config: {
-      type: Object as PropType<WidgetColorProp>,
+      type: Object as PropType<WidgetSliderProp>,
       required: true,
     },
     injectKey: {
@@ -25,17 +25,17 @@ export default defineComponent({
   setup(props, { slots }) {
     const model = useFormData(props.injectKey)
     const dotKey = useDotKey(props)
-    const color = useDotProp(model, dotKey)
+    const slider = useDotProp(model, dotKey)
 
     const options = computed(() => {
-      const { colorFormat, showAlpha, predefine } = props.config
-      return { colorFormat, showAlpha, predefine }
+      const { min, max, step, showInput, showStops, range, marks } = props.config
+      return { min, max, step, showInput, showStops, range, marks }
     })
 
     return () => (
-      <ElFormItem label={props.config.label} labelWidth="auto" prop={dotKey.value}>
+      <ElFormItem class="w-full mr-4" label={props.config.label} prop={dotKey.value}>
         <p class="w-full flex items-center justify-start">
-          <ElColorPicker class="flex-1" v-model={color.value} {...options.value} />
+          <ElSlider class="flex-1" v-model={slider.value} {...options.value} />
           {tips(props.config.tips)}
           {slots.default?.()}
         </p>

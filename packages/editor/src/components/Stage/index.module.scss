@@ -1,5 +1,4 @@
 .stage-wrapper {
-  // position: absolute;
   background-color: var(--c-bg-container);
   @apply shadow-md;
 }
@@ -7,6 +6,7 @@
 .stage-container {
   height: inherit;
   min-height: inherit;
+  line-height: 0;
 }
 
 .widget-component,

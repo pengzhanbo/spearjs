@@ -50,11 +50,6 @@ export type Widget = ComponentWidget | ServiceWidget
 
 export type WidgetStyles = WidgetProps
 
-export interface WidgetComponentLayer {
-  display?: 'inline-block' | 'block'
-  zIndex?: number
-}
-
 export interface BaseWidget {
   id: string
   version: string
@@ -79,9 +74,6 @@ export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
   setup?: <RawBindings = object>(props: Readonly<P>, ctx: SetupContext) => RawBindings
   render?: (option: {
     props: P
-    styles: {
-      [prop: string]: string
-    }
     slots: WidgetSlots
     [prop: string]: any
   }) => ReturnType<RenderFunction>
@@ -99,10 +91,48 @@ export interface WightService {
   fn: <T>() => () => T | Promise<T>
 }
 
+/**
+ * 对于 slot，可以通过 class 或者 style 来控制slot所在层的表现
+ */
 export interface WidgetSlotOptions {
   class?: string | string[]
   style?: CSSProperties
 }
 export interface WidgetSlots {
   [slotName: string]: (options?: WidgetSlotOptions) => VNode
+}
+
+export type LayerValue = `${number}px` | `${number}rem` | `${number}%` | 0 | '0' | 'auto' | ''
+/**
+ * widget 组件所在层样式
+ * 通过 layer控制层的表现行为。
+ *
+ * 但这里仅控制layer必须的表现，即 盒模型 上的必要属性，以及布局相关的必要属性
+ *
+ * 更多行为应该在内部实现的组件上进行控制
+ */
+export interface WidgetComponentLayer {
+  display?: 'inline-block' | 'block'
+  width?: LayerValue
+  height?: LayerValue
+  zIndex?: number
+  position?: 'relative' | 'absolute' | 'fixed' | 'sticky' | ''
+  top?: LayerValue
+  right?: LayerValue
+  bottom?: LayerValue
+  left?: LayerValue
+  paddingTop?: LayerValue
+  paddingRight?: LayerValue
+  paddingBottom?: LayerValue
+  paddingLeft?: LayerValue
+  backgroundColor?: LayerValue
+  marginTop?: LayerValue | 'auto'
+  marginRight?: LayerValue | 'auto'
+  marginBottom?: LayerValue | 'auto'
+  marginLeft?: LayerValue | 'auto'
+  borderTop?: LayerValue
+  borderRight?: LayerValue
+  borderBottom?: LayerValue
+  borderLeft?: LayerValue
+  opacity?: number
 }

@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import App from './App'
-import { setupRouter, router } from './router'
-import { setupStore } from './stores'
 import { setupElementPlus } from './plugins'
+import { router, setupRouter } from './router'
+import { setupStore } from './stores'
 import './widgets'
 
 import 'virtual:windi-devtools'

@@ -1,7 +1,4 @@
-// @ts-check
-const { defineConfig } = require('eslint-define-config')
-
-module.exports = defineConfig({
+module.exports = {
   root: true,
   env: {
     browser: true,
@@ -110,4 +107,4 @@ module.exports = defineConfig({
       },
     },
   ],
-})
+}
