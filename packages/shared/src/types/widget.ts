@@ -1,6 +1,7 @@
 import type { App, CSSProperties, RenderFunction, SetupContext, VNode } from 'vue'
 import type { Router } from 'vue-router'
 import type { Platform } from './platform'
+import type { WidgetVersion } from './version'
 import type { WidgetProps } from './widgetProps'
 
 /**
@@ -48,23 +49,20 @@ export type WidgetMap = Widget[]
 
 export type Widget = ComponentWidget | ServiceWidget
 
-export type WidgetStyles = WidgetProps
-
 export interface BaseWidget {
   id: string
-  version: string
+  version: WidgetVersion
   label: string
   platform: WidgetPlatform
   type: WidgetType
-  enhance?: (option: { app: App; router: Router }) => void
 }
 export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
   type: 'component'
   componentType: WidgetComponentType
   componentSubType?: WidgetComponentSubType
   props?: WidgetProps
+  actions?: WidgetActions
   slots?: ((props: P) => string[]) | string[]
-  styles?: WidgetStyles
   /**
    * 组件所在层控制
    */
@@ -73,7 +71,7 @@ export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
   preview: () => ReturnType<RenderFunction>
   setup?: <RawBindings = object>(props: Readonly<P>, ctx: SetupContext) => RawBindings
   render?: (option: {
-    props: P
+    props: Readonly<P>
     slots: WidgetSlots
     [prop: string]: any
   }) => ReturnType<RenderFunction>
@@ -81,13 +79,14 @@ export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
 
 export interface ServiceWidget extends BaseWidget {
   type: 'service'
+  enhance?: (option: { app: App; router: Router }) => void
   service?: WightService
   services?: WightService[]
 }
 
 export interface WightService {
   type: string
-  name: string
+  label: string
   fn: <T>() => () => T | Promise<T>
 }
 
@@ -100,6 +99,14 @@ export interface WidgetSlotOptions {
 }
 export interface WidgetSlots {
   [slotName: string]: (options?: WidgetSlotOptions) => VNode
+}
+
+export type WidgetActions = WidgetAction[]
+
+export interface WidgetAction {
+  label: string
+  action: string
+  tips?: string
 }
 
 export type LayerValue = `${number}px` | `${number}rem` | `${number}%` | 0 | '0' | 'auto' | ''

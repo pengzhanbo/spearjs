@@ -7,7 +7,7 @@ import WidgetPreview from '../WidgetPreview'
 const widgetList = ref<WidgetComponentItem[]>([])
 
 const initWidgetList = async () => {
-  widgetList.value = await getWidgetComponentList({ type: 'basis' })
+  widgetList.value = await getWidgetComponentList({ _type: 'basis' })
 }
 initWidgetList()
 </script>

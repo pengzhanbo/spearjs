@@ -1,13 +1,12 @@
 import {
-  ArrowDown,
-  Document,
-  Files,
-  Monitor,
-  Promotion,
-  RefreshLeft,
-  RefreshRight,
-  View,
-} from '@element-plus/icons-vue'
+  PlatformIcon,
+  PreviewIcon,
+  RedoIcon,
+  SaveIcon,
+  TemplateIcon,
+  UndoIcon,
+} from '@editor/components/Icons'
+import { ArrowDown, Promotion } from '@element-plus/icons-vue'
 import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
 import { defineComponent } from 'vue'
@@ -30,7 +29,7 @@ export default defineComponent({
         <div class="flex flex-1 items-center">
           <p class={styles.headerItem}>
             <ElIcon class="el-icon--left">
-              <Files />
+              <TemplateIcon />
             </ElIcon>
             <span>模板</span>
           </p>
@@ -39,7 +38,7 @@ export default defineComponent({
               default: () => (
                 <p class={styles.headerItem}>
                   <ElIcon class="el-icon--left">
-                    <Monitor />
+                    <PlatformIcon />
                   </ElIcon>
                   <span>平台</span>
                   <ElIcon class="el-icon--right">
@@ -59,25 +58,25 @@ export default defineComponent({
         <div class="flex items-center">
           <p class={styles.headerItem}>
             <ElIcon class="el-icon--left">
-              <View />
+              <PreviewIcon />
             </ElIcon>
             <span>预览</span>
           </p>
           <p class={styles.headerItem}>
             <ElIcon class="el-icon--left">
-              <RefreshRight />
+              <RedoIcon />
             </ElIcon>
             <span>前进</span>
           </p>
           <p class={styles.headerItem}>
             <ElIcon class="el-icon--left">
-              <RefreshLeft />
+              <UndoIcon />
             </ElIcon>
             <span>撤销</span>
           </p>
           <p class={styles.headerItem}>
             <ElIcon class="el-icon--left">
-              <Document />
+              <SaveIcon />
             </ElIcon>
             <span>保存</span>
           </p>

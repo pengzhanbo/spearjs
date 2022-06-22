@@ -1,5 +1,5 @@
-import type { InlineConfig } from 'vite'
 import { path } from '@spearjs/utils'
+import type { InlineConfig } from 'vite'
 
 export const resolveDevConfig = (config: InlineConfig = {}): InlineConfig => {
   config.root = path.resolve(__dirname, '../../../preview/')

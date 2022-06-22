@@ -24,6 +24,8 @@
   "dependencies": {
     "@spearjs/shared": "workspace:*",
     "@spearjs/utils": "workspace:*",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.10",
     "cac": "^6.7.12",
     "chokidar": "3.5.3",
     "esbuild": "^0.14.39",
@@ -32,8 +34,6 @@
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.3.3",
-    "@vitejs/plugin-vue-jsx": "^1.3.10",
     "postcss": "^8.4.14",
     "rimraf": "^3.0.2",
     "sass": "^1.51.0",

@@ -1,6 +1,6 @@
-import type { UserConfig } from '../../config'
-import type { Plugin } from 'vite'
 import { path } from '@spearjs/utils'
+import type { Plugin } from 'vite'
+import type { UserConfig } from '../../config'
 
 const descriptionModuleId = 'spearjs/widget/description'
 const editorModuleId = 'spearjs/widget/editor'

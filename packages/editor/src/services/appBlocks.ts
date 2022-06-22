@@ -2,6 +2,7 @@ import type { ComponentWidget } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
 import cloneDeep from 'lodash-es/cloneDeep'
 import { readonly } from 'vue'
+import { createBlockActions } from './appActions'
 import { createProps } from './createProps'
 import type { AppBlockStyles } from './createStyles'
 import { createStyles } from './createStyles'
@@ -39,6 +40,7 @@ export const createBlock = (widget: ComponentWidget): AppBlock => {
     props,
     styles: cloneDeep(createStyles(widget)),
     slots: _slots,
+    actions: createBlockActions(widget.actions || []),
   }
 }
 
@@ -92,4 +94,27 @@ export interface AppBlock {
   props: Record<string, any>
   styles: AppBlockStyles
   slots: Record<string, AppBlocks>
+  actions: AppBlockActions
+}
+
+export type AppBlockActions = Record<string, AppBlockAction[]>
+export interface AppBlockAction {
+  /**
+   * service 查找区间
+   */
+  type: 'global' | 'block'
+  /**
+   * type 为 block 时，通过 bid 查找 block 上的 service
+   */
+  bid?: string
+  /**
+   * server name
+   */
+  name: string
+  /**
+   * 参数映射
+   * 将当前 block props 映射为 service 需要的第一个入参
+   * service的第一个参数必须是一个对象
+   */
+  mapping: any[]
 }

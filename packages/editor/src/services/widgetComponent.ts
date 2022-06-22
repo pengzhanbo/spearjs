@@ -1,7 +1,7 @@
+import type { ComponentWidget } from '@spearjs/shared'
 import type { DefineComponent, PropType, SetupContext } from 'vue'
 import { defineComponent } from 'vue'
 import { generateWidgetName } from './idGenerator'
-import type { ComponentWidget } from '@spearjs/shared'
 
 export type DefineWidgetComponent = DefineComponent<{
   bid: string

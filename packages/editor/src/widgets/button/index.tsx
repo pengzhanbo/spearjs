@@ -1,3 +1,4 @@
+import { useBlock } from '@editor/hooks/useBlock'
 import type { ComponentWidget } from '@spearjs/shared'
 import { ElButton } from 'element-plus'
 
@@ -20,6 +21,11 @@ export default {
   preview: () => {
     return <ElButton type="primary">按钮</ElButton>
   },
+  setup() {
+    const block = useBlock()
+    console.log(block)
+    block.setProps({ buttonText: '按钮2222' })
+  },
   render({ props }) {
     const { buttonText, ...otherProps } = props
     return buttonText ? (
@@ -28,6 +34,21 @@ export default {
       <ElButton {...otherProps} />
     )
   },
+  actions: [
+    {
+      label: '点击按钮',
+      action: 'onClick',
+    },
+  ],
+  services: [
+    {
+      name: '测试',
+      fn: () => {
+        const block = useBlock()
+        console.log(block)
+      },
+    },
+  ],
   layer: {
     display: 'inline-block',
   },

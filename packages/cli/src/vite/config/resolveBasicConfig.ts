@@ -1,8 +1,8 @@
-import type { InlineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { resolveWidgetPlugin } from '../plugins/resolveWidgetPlugin'
+import type { InlineConfig } from 'vite'
 import type { UserConfig } from '../../config'
+import { resolveWidgetPlugin } from '../plugins/resolveWidgetPlugin'
 
 export const resolveBasicConfig = (
   config: InlineConfig = {},

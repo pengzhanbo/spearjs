@@ -1,7 +1,7 @@
 import { useAppPagesStore } from '@editor/stores'
-import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
 import { ElTabPane, ElTabs } from 'element-plus'
 import { computed, defineComponent, h, ref, watch } from 'vue'
+import { ArrowDoubleLeftIcon, ArrowDoubleRightIcon } from '../Icons'
 import BlockTree from './BlockTree'
 import styles from './index.module.scss'
 import { tabs } from './tabs'
@@ -37,7 +37,7 @@ export default defineComponent({
     return () => (
       <div class={[styles.wrapper, { [styles.open]: isOpen.value }]}>
         <div class={styles.btnArrow} onClick={handleOpen}>
-          {isOpen.value ? <DArrowRight /> : <DArrowLeft />}
+          {isOpen.value ? <ArrowDoubleRightIcon /> : <ArrowDoubleLeftIcon />}
         </div>
         <ElTabs v-model={activeTab.value} type="border-card" class={styles.tabs}>
           {tabs.map((tab) => (

@@ -6,10 +6,11 @@ export default defineComponent({
 })
 </script>
 <script lang="ts" setup>
-import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue'
+// eslint-disable-next-line import/order
 import { ElIcon, ElTabPane, ElTabs } from 'element-plus'
 // eslint-disable-next-line import/no-duplicates
 import { ref } from 'vue'
+import { ArrowDoubleLeftIcon, ArrowDoubleRightIcon } from '../Icons'
 import { tabs } from './tabs'
 
 const activeTab = ref(tabs[0].key)
@@ -22,7 +23,7 @@ const handleOpen = () => {
 <template>
   <div class="left-sidebar-wrapper" :class="{ open: isOpen }">
     <div class="btn-arrow" @click="handleOpen">
-      <component :is="isOpen ? DArrowLeft : DArrowRight" />
+      <component :is="isOpen ? ArrowDoubleLeftIcon : ArrowDoubleRightIcon" />
     </div>
     <ElTabs v-model="activeTab" tab-position="left" class="left-sidebar-tabs">
       <template v-for="tab in tabs" :key="tab.key">

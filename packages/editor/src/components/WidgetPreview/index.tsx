@@ -1,11 +1,11 @@
 import { WIDGET_DND_TYPE } from '@editor/common'
 import type { WidgetComponentItem } from '@editor/services/widget'
 import { findWidget } from '@editor/services/widget'
-import { InfoFilled } from '@element-plus/icons-vue'
 import { ElIcon, ElPopover } from 'element-plus'
 import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import { useDrag } from 'vue3-dnd'
+import { InfoIcon } from '../Icons'
 import styles from './index.module.scss'
 
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
             {{
               reference: () => (
                 <ElIcon class={'el-icon__right cursor-pointer'}>
-                  <InfoFilled />
+                  <InfoIcon />
                 </ElIcon>
               ),
               default: () => widget.description(),
