@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { computed, defineComponent, onMounted, ref } from 'vue'
 import { useStagePosition } from '../../hooks/useStagePosition'
-import LeftSidebar from '../LeftSidebar/index.vue'
+import LeftSidebar from '../LeftSidebar'
 import Navbar from '../Navbar'
 import RightController from '../RightController'
 import Stage from '../Stage'

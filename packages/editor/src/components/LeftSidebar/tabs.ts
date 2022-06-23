@@ -6,12 +6,12 @@ import {
   ModulesIcon,
   PageIcon,
 } from '../Icons'
-import BasisComponent from './BasisComponent.vue'
-import BusinessComponent from './BusinessComponent.vue'
-import ContainerComponent from './ContainerComponent.vue'
-import DataModel from './DataModel.vue'
-import ModuleComponent from './ModuleComponent.vue'
-import PageTree from './PageTree.vue'
+import BasisComponent from './Basis'
+import BusinessComponent from './Business'
+import ContainerComponent from './Container'
+import DataModel from './Data'
+import ModuleComponent from './Modules'
+import PageTree from './PageTree'
 
 export const tabs = [
   {
