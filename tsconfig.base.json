@@ -4,6 +4,7 @@
     "declaration": true,
     "declarationMap": false,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "lib": ["DOM", "ES2020"],
     "moduleResolution": "node",
     "newLine": "lf",

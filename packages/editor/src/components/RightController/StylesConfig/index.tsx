@@ -29,6 +29,7 @@ export default defineComponent({
         return block.value ? block.value.styles : {}
       },
       set(styles) {
+        if (!block.value) return
         if (styles.position === '') {
           styles.left = ''
           styles.right = ''

@@ -1,0 +1,73 @@
+{
+  "name": "@spearjs/server",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "license": "ISC",
+  "author": "pengzhanbo",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build  -p ./tsconfig.build.json",
+    "dev": "nest start --watch  -p ./tsconfig.cjs.json",
+    "dev:debug": "nest start --debug --watch  -p ./tsconfig.cjs.json",
+    "start": "nest start -p ./tsconfig.cjs.json",
+    "start:prod": "node dist/main",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testEnvironment": "node",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    }
+  },
+  "dependencies": {
+    "@nestjs/common": "^8.4.7",
+    "@nestjs/config": "^2.1.0",
+    "@nestjs/core": "^8.4.7",
+    "@nestjs/platform-express": "^8.4.7",
+    "@nestjs/typeorm": "^8.1.4",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "cookie-parser": "^1.4.6",
+    "csurf": "^1.11.0",
+    "helmet": "^5.1.0",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.5.5",
+    "typeorm": "^0.3.6"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^8.2.7",
+    "@nestjs/schematics": "^8.0.11",
+    "@nestjs/testing": "^8.4.7",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.13",
+    "@types/jest": "27.5.0",
+    "@types/node": "^16.11.41",
+    "@types/supertest": "^2.0.12",
+    "jest": "28.0.3",
+    "source-map-support": "^0.5.21",
+    "supertest": "^6.2.3",
+    "ts-jest": "28.0.1",
+    "ts-loader": "^9.3.1",
+    "ts-node": "^10.8.1",
+    "tsconfig-paths": "4.0.0",
+    "typescript": "^4.7.4"
+  }
+}

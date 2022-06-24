@@ -20,7 +20,7 @@
   },
   "scripts": {
     "cm": "cz",
-    "dev": "pnpm --filter=@spearjs/editor dev",
+    "dev": "pnpm --filter=@spearjs/editor --filter=@spearjs/server dev",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",
     "prepare": "husky install",
     "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",

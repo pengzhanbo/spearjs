@@ -24,7 +24,7 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const borderRegExp = /^(\w+)\s(-?\d+)(px|rem|%)?\s([^]+)$/
+    const borderRegExp = /^(\w+)\s(-?\d+\.?\d+?)(px|rem|%)?\s([^]+)$/
     const defaultColor = 'rgba(0, 0, 0, 1)'
     const model = useFormData(props.injectKey)
     const dotKey = useDotKey(props)

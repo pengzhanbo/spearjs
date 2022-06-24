@@ -1,0 +1,24 @@
+import { ConfigService } from '@nestjs/config'
+import { NestFactory } from '@nestjs/core'
+import { AppModule } from './app.module'
+import { useGlobalFilter, useGlobalInterceptor, useGlobalMiddleware, useGlobalPipe } from './shared'
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, {
+    logger: ['warn', 'error'],
+  })
+  const config = app.get(ConfigService)
+
+  // 注入全局中间件
+  useGlobalMiddleware(app)
+  // 注入全局拦截器
+  useGlobalInterceptor(app)
+  // 注入全局管道
+  useGlobalPipe(app)
+  // 注入全局过滤器
+  useGlobalFilter(app)
+
+  await app.listen(config.get('SERVER_PORT') || 3000)
+}
+
+bootstrap()

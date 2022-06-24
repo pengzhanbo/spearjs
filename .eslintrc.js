@@ -4,6 +4,7 @@ module.exports = {
     browser: true,
     node: true,
     es6: true,
+    jest: true,
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -19,7 +20,6 @@ module.exports = {
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/recommended',
-    'prettier',
     'plugin:prettier/recommended',
   ],
   rules: {
@@ -36,6 +36,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -64,6 +66,8 @@ module.exports = {
           '**/vitest.config.js',
           '**/vite.config.ts',
           '**/windi.config.ts',
+          '**/*.spec.ts',
+          'packages/server/test/*.ts',
         ],
         optionalDependencies: false,
         peerDependencies: false,
@@ -104,6 +108,13 @@ module.exports = {
       rules: {
         // disable for setup script
         '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
+    {
+      files: ['./packages/server/src/**/*.ts', './packages/server/test/**/*.ts'],
+      rules: {
+        '@typescript-eslint/consistent-type-imports': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
       },
     },
   ],
