@@ -1,17 +1,10 @@
-import description from 'spearjs/widget/description'
+import { registerWidget } from '@spearjs/shared'
+import widgetConfig from 'spearjs/widget/config'
 import editor from 'spearjs/widget/editor'
 import render from 'spearjs/widget/render'
-import widgetConfig from 'spearjs/widget/config'
 
-const widget = {
+registerWidget({
   ...widgetConfig,
-  description,
-  editor,
-  render,
-}
-
-// @ts-ignore
-window.__spearjs_low_code__ = window.__spearjs_low_code__ || { widgetList: {} }
-
-// @ts-ignore
-window.__spearjs_low_code__.widgetList[widgetConfig.widgetId] = widget
+  ...editor,
+  ...render,
+})

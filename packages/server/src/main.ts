@@ -5,7 +5,7 @@ import { useGlobalFilter, useGlobalInterceptor, useGlobalMiddleware, useGlobalPi
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: ['warn', 'error'],
+    // logger: ['warn', 'error'],
   })
   const config = app.get(ConfigService)
 
@@ -18,7 +18,10 @@ async function bootstrap() {
   // 注入全局过滤器
   useGlobalFilter(app)
 
-  await app.listen(config.get('SERVER_PORT') || 3000)
+  const port = config.get('SERVER_PORT') || 3000
+  await app.listen(port)
+
+  console.log(`Spearjs server is running on: http://localhost:${port}/`)
 }
 
 bootstrap()

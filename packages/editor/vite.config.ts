@@ -18,10 +18,10 @@ export default defineConfig(({ mode }): UserConfig => {
       host: '0.0.0.0',
       proxy: {
         '/api': {
-          target: '',
+          target: 'http://localhost:4396',
           changeOrigin: true,
           secure: false,
-          // rewrite: (url) => url.replace('/api/', '/'),
+          rewrite: (url) => url.replace('/api/', '/'),
         },
       },
     },

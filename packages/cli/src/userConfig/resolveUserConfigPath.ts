@@ -1,4 +1,4 @@
-import { path, fs, logger, chalk } from '@spearjs/utils'
+import { chalk, fs, logger, path } from '@spearjs/utils'
 
 const configFiles = ['widget.config.ts', 'widget.config.js', 'config.ts', 'config.js']
 

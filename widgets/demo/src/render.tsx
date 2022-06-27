@@ -1,27 +1,17 @@
-export default {
-  enhance({ app, router }) {
-    console.log(app, router)
+import { defineRenderConfig } from '@spearjs/shared'
+import styles from './render.module.scss'
+
+export default defineRenderConfig({
+  setup: () => {
+    return {
+      a: 1,
+    }
   },
-  setup() {
-    console.log('setup')
-  },
-  render: ({ props, styles }) => {
+  render({ props }) {
     return (
-      <button {...props} {...styles}>
+      <button class={styles.txt} {...props}>
         {props.text}
       </button>
     )
   },
-  // 如果是提供一个服务
-  services: [
-    {
-      name: 'demo',
-      type: 'global',
-      fn: ({ router, app, services }) => {
-        return () => {
-          console.log(router, app, services)
-        }
-      },
-    },
-  ],
-}
+})

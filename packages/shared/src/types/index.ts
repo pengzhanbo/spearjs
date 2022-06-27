@@ -1,4 +1,5 @@
 export * from './platform'
-export * from './editorProps'
 export * from './widget'
 export * from './widgetProps'
+export * from './version'
+export * from './defineConfig'

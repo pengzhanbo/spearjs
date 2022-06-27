@@ -1,7 +1,7 @@
 import * as os from 'os'
 import { win32 } from 'path'
-import { loadUserConfig, resolveDefaultConfig } from '../../config'
-import type { UserConfig } from '../../config'
+import { loadUserConfig, resolveDefaultConfig } from '../../userConfig'
+import type { UserConfig } from '../../userConfig'
 
 const normalizeRequireCacheKey: (key: string) => string = (key) =>
   os.platform() == 'win32' ? win32.normalize(key) : key

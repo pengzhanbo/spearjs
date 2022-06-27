@@ -1,4 +1,4 @@
-import { provide, inject } from 'vue'
+import { inject, provide } from 'vue'
 import type { InjectionKey } from 'vue'
 
 const applicationDataSymbol: InjectionKey<ReturnType<typeof initApplicationData>> = Symbol()

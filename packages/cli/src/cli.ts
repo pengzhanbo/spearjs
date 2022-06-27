@@ -1,6 +1,6 @@
-import { cac } from 'cac'
 import { chalk } from '@spearjs/utils'
-import { createDev, createBuild, createPublish } from './commands'
+import { cac } from 'cac'
+import { createBuild, createConfig, createDev, createPublish } from './commands'
 import { allowTs } from './utils'
 
 const wrapCommand = (cmd: (...args: any[]) => Promise<void>): typeof cmd => {
@@ -40,17 +40,25 @@ export const cli = (): void => {
   program
     .command('build', 'Build widget')
     .option('-c, --config <config>', 'Set path to config file')
-    .option('--debug', 'Enable debug mode')
     .option('-d, --dest <dest>', 'Set the directory build output (default: dist)')
     .action(wrapCommand(createBuild()))
 
   // register `publish` command
   program
     .command('publish', 'Publish widget to SpearJs lowCode platform')
-    .option('--env <env>', 'publish to SpearJs Server')
-    .option('--target <target>', 'publish widget to target server')
+    .option('-c, --config <config>', 'Set path to config file')
+    .option('-t, --target <target>', 'publish widget to target server')
     .option('-d, --dest <dest>', 'Set the directory publish assets (default: dist)')
     .action(wrapCommand(createPublish()))
+
+  program
+    .command('config', 'Config Spearjs Cli')
+    .option('-l, --list', 'print spearjs cli config list')
+    .option('-a, --add-repository <repository>', 'add repository')
+    .option('-d, --delete-repository <repository>', 'delete a repository')
+    .action(wrapCommand(createConfig()))
+
+  // program.command('login')
 
   program.parse(process.argv)
 }

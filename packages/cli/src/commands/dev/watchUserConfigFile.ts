@@ -1,6 +1,6 @@
 import { chalk, logger } from '@spearjs/utils'
 import * as chokidar from 'chokidar'
-import { FSWatcher } from 'chokidar'
+import type { FSWatcher } from 'chokidar'
 
 export const watchUserConfigFile = ({
   userConfigPath,

@@ -1,7 +1,7 @@
 import type { InlineConfig, ViteDevServer } from 'vite'
 import { createServer } from 'vite'
 import type { DevCommandOptions } from '../commands'
-import type { UserConfig } from '../config'
+import type { UserConfig } from '../userConfig'
 import { resolveBasicConfig, resolveDevConfig } from './config'
 
 export const createDevApp = async (

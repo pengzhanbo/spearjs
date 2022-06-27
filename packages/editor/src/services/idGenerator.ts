@@ -4,9 +4,9 @@ const LETTER_CHAR = 'abcdefghijklmnopqrstuvwxyz'
 const NUMBER_CHAR = '1234567890'
 const HASH_CHAR = '1234567890abcdef'
 
-const letterId = customAlphabet(LETTER_CHAR, 8)
+const letterId = customAlphabet(LETTER_CHAR, 10)
 const numberId = customAlphabet(NUMBER_CHAR, 8)
-const letterSortId = customAlphabet(LETTER_CHAR, 5)
+const letterSortId = customAlphabet(LETTER_CHAR, 6)
 const hashId = customAlphabet(HASH_CHAR, 8)
 
 export const generateBid = () => `com_${letterId()}`

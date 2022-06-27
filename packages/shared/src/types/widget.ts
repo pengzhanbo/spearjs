@@ -69,8 +69,8 @@ export interface ComponentWidget<P = Record<string, any>> extends BaseWidget {
   layer?: WidgetComponentLayer
   description: () => ReturnType<RenderFunction>
   preview: () => ReturnType<RenderFunction>
-  setup?: <RawBindings = object>(props: Readonly<P>, ctx: SetupContext) => RawBindings
-  render?: (option: {
+  setup?: (props: Readonly<P>, ctx: SetupContext) => undefined | Record<string, any>
+  render: (option: {
     props: Readonly<P>
     slots: WidgetSlots
     [prop: string]: any

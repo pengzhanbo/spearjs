@@ -1,10 +1,10 @@
 import { debug, logger } from '@spearjs/utils'
-import type { DevCommand } from './types'
+import type { FSWatcher } from 'chokidar'
+import { resolveUserConfigPath } from '../../userConfig'
 import { createDevApp } from '../../vite'
-import { resolveUserConfigPath } from '../../config'
 import { resolveDevUserConfig } from './resolveDevUserConfig'
+import type { DevCommand } from './types'
 import { watchUserConfigFile } from './watchUserConfigFile'
-import { FSWatcher } from 'chokidar'
 
 export const createDev = (): DevCommand => {
   const log = debug('spearjs:cli/dev')

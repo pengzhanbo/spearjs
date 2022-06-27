@@ -23,14 +23,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./editor": {
-      "import": "./dist/editor/index.js",
-      "require": "./dist/editor/index.cjs"
-    },
-    "./render": {
-      "import": "./dist/render/index.js",
-      "require": "./dist/render/index.cjs"
-    },
     "./app.css": {
       "import": "./dist/css/app.css"
     },
@@ -63,14 +55,10 @@
   "tsup": {
     "clean": true,
     "dts": [
-      "src/index.ts",
-      "src/editor/index.ts",
-      "src/render/index.ts"
+      "src/index.ts"
     ],
     "entry": [
-      "src/index.ts",
-      "src/editor/index.ts",
-      "src/render/index.ts"
+      "src/index.ts"
     ],
     "format": [
       "cjs",

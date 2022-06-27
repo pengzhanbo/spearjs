@@ -22,6 +22,7 @@
     "pinia",
     "pnpm",
     "spearjs",
+    "spearjslowcoderc",
     "tsbuildinfo",
     "tsup",
     "unplugin",

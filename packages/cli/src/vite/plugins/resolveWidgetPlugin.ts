@@ -1,25 +1,10 @@
 import { path } from '@spearjs/utils'
 import type { Plugin } from 'vite'
-import type { UserConfig } from '../../config'
+import type { UserConfig } from '../../userConfig'
 
-const descriptionModuleId = 'spearjs/widget/description'
 const editorModuleId = 'spearjs/widget/editor'
 const renderModuleId = 'spearjs/widget/render'
 const configModuleId = 'spearjs/widget/config'
-
-const resolveDescriptionCode = ({ description }: UserConfig): string | null => {
-  if (description) {
-    return `export default function description() { return <p>${description}</p> }`
-  }
-  return null
-}
-
-const resolveDescriptionFileCode = ({ descriptionFiles }: UserConfig): string | null => {
-  if (descriptionFiles) {
-    return `import description from '${descriptionFiles}'\nexport default description\n`
-  }
-  return null
-}
 
 const resolveEditorCode = ({ editorFiles }: UserConfig): string | null => {
   if (editorFiles) {
@@ -41,7 +26,7 @@ const resolveConfigCode = (userConfig: UserConfig): string => {
   const config: Record<any, any> = {
     id: pkg.widgetId || '',
     version: pkg.version || '',
-    label: userConfig.label || pkg.name,
+    name: userConfig.name || pkg.name,
     platform: userConfig.platform,
     type: userConfig.type,
     componentType: (userConfig as any).componentType,
@@ -54,26 +39,12 @@ export const resolveWidgetPlugin = (userConfig: UserConfig): Plugin => {
   return {
     name: 'vite-plugin-spearjs-widget',
     resolveId(id) {
-      if (id === descriptionModuleId) {
-        if (userConfig.descriptionFiles) {
-          return `${id}.ts`
-        }
-        if (userConfig.description) {
-          return `${id}.tsx`
-        }
-      }
       if ([editorModuleId, renderModuleId, configModuleId].includes(id)) {
         return `${id}.ts`
       }
     },
 
     load(id) {
-      if (id === descriptionModuleId + '.tsx') {
-        return resolveDescriptionCode(userConfig)
-      }
-      if (id === descriptionModuleId + '.ts') {
-        return resolveDescriptionFileCode(userConfig)
-      }
       if (id === editorModuleId + '.ts') {
         return resolveEditorCode(userConfig)
       }

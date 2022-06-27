@@ -1,7 +1,8 @@
+import styles from './editor.module.scss'
 export default () => {
   return (
     <>
-      <button>按钮</button>
+      <button class={styles.txt}>按钮</button>
     </>
   )
 }

@@ -15,6 +15,5 @@
     "experimentalDisableTemplateSupport": true
   },
   "include": ["./packages/**/*", "./docs/**/*", "./widgets/**/*"],
-  "exclude": ["node_modules", "dist"],
-  "references": [{ "path": "./packages/server/tsconfig.cjs.json" }]
+  "exclude": ["node_modules", "dist"]
 }

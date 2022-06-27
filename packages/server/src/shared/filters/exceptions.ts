@@ -21,7 +21,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       const httpException: FetchException = exception as FetchException
       const httpResponse: any = httpException.getResponse()
       response.status(HttpStatus.OK).json({
-        code: httpResponse.code,
+        code: httpResponse.statusCode,
         message: httpResponse.message,
       })
       return
