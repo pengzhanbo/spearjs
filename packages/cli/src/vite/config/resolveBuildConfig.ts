@@ -35,7 +35,6 @@ export const resolveBuildConfig = (
         'element-plus': 'ElementPlus',
         'vant': 'Vant',
         'ant-design-vue': 'AntDesignVue',
-        'cube-ui': 'CubeUi',
         'naive-ui': 'NaiveUI',
       },
     },

@@ -2,6 +2,7 @@ import * as path from 'path'
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { CookieOptions } from 'express'
 interface ConfigOptions {
+  staticDir: string
   database: TypeOrmModuleOptions
   token: {
     name: string
@@ -13,8 +14,10 @@ interface ConfigOptions {
     ignoreMethods: string[]
   }
 }
+
 export default (): ConfigOptions => {
   return {
+    staticDir: path.join(process.cwd(), 'static'),
     database: {
       type: 'mysql',
       entities: [path.resolve(__dirname, '../entities', '*.entity.{ts,js}')],

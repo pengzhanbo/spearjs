@@ -1,5 +1,7 @@
+import * as path from 'path'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ApplicationModule } from './application/application.module'
 import AppConfig from './config'
@@ -11,6 +13,9 @@ import { WidgetModule } from './widget/widget.module'
       envFilePath: ['.env.local', '.env'],
       load: [AppConfig],
       isGlobal: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.join(process.cwd(), 'static'),
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],

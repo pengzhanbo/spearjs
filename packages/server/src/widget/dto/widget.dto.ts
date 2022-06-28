@@ -1,5 +1,6 @@
-import { IsString } from 'class-validator'
-export class UpdateWidgetDto {
+import { IsNumberString, IsString } from 'class-validator'
+
+export class WidgetDto {
   @IsString()
   widgetId!: string
 
@@ -20,4 +21,7 @@ export class UpdateWidgetDto {
 
   @IsString()
   version!: string
+
+  @IsNumberString()
+  latest!: number
 }

@@ -79,5 +79,12 @@
   "engines": {
     "node": ">=14",
     "pnpm": ">=7"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "webpack"
+      ]
+    }
   }
 }

@@ -7,7 +7,6 @@ export const validation = () =>
     whitelist: true,
     transform: true,
     exceptionFactory: (errors: ValidationError[]) => {
-      console.log(111, errors)
       const error: ValidationError = errors[0]
       let code: number
       let message: string

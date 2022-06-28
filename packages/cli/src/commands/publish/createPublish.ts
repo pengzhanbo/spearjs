@@ -33,12 +33,19 @@ export const createPublish = (): PublishCommand => {
 
     // 更新版本号
     const versionList = getVersionList(pkg.version)
-    const { version } = await inquirer.prompt([
+    const { version, latest } = await inquirer.prompt([
       {
         name: 'version',
+        message: '选择发布版本号',
         type: 'list',
         choices: versionList,
         default: versionList[0].value,
+      },
+      {
+        name: 'latest',
+        message: '是否作为最新可用版本？',
+        type: 'confirm',
+        default: false,
       },
     ])
     pkg.version = version
@@ -65,8 +72,24 @@ export const createPublish = (): PublishCommand => {
     formData.append('componentType', (userConfig as UserConfigByComponent).componentType)
     formData.append('componentSubType', (userConfig as UserConfigByComponent).componentSubType)
     formData.append('file', fs.createReadStream(cacheZip))
+    formData.append(
+      'editorAssert',
+      JSON.stringify({
+        js: 'editor/index.iife.js',
+        css: 'editor/style.css',
+      })
+    )
+    formData.append(
+      'renderAssert',
+      JSON.stringify({
+        js: 'render/index.iife.js',
+        css: 'render/style.css',
+      })
+    )
+    formData.append('latest', latest ? 1 : 0)
 
     const res = (await updateWidget(http, formData)) as unknown as { code: number; message: string }
+    // 删除临时压缩包
     await fs.unlink(cacheZip)
 
     // 更新 package.json

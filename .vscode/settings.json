@@ -17,6 +17,7 @@
     "commitlint",
     "datetime",
     "esbuild",
+    "iife",
     "mediumtext",
     "nprogress",
     "pinia",

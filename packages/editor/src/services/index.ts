@@ -7,3 +7,5 @@ export * from './appBlocks'
 export * from './createProps'
 export * from './getPropsSelectOptions'
 export * from './createStyles'
+
+export * from './Loader'
