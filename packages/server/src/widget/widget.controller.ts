@@ -17,9 +17,9 @@ import { WidgetService } from './widget.service'
 export class WidgetController {
   constructor(private readonly widgetService: WidgetService) {}
 
-  @Post('/upload')
+  @Post('/publish')
   @UseInterceptors(FileInterceptor('file'))
-  async upload(@UploadedFile() file: Express.Multer.File, @Body() body: UploadWidgetDto) {
+  async publish(@UploadedFile() file: Express.Multer.File, @Body() body: UploadWidgetDto) {
     const asserts = await this.widgetService.uploadFile(file, body)
     await this.widgetService.updateWidget(body, asserts)
     return {}

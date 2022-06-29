@@ -107,8 +107,11 @@ export class WidgetService {
     const staticDir = this.config.get('staticDir')
     const widgetDir = path.join('/widgets', `${widget.widgetId}-${widget.version}`)
     const outputDir = path.join(staticDir, widgetDir)
-    await fs.ensureDir(outputDir)
-    await extractZip(file.path, { dir: outputDir })
+
+    await fs.ensureDir(outputDir) // 创建目录
+    await extractZip(file.path, { dir: outputDir }) // 解压
+    await fs.unlink(file.path) // 删除临时压缩包
+
     const editorAssert = JSON.parse(widget.editorAssert)
     const renderAssert = JSON.parse(widget.renderAssert)
     editorAssert.js = path.join(widgetDir, editorAssert.js)
