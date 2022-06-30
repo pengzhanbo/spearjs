@@ -12,6 +12,7 @@ export class WidgetVersionsEntity extends BaseEntity {
     super()
     Object.assign(this, options)
   }
+
   @Column('varchar', { length: 16, name: 'widget_id', comment: 'widget ID' })
   widgetId!: string
 
@@ -66,6 +67,10 @@ export class WidgetVersionsEntity extends BaseEntity {
 
 @Entity({ name: 'tb_widget' })
 export class WidgetEntity extends WidgetVersionsEntity {
+  constructor(options: Partial<WidgetEntity>) {
+    super(options)
+  }
+
   @Exclude()
   @Column('bigint', { default: 1 })
   order!: number

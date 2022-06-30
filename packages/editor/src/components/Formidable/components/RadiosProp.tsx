@@ -1,5 +1,6 @@
 import type { WidgetRadioProp } from '@spearjs/shared'
-import { ElColorPicker, ElFormItem } from 'element-plus'
+import { isObject } from '@spearjs/shared'
+import { ElFormItem, ElRadio, ElRadioButton, ElRadioGroup } from 'element-plus'
 import { computed, defineComponent } from 'vue'
 import type { PropType } from 'vue'
 import type { FormInjectKey } from '../hooks'
@@ -22,22 +23,45 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const model = useFormData(props.injectKey)
     const dotKey = useDotKey(props)
-    const color = useDotProp(model, dotKey)
+    const radio = useDotProp(model, dotKey)
 
     const options = computed(() => {
-      // const { colorFormat, showAlpha, predefine } = props.config
-      // return { colorFormat, showAlpha, predefine }
-      return {}
+      return props.config.options.map((option) => {
+        if (isObject(option)) {
+          return option
+        } else {
+          return { label: option, value: option }
+        }
+      })
     })
 
     return () => (
-      <ElFormItem label={props.config.label} labelWidth="auto" prop={dotKey.value}>
+      <ElFormItem
+        label={props.config.label}
+        labelWidth="auto"
+        prop={dotKey.value}
+        v-show={props.show}
+      >
         <p class="w-full flex items-center justify-start">
-          <ElColorPicker class="flex-1" v-model={color.value} {...options.value} />
+          <ElRadioGroup class="flex-1" v-model={radio.value}>
+            {options.value.map(({ label, value }) =>
+              props.config.button ? (
+                <ElRadioButton label={value}>{label}</ElRadioButton>
+              ) : (
+                <ElRadio label={value} border={props.config.border}>
+                  {label}
+                </ElRadio>
+              )
+            )}
+          </ElRadioGroup>
           {tips(props.config.tips)}
           {slots.default?.()}
         </p>

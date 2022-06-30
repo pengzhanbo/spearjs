@@ -15,6 +15,10 @@ export default defineComponent({
       type: Symbol as PropType<FormInjectKey>,
       required: true,
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup() {
     return () => <div>date</div>

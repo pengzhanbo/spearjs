@@ -7,7 +7,7 @@ export const isArray = (val: unknown): val is any[] => Array.isArray(val)
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const isFunction = (val: unknown): val is Function => typeof val === 'function'
 
-export const isObject = (val: unknown): boolean => val !== null && typeof val === 'object'
+export const isObject = (val: unknown): val is object => val !== null && typeof val === 'object'
 
 export const isMap = (val: unknown): boolean => checkType(val) === 'Map'
 

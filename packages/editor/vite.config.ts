@@ -23,6 +23,12 @@ export default defineConfig(({ mode }): UserConfig => {
           secure: false,
           rewrite: (url) => url.replace('/api/', '/'),
         },
+        '/static': {
+          target: 'http://localhost:4396',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (url) => url.replace('/static/', '/'),
+        },
       },
     },
     plugins: [vue(), vueJsx(), windicss(), legacy({ targets: ['defaults', 'not IE 11'] })],

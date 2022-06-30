@@ -21,6 +21,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const model = useFormData(props.injectKey)
@@ -33,7 +37,12 @@ export default defineComponent({
     })
 
     return () => (
-      <ElFormItem class="w-full mr-4" label={props.config.label} prop={dotKey.value}>
+      <ElFormItem
+        class="w-full mr-4"
+        label={props.config.label}
+        prop={dotKey.value}
+        v-show={props.show}
+      >
         <p class="w-full flex items-center justify-start">
           <ElSlider class="flex-1" v-model={slider.value} {...options.value} />
           {tips(props.config.tips)}

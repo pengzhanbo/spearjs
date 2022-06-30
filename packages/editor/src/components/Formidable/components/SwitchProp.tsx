@@ -21,6 +21,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const model = useFormData(props.injectKey)
@@ -42,7 +46,12 @@ export default defineComponent({
       return option
     })
     return () => (
-      <ElFormItem label={props.config.label} labelWidth="auto" prop={dotKey.value}>
+      <ElFormItem
+        label={props.config.label}
+        labelWidth="auto"
+        prop={dotKey.value}
+        v-show={props.show}
+      >
         <p class="w-full flex items-center justify-start">
           <ElSwitch class="flex-1" v-model={binding.value} {...options.value} />
           {tips(props.config.tips)}

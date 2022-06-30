@@ -22,6 +22,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const borderRegExp = /^(\w+)\s(-?\d+\.?\d+?)(px|rem|%)?\s([^]+)$/
@@ -91,7 +95,12 @@ export default defineComponent({
     })
 
     return () => (
-      <ElFormItem label={props.config.label} labelWidth="auto" prop={dotKey.value}>
+      <ElFormItem
+        label={props.config.label}
+        labelWidth="auto"
+        prop={dotKey.value}
+        v-show={props.show}
+      >
         <p class="w-full flex items-center justify-start">
           <ElInput type="number" v-model={borderStyle.value.width} disabled={disabled.value}>
             {{

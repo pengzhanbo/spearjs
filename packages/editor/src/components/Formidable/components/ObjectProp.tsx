@@ -22,11 +22,15 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const dotKey = useDotKey(props)
     return () => (
-      <div class={styles.objectWrapper}>
+      <div class={styles.objectWrapper} v-show={props.show}>
         <div class="flex-1">
           <p class={styles.objectTitle}>
             <span>{props.config.label}</span>

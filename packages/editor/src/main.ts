@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App'
-import { setupElementPlus } from './plugins'
+import { setupElementPlus, setupVant } from './plugins'
 import { router, setupRouter } from './router'
 import { setupStore } from './stores'
 import './widgets'
@@ -15,5 +15,6 @@ const app = createApp(App)
 setupStore(app)
 setupRouter(app)
 setupElementPlus(app)
+setupVant(app)
 
 router.isReady().then(() => app.mount('#app'))

@@ -11,8 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
 
 packages/server/upload
+packages/server/static
 
 # Editor directories and files
 .vscode/*

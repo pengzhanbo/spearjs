@@ -4,6 +4,7 @@ import type { WidgetGroupProp, WidgetPropItem, WidgetProps } from '@spearjs/shar
 export function getDefaultValue(prop: WidgetPropItem): any {
   switch (prop.type) {
     case 'text':
+    case 'radio':
       return prop.defaultValue || ''
     case 'number':
       return prop.defaultValue || prop.min || 0
@@ -25,6 +26,8 @@ export function getDefaultValue(prop: WidgetPropItem): any {
       return hasOwn(prop, 'defaultValue') ? prop.defaultValue : false
     case 'date':
       return prop.defaultValue || new Date()
+    case 'checkbox':
+      return prop.defaultValue || []
     case 'array':
       if (prop.defaultValue) return prop.defaultValue
       if (isArray(prop.items)) {

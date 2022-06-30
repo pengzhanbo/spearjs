@@ -37,7 +37,16 @@ export type WidgetPropItem =
 
 export type WidgetProps = (WidgetPropItem | WidgetGroupProp)[]
 
-export interface WidgetBaseProp {
+export type WidgetPropOptions = (
+  | {
+      label: string
+      value: any
+    }
+  | string
+  | number
+)[]
+
+export interface WidgetBaseProp<P = Record<string, any>> {
   /**
    * prop key
    */
@@ -54,6 +63,8 @@ export interface WidgetBaseProp {
    * 提示信息
    */
   tips?: string
+
+  showProp?: boolean | ((props: P) => boolean)
 }
 
 /**
@@ -62,7 +73,7 @@ export interface WidgetBaseProp {
  * 分组有利于 分类 不同的 prop，
  * 用更加清晰的方式组织你的props
  */
-export interface WidgetGroupProp {
+export interface WidgetGroupProp<P = Record<string, any>> {
   type: 'group'
   label: string
   /**
@@ -78,6 +89,8 @@ export interface WidgetGroupProp {
    */
   tips?: string
   props: WidgetPropItem[]
+
+  showProp?: boolean | ((props: P) => boolean)
 }
 
 /**
@@ -194,23 +207,17 @@ export interface WidgetSwitchProp extends WidgetBaseProp {
 export interface WidgetRadioProp extends WidgetBaseProp {
   type: 'radio'
   defaultValue?: any
-  options: {
-    label: string
-    value: any
-  }[]
+  options: WidgetPropOptions
   border?: boolean
   button?: boolean
 }
 
 export interface WidgetCheckboxProp extends WidgetBaseProp {
   type: 'checkbox'
-  defaultValue?: any
+  defaultValue?: any[]
   border?: boolean
   button?: boolean
-  options: {
-    label: string
-    value: any
-  }
+  options: WidgetPropOptions
   checkAll?: boolean
   min?: number
   max?: number

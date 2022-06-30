@@ -1,10 +1,12 @@
 import { ArrowRightBold } from '@element-plus/icons-vue'
 import type { WidgetGroupProp } from '@spearjs/shared'
+import { isFunction } from '@spearjs/shared'
 import { ElCollapseTransition, ElIcon } from 'element-plus'
 import isBoolean from 'lodash-es/isBoolean'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, readonly, ref, toRaw } from 'vue'
 import type { PropType } from 'vue'
 import type { FormInjectKey } from './hooks'
+import { useFormData } from './hooks'
 import styles from './index.module.scss'
 import PropItem from './PropItem'
 import { tips } from './Tips'
@@ -22,6 +24,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const model = useFormData(props.injectKey)
     const spread = ref(
       props.config.forgetSpread ? true : isBoolean(props.config.spread) ? props.config.spread : true
     )
@@ -29,8 +32,12 @@ export default defineComponent({
       if (props.config.forgetSpread) return
       spread.value = !spread.value
     }
+    const show = computed(() => {
+      const showProp = typeof props.config.showProp === 'undefined' ? true : props.config.showProp
+      return isFunction(showProp) ? showProp(readonly(toRaw(model))) : showProp
+    })
     return () => (
-      <div class={styles.groupWrapper}>
+      <div class={styles.groupWrapper} v-show={show.value}>
         <label class={styles.groupLabel} onClick={handleClick}>
           {tips(props.config.tips)}
           <span>{props.config.label}</span>

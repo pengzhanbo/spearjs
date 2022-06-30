@@ -24,6 +24,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
     "react-dnd-html5-backend": "^16.0.1",
+    "vant": "^3.5.2",
     "vue": "^3.2.33",
     "vue-router": "^4.0.15",
     "vue3-dnd": "^2.0.0"

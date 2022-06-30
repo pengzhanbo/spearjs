@@ -38,6 +38,22 @@ export const getWidgetComponentList = async ({
       componentType: 'basis',
       url: '',
     },
+    {
+      id: 'vant-button',
+      label: 'vant-button',
+      version: '1.0.0',
+      type: 'component',
+      componentType: 'basis',
+      url: '',
+    },
+    {
+      id: 'vant-cell',
+      label: 'vant-cell',
+      version: '1.0.0',
+      type: 'component',
+      componentType: 'basis',
+      url: '',
+    },
   ]
 }
 

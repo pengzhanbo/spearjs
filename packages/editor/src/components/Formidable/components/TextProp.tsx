@@ -21,6 +21,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const model = useFormData(props.injectKey)
@@ -45,6 +49,8 @@ export default defineComponent({
         labelWidth="auto"
         rules={props.config.rules}
         prop={dotKey.value}
+        v-show={props.show}
+        style={{ width: props.config.textarea ? '100%' : '' }}
       >
         <p class="w-full flex items-center justify-start">
           <ElInput class="flex-1" v-model={text.value} {...options.value} />

@@ -26,6 +26,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    show: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     const model = useFormData(props.injectKey)
@@ -52,7 +56,7 @@ export default defineComponent({
     }
 
     return () => (
-      <div class={styles.arrayWrapper}>
+      <div class={styles.arrayWrapper} v-show={props.show}>
         <div class="flex-1">
           <p class={styles.arrayTitle}>
             <span>{props.config.label}</span>
