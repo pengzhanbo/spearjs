@@ -86,8 +86,8 @@ export default {
       key: 'arrow-direction',
       label: '箭头方向',
       options: [
-        { label: '向上', value: 'up' },
         { label: '向右', value: 'right' },
+        { label: '向上', value: 'up' },
         { label: '向下', value: 'down' },
         { label: '向左', value: 'left' },
       ],

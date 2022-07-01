@@ -6,9 +6,9 @@ import { BaseEntity } from './Base'
  * widget 列表
  * 包括widget的所有版本，详细信息
  */
-@Entity({ name: 'tb_widget_version_list' })
-export class WidgetVersionsEntity extends BaseEntity {
-  constructor(options: Partial<WidgetVersionsEntity>) {
+@Entity({ name: 'tb_widget_history' })
+export class WidgetHistoryEntity extends BaseEntity {
+  constructor(options: Partial<WidgetHistoryEntity>) {
     super()
     Object.assign(this, options)
   }
@@ -66,7 +66,7 @@ export class WidgetVersionsEntity extends BaseEntity {
 }
 
 @Entity({ name: 'tb_widget' })
-export class WidgetEntity extends WidgetVersionsEntity {
+export class WidgetEntity extends WidgetHistoryEntity {
   constructor(options: Partial<WidgetEntity>) {
     super(options)
   }

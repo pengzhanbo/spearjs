@@ -2,11 +2,15 @@ import type { FormItemRule } from 'element-plus'
 import type { CSSProperties } from 'vue'
 
 /**
- * text 文本输入框 | number 数组输入框 | select 下拉选择器 | radio 单选框 |
+ * textView 文本展示 | text 文本输入框 | number 数组输入框 | select 下拉选择器 | radio 单选框 |
  * checkbox 复选框 | color 颜色选择器 | border 边框选择器 | slider 滑动条 |
  * group 分组 | object 对象配置 | array 数组配置
+ *
+ * todo: route 选择跳转路由 | service 选择服务 | bindModel 数据模型绑定
+ * todo: richText 富文本编辑 | upload 资源上传
  */
 export type WidgetPropsType =
+  | 'textView'
   | 'text'
   | 'number'
   | 'select'
@@ -17,11 +21,13 @@ export type WidgetPropsType =
   | 'color'
   | 'border'
   | 'slider'
+  | 'richText'
   | 'group'
   | 'object'
   | 'array'
 
 export type WidgetPropItem =
+  | WidgetTextViewProp
   | WidgetTextProp
   | WidgetNumberProp
   | WidgetSelectProp
@@ -32,6 +38,7 @@ export type WidgetPropItem =
   | WidgetDateProp
   | WidgetColorProp
   | WidgetBorderProp
+  | WidgetRichTextProp
   | WidgetObjectProp
   | WidgetArrayProp
 
@@ -91,6 +98,10 @@ export interface WidgetGroupProp<P = Record<string, any>> {
   props: WidgetPropItem[]
 
   showProp?: boolean | ((props: P) => boolean)
+}
+
+export interface WidgetTextViewProp extends WidgetBaseProp {
+  type: 'textView'
 }
 
 /**
@@ -175,7 +186,7 @@ export type WidgetSelectPropOptions<T = any> = (
 export interface WidgetSelectProp<T = any> extends WidgetBaseProp {
   type: 'select'
   defaultValue?: T
-  options: WidgetSelectPropOptions<T>
+  options: WidgetSelectPropOptions<T> | ((props: Record<string, any>) => WidgetSelectPropOptions<T>)
   multiple?: boolean
   multipleLimit?: number
   keyValue?: string
@@ -235,6 +246,7 @@ export interface WidgetSliderProp extends WidgetBaseProp {
   marks?: Record<number | string, string | { style?: CSSProperties; label: string }>
 }
 
+// todo date prop
 export interface WidgetDateProp extends WidgetBaseProp {
   type: 'date'
   defaultValue?: Date
@@ -259,6 +271,11 @@ export interface WidgetBorderProp extends WidgetBaseProp {
   predefine?: string[]
 }
 
+export interface WidgetRichTextProp extends WidgetBaseProp {
+  type: 'richText'
+  defaultValue?: string
+}
+
 export interface WidgetObjectProp extends WidgetBaseProp {
   type: 'object'
   label: string
@@ -267,6 +284,7 @@ export interface WidgetObjectProp extends WidgetBaseProp {
 }
 
 export type WidgetArrayPropItem =
+  | Omit<WidgetTextViewProp, 'key'>
   | Omit<WidgetTextProp, 'key'>
   | Omit<WidgetNumberProp, 'key'>
   | Omit<WidgetSelectProp, 'key'>
@@ -277,6 +295,7 @@ export type WidgetArrayPropItem =
   | Omit<WidgetDateProp, 'key'>
   | Omit<WidgetColorProp, 'key'>
   | Omit<WidgetBorderProp, 'key'>
+  | Omit<WidgetRichTextProp, 'key'>
   | Omit<WidgetObjectProp, 'key'>
   | Omit<WidgetArrayProp, 'key'>
 

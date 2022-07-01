@@ -7,11 +7,13 @@ import { defineStore } from 'pinia'
  *
  * lib 实际上也是 widget的一部分
  */
-export const appConfigStore = defineStore('appConfig', {
-  state: () => ({
-    appId: '',
+export const useAppConfigStore = defineStore('appConfig', {
+  state: (): AppConfig => ({
+    appId: 'test-1',
     name: '',
-    platform: '',
+    platform: 'PC',
+    description: '描述信息',
+    dependence: '',
     services: [],
     themeConfig: {
       CssVars: {
@@ -21,10 +23,25 @@ export const appConfigStore = defineStore('appConfig', {
       },
     },
   }),
+  actions: {
+    updateConfig(config: Partial<AppConfig>) {
+      Object.assign(this, config)
+    },
+  },
 })
+
+export interface AppConfig {
+  appId: string
+  name: string
+  platform: string
+  description: string
+  dependence: string
+  services: AppService[]
+  themeConfig: Record<string, any>
+}
 
 export interface AppService {
   id: string
-  version: `${number}.${number}.${number}` | `${number}.${number}.${number}-${string}`
+  version: string
   label: string
 }

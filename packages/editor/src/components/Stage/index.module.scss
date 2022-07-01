@@ -1,6 +1,6 @@
 .stage-wrapper {
-  background-color: var(--c-bg-container);
-  @apply shadow-md;
+  background-color: var(--app-c-bg);
+  @apply shadow-md transition-colors;
 }
 
 .stage-container {

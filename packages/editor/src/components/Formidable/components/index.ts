@@ -8,15 +8,18 @@ import DateProp from './DateProp'
 import NumberProp from './NumberProp'
 import ObjectProp from './ObjectProp'
 import RadioProp from './RadiosProp'
+import RichTextProp from './RichTextProp'
 import SelectProp from './SelectProp'
 import SlideProp from './SlideProp'
 import SwitchProp from './SwitchProp'
 import TextProp from './TextProp'
+import TextViewProp from './TextViewProp'
 
 export const components: Record<
   Exclude<WidgetPropsType, 'group'>,
   DefineComponent<any, any, any>
 > = {
+  textView: TextViewProp,
   text: TextProp,
   number: NumberProp,
   select: SelectProp,
@@ -27,6 +30,7 @@ export const components: Record<
   color: ColorProp,
   border: BorderProp,
   slider: SlideProp,
+  richText: RichTextProp,
   array: ArrayProp,
   object: ObjectProp,
 }

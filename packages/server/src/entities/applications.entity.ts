@@ -25,3 +25,9 @@ export class ApplicationEntity extends BaseEntity {
   @Column('mediumtext')
   config!: string
 }
+
+@Entity({ name: 'tb_application_history' })
+export class ApplicationHistoryEntity extends ApplicationEntity {}
+
+@Entity({ name: 'tb_application_draft' })
+export class ApplicationDraftEntity extends ApplicationEntity {}

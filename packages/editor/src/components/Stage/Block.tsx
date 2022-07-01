@@ -73,7 +73,7 @@ export default defineComponent({
 
     // 当进行拖拽时，将拖拽中的元素变为全透明
     const opacity = computed(() => {
-      return dragCollect.value.isDragging ? 0 : block.value.styles.opacity || 1
+      return dragCollect.value.isDragging ? 0 : block.value.styles.opacity
     })
     const borderKey = ['borderTop', 'borderRight', 'borderBottom', 'borderLeft']
     const blockStyles = computed(() => {

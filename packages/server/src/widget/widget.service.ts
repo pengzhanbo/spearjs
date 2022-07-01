@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { fs, path } from '@spearjs/utils'
 import * as extractZip from 'extract-zip'
 import { EntityManager, Repository } from 'typeorm'
-import { WidgetEntity, WidgetVersionsEntity } from '../entities'
+import { WidgetEntity, WidgetHistoryEntity } from '../entities'
 import { UploadWidgetDto, WidgetDto } from './dto'
 
 @Injectable()
@@ -13,8 +13,8 @@ export class WidgetService {
     private readonly config: ConfigService,
     @InjectRepository(WidgetEntity)
     private readonly widgetEntity: Repository<WidgetEntity>,
-    @InjectRepository(WidgetVersionsEntity)
-    private readonly versionListEntity: Repository<WidgetVersionsEntity>
+    @InjectRepository(WidgetHistoryEntity)
+    private readonly widgetHistoryEntity: Repository<WidgetHistoryEntity>
   ) {}
 
   /**
@@ -38,14 +38,14 @@ export class WidgetService {
     const widget = await this.widgetEntity.findOne({
       where: { widgetId: body.widgetId },
     })
-    const versionWidget = await this.versionListEntity.findOne({
+    const versionWidget = await this.widgetHistoryEntity.findOne({
       where: { widgetId: body.widgetId, version: body?.version },
     })
     const editorUrl = assert.editorAssert
     const renderUrl = assert.renderAssert
     const latest = Number(body.latest) === 1
     const currentTime = new Date()
-    const current = new WidgetVersionsEntity({
+    const current = new WidgetHistoryEntity({
       version: body.version,
       name: body.name,
       type: body.type,
@@ -59,7 +59,7 @@ export class WidgetService {
       renderUrl,
       updateTime: currentTime,
     })
-    await this.versionListEntity.manager.transaction(async (manager: EntityManager) => {
+    await this.widgetHistoryEntity.manager.transaction(async (manager: EntityManager) => {
       // 在 widget 表中已存在，检查是否更新 latest 的版本，并将版本添加到 WidgetVersionList表
       // 如果不存在，则更新widget，且添加版本
       // 如果是版本号一致，则仅更新 widgetVersionList
@@ -80,18 +80,18 @@ export class WidgetService {
 
       if (latest) {
         // 如果重新设置 latest， 则需要将旧的重置为false
-        const latestWidget = await manager.findOne(WidgetVersionsEntity, {
+        const latestWidget = await manager.findOne(WidgetHistoryEntity, {
           where: { widgetId: body.widgetId, latest: true },
         })
         latestWidget &&
           latestWidget.version !== body.version &&
-          (await manager.update(WidgetVersionsEntity, latestWidget.id, {
+          (await manager.update(WidgetHistoryEntity, latestWidget.id, {
             latest: false,
             updateTime: new Date(),
           }))
       }
       if (versionWidget) {
-        await manager.update(WidgetVersionsEntity, versionWidget.id, current)
+        await manager.update(WidgetHistoryEntity, versionWidget.id, current)
       } else {
         current.widgetId = body.widgetId
         current.createTime = currentTime

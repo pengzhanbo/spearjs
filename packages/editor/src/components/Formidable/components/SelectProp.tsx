@@ -3,8 +3,9 @@ import type {
   WidgetSelectPropOptionsGroup,
   WidgetSelectPropOptionsItem,
 } from '@spearjs/shared'
+import { isFunction } from '@spearjs/shared'
 import { ElFormItem, ElOption, ElOptionGroup, ElSelect } from 'element-plus'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, readonly, toRaw } from 'vue'
 import type { PropType } from 'vue'
 import type { FormInjectKey } from '../hooks'
 import { useDotKey, useDotProp, useFormData } from '../hooks'
@@ -38,20 +39,49 @@ export default defineComponent({
     const binding = useDotProp(model, dotKey)
 
     const options = computed(() => {
-      /* TODO select options 配置属性白名单优化
-       * 虽然这种模式可以拿到 options，但是存在隐患，
-       * 后面再改成白名单获取值
-       */
       const {
-        defaultValue: _d,
-        type: _t,
-        tips: _ti,
-        options: _o,
-        label: _l,
-        key: _k,
-        ...option
+        multiple,
+        multipleLimit,
+        keyValue,
+        clearable,
+        collapseTags,
+        collapseTagsTooltip,
+        placeholder,
+        filterable,
+        allowCreate,
+        filterMethod,
+        remote,
+        remoteMethod,
+        loading,
+        loadingText,
+        noMatchText,
+        noDataText,
+        defaultFirstOption,
       } = props.config
-      return option
+      return {
+        multiple,
+        multipleLimit,
+        keyValue,
+        clearable,
+        collapseTags,
+        collapseTagsTooltip,
+        placeholder,
+        filterable,
+        allowCreate,
+        filterMethod,
+        remote,
+        remoteMethod,
+        loading,
+        loadingText,
+        noMatchText,
+        noDataText,
+        defaultFirstOption,
+      }
+    })
+
+    const selectOptions = computed(() => {
+      const options = props.config.options
+      return isFunction(options) ? options(readonly(toRaw(model.value))) : options
     })
     return () => (
       <ElFormItem
@@ -62,7 +92,7 @@ export default defineComponent({
       >
         <p class="w-full flex items-center justify-start">
           <ElSelect class="flex-1" v-model={binding.value} {...options.value}>
-            {props.config.options.map((option) => {
+            {selectOptions.value.map((option) => {
               if ((option as WidgetSelectPropOptionsGroup).options) {
                 return (
                   <ElOptionGroup key={option.label} label={option.label}>

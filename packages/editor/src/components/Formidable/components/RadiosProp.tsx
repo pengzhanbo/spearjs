@@ -7,7 +7,6 @@ import type { FormInjectKey } from '../hooks'
 import { useDotKey, useDotProp, useFormData } from '../hooks'
 import { tips } from '../Tips'
 
-// TODO RadioProp
 export default defineComponent({
   name: 'FormidableRadioProp',
   props: {

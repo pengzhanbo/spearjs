@@ -26,7 +26,7 @@ export default defineComponent({
     const model = useFormData(props.injectKey)
     const show = computed(() => {
       const showProp = typeof props.config.showProp === 'undefined' ? true : props.config.showProp
-      return isFunction(showProp) ? showProp(readonly(toRaw(model))) : showProp
+      return isFunction(showProp) ? showProp(readonly(toRaw(model.value))) : showProp
     })
 
     return () =>

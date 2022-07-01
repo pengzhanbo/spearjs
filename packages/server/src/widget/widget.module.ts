@@ -3,13 +3,13 @@ import { Module } from '@nestjs/common'
 import { MulterModule } from '@nestjs/platform-express'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { diskStorage } from 'multer'
-import { WidgetEntity, WidgetVersionsEntity } from '../entities'
+import { WidgetEntity, WidgetHistoryEntity } from '../entities'
 import { WidgetController } from './widget.controller'
 import { WidgetService } from './widget.service'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([WidgetEntity, WidgetVersionsEntity]),
+    TypeOrmModule.forFeature([WidgetEntity, WidgetHistoryEntity]),
     MulterModule.register({
       storage: diskStorage({
         destination: path.join(process.cwd(), 'upload'),

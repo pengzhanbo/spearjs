@@ -6,10 +6,13 @@
  */
 
 /* FIXME 放置在非目标元素时，重置回初始位置存在延迟
- * 这个问题 导致自定义layer未立即重置，从表现上看是由于 拖拽预览的默认动画行为导致的
+ * 这个问题 导致自定义layer未立即重置，从表现上看是由于 拖拽预览的默认动画行为导致的 （该问题仅发生在 mac上）
  * 尝试过使用 mouseup 或者 dragend 事件来重写，但效果不理想
  * mouseup事件应该是在 dragend中被阻止冒泡了
  * dragend 是在默认动画行为结束后才触发
+ */
+/* TODO 重新计算layer信息
+ * 如果 元素设置了 定位相关的 偏移， 自定义layer需要重新计算位置信息
  */
 import { WIDGET_DND_TYPE } from '@editor/common'
 import { findBlockByBid } from '@editor/services'
