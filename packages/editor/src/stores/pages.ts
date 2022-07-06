@@ -1,4 +1,4 @@
-import type { AppBlock, AppBlockGroup, AppBlocks } from '@editor/services'
+import type { AppBlock, AppBlockAction, AppBlockGroup, AppBlocks } from '@editor/services'
 import { hasOwn } from '@spearjs/shared'
 import { defineStore } from 'pinia'
 
@@ -130,6 +130,21 @@ export const useAppPagesStore = defineStore('pages', {
           newSlots[name] = oldSlots[name] || []
         })
         this.focusBlock.slots = newSlots
+      }
+    },
+    updateFocusBlockAction(name: string, action: AppBlockAction, index: number) {
+      if (this.focusBlock && this.focusBlock.type === 'block') {
+        this.focusBlock.actions[name][index] = action
+      }
+    },
+    addFocusBlockAction(name: string, action: AppBlockAction) {
+      if (this.focusBlock && this.focusBlock.type === 'block') {
+        this.focusBlock.actions[name].push({ ...action })
+      }
+    },
+    deleteFocusBlockAction(name: string, index: number) {
+      if (this.focusBlock && this.focusBlock.type === 'block') {
+        this.focusBlock.actions[name].splice(index, 1)
       }
     },
   },

@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import type { PropType } from 'vue'
 import { computed, defineComponent, watch, withModifiers } from 'vue'
 import Blocks from './Blocks'
-import { useBlockDnd } from './hooks'
+import { useBlockDnd, useContextMenu } from './hooks'
 import styles from './index.module.scss'
 
 export default defineComponent({
@@ -53,7 +53,15 @@ export default defineComponent({
 
     const { focusBlock } = storeToRefs(pageStore)
 
-    const setFocusBlock = () => pageStore.setFocusBlock(props.group)
+    const { open, close } = useContextMenu()
+
+    const setFocusBlock = () => {
+      pageStore.setFocusBlock(props.group)
+      close()
+    }
+    const onContextMenu = (ev: MouseEvent) => {
+      open(ev, props.group, roadMap.value, props.index)
+    }
 
     // 当进行拖拽时，将拖拽中的元素变为全透明
     const opacity = computed(() => {
@@ -65,6 +73,8 @@ export default defineComponent({
         ref={(el) => setRef(el as Element)}
         class={[
           styles.widgetComponentGroup,
+          styles.hasGroup,
+          styles.right,
           {
             [styles.focus]: props.preview || props.group.bid === focusBlock.value?.bid,
           },
@@ -73,12 +83,17 @@ export default defineComponent({
         data-label={props.group.label}
         data-handler-id={dropCollect.value.handlerId}
         onClick={withModifiers(setFocusBlock, ['stop'])}
+        onContextmenu={withModifiers(onContextMenu, ['stop'])}
       >
-        <Blocks
-          blocks={props.group.blocks}
-          roadMap={roadMap.value}
-          preview={props.preview}
-        ></Blocks>
+        {props.group.blocks.length === 0 ? (
+          <div class={styles.groupPlaceholder}>组件拖拽到此分组：{props.group.label}</div>
+        ) : (
+          <Blocks
+            blocks={props.group.blocks}
+            roadMap={roadMap.value}
+            preview={props.preview}
+          ></Blocks>
+        )}
       </div>
     )
   },

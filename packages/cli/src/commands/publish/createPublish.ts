@@ -70,7 +70,7 @@ export const createPublish = (): PublishCommand => {
     formData.append('type', userConfig.type)
     formData.append('platform', userConfig.platform)
     formData.append('componentType', (userConfig as UserConfigByComponent).componentType)
-    formData.append('componentSubType', (userConfig as UserConfigByComponent).componentSubType)
+    formData.append('dependence', (userConfig as UserConfigByComponent).dependence)
     formData.append('file', fs.createReadStream(cacheZip))
     formData.append(
       'editorAssert',

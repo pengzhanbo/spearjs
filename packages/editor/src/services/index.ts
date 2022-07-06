@@ -8,4 +8,6 @@ export * from './createProps'
 export * from './getPropsSelectOptions'
 export * from './createStyles'
 
+export * from './appActions'
+
 export * from './Loader'

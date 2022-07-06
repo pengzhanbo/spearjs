@@ -5,6 +5,7 @@ import { Close } from '@element-plus/icons-vue'
 import { ElIcon } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
 import { computed, defineComponent } from 'vue'
+import { BlockHeader } from '../ConfigHeader'
 import BoxInput from './BoxInput'
 import styles from './index.module.scss'
 import stylesFormConfig from './stylesFormConfig'
@@ -150,34 +151,32 @@ export default defineComponent({
       </div>
     )
 
-    return () => (
-      <>
-        <p class="flex justify-between items-center text-sm font-bold pb-2 border-b mb-4">
-          <span>组件名：{block.value?.label}</span>
-          <span>组件ID: {block.value?.bid}</span>
-        </p>
-        <Formidable config={stylesFormConfig} v-model={blockStyles.value} />
-        <p class={styles.boxTitle}>
-          <span>盒模型设置</span>
-        </p>
-        <div class={styles.boxModel}>
-          <MarginBox>
-            <BorderBox>
-              <PaddingBox>
-                <ContentBox />
-              </PaddingBox>
-            </BorderBox>
-          </MarginBox>
-        </div>
-        <div v-show={blockStyles.value.position}>
+    return () =>
+      !block.value ? null : (
+        <>
+          <BlockHeader block={block.value} />
+          <Formidable config={stylesFormConfig} v-model={blockStyles.value} />
           <p class={styles.boxTitle}>
-            <span>定位设置</span>
+            <span>盒模型设置</span>
           </p>
           <div class={styles.boxModel}>
-            <PositionBox />
+            <MarginBox>
+              <BorderBox>
+                <PaddingBox>
+                  <ContentBox />
+                </PaddingBox>
+              </BorderBox>
+            </MarginBox>
           </div>
-        </div>
-      </>
-    )
+          <div v-show={blockStyles.value.position}>
+            <p class={styles.boxTitle}>
+              <span>定位设置</span>
+            </p>
+            <div class={styles.boxModel}>
+              <PositionBox />
+            </div>
+          </div>
+        </>
+      )
   },
 })

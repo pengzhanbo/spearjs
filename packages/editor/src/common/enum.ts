@@ -34,3 +34,8 @@ export const stylesBorerStyle = [
   { label: 'inset', value: 'inset' },
   { label: 'outset', value: 'outset' },
 ]
+
+export const actionTypeList = [
+  { label: '组件', value: 'block' },
+  { label: '全局', value: 'global' },
+]

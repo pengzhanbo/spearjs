@@ -1,4 +1,4 @@
-import { spearJs } from '@editor/common'
+import { registerWidget } from '@spearjs/shared'
 import type { ComponentWidget } from '@spearjs/shared'
 import Button from './button'
 import Flex from './flex'
@@ -8,4 +8,4 @@ import VantCell from './vant/Cell'
 
 const widgetList: ComponentWidget[] = [Button, Gird, Flex, VantButton, VantCell]
 
-widgetList.forEach((widget) => spearJs.registerWidget(widget))
+widgetList.forEach((widget) => registerWidget(widget))

@@ -20,3 +20,6 @@ export * from './Folder'
 
 export * from './Template'
 export * from './Platform'
+export * from './Edit'
+export * from './Close'
+export * from './Add'

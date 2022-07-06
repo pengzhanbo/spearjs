@@ -41,10 +41,10 @@ export default defineComponent({
       <li class={styles.treeBlockItem}>
         <div class={styles.treeTitle}>
           <p class="flex items-center">
-            <ElIcon class="el-icon__left mr-1">
+            <ElIcon>
               <ScaleToOriginal />
             </ElIcon>
-            <span>{props.block.label}</span>
+            <span class="ml-1">{props.block.label}</span>
           </p>
         </div>
         {renderSlots()}

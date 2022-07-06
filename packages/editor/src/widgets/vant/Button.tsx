@@ -1,3 +1,4 @@
+import { useBlock } from '@editor/hooks/useBlock'
 import type { ComponentWidget } from '@spearjs/shared'
 import { Button } from 'vant'
 
@@ -18,15 +19,31 @@ export default {
   preview: () => {
     return <Button type="primary">按钮</Button>
   },
-  render({ props }) {
-    return <Button {...props} />
+  setup(props, { expose }) {
+    const block = useBlock()
+    expose({
+      show() {
+        console.log('点击,显示')
+        block.setStyles({ display: '' })
+      },
+      hide() {
+        block.setStyles({ display: 'none' })
+      },
+    })
+    const onClick = () => block.action('click')
+    return { onClick }
+  },
+  render({ props, action }) {
+    return <Button {...props} onClick={() => action('click')} />
   },
   actions: [
     {
       label: '点击事件',
       action: 'click',
+      tips: '按钮点击事件',
     },
   ],
+  expose: [],
   props: [
     {
       type: 'text',

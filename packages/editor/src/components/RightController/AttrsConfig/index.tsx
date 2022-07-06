@@ -3,6 +3,7 @@ import { findWidget } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import { isFunction } from '@spearjs/shared'
 import { computed, defineComponent, watch } from 'vue'
+import { BlockHeader } from '../ConfigHeader'
 
 export default defineComponent({
   name: 'AttrsConfig',
@@ -51,16 +52,12 @@ export default defineComponent({
       { deep: true }
     )
 
-    return () => (
-      <>
-        <p class="flex justify-between items-center text-sm font-bold pb-2 border-b mb-4">
-          <span>组件名：{block.value?.label}</span>
-          <span>组件ID: {block.value?.bid}</span>
-        </p>
-        {widget.value ? (
+    return () =>
+      block.value && widget.value ? (
+        <>
+          <BlockHeader block={block.value}></BlockHeader>
           <Formidable config={widget.value.props || []} v-model={formData.value} />
-        ) : null}
-      </>
-    )
+        </>
+      ) : null
   },
 })

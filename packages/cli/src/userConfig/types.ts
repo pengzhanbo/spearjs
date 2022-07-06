@@ -45,7 +45,7 @@ export interface UserConfigByComponent extends UserBasicConfig {
    *
    * 比如，vant 组件，elementPlus 组件
    */
-  componentSubType?: ComponentWidget['componentSubType']
+  dependence?: ComponentWidget['dependence']
 }
 
 export interface UserConfigByService extends UserBasicConfig {

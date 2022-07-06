@@ -3,9 +3,9 @@ import type { AppBlock } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import type { WidgetSlots } from '@spearjs/shared'
 import { storeToRefs } from 'pinia'
-import { computed, defineComponent, h, readonly, watch, withModifiers } from 'vue'
+import { computed, defineComponent, h, readonly, toRaw, watch, withModifiers } from 'vue'
 import type { PropType, StyleValue } from 'vue'
-import { useBlockDnd } from './hooks'
+import { useBlockDnd, useContextMenu } from './hooks'
 import styles from './index.module.scss'
 import SlotItem from './SlotItem'
 
@@ -65,12 +65,6 @@ export default defineComponent({
       }
     })
 
-    const pageStore = useAppPagesStore()
-
-    const { focusBlock } = storeToRefs(pageStore)
-
-    const setFocusBlock = () => pageStore.setFocusBlock(props.block)
-
     // 当进行拖拽时，将拖拽中的元素变为全透明
     const opacity = computed(() => {
       return dragCollect.value.isDragging ? 0 : block.value.styles.opacity
@@ -113,6 +107,18 @@ export default defineComponent({
       return slots as WidgetSlots
     }
 
+    const pageStore = useAppPagesStore()
+    const { open, close } = useContextMenu()
+    const { focusBlock } = storeToRefs(pageStore)
+
+    const setFocusBlock = () => {
+      pageStore.setFocusBlock(props.block)
+      close()
+    }
+    const onContextmenuHandle = (ev: MouseEvent) => {
+      open(ev, props.block, props.roadMap, props.index)
+    }
+
     return () => (
       <div
         class={[
@@ -127,14 +133,14 @@ export default defineComponent({
         data-handler-id={dropCollect.value.handlerId}
         data-label={block.value.label}
         onClick={withModifiers(setFocusBlock, ['stop'])}
+        onContextmenu={withModifiers(onContextmenuHandle, ['stop'])}
       >
         {h(
           block.value.component,
           {
             bid: block.value.bid,
             // 对于内部而言，属性应该是只读的，内部不可修改
-            props: readonly(block.value.props),
-            styles: readonly(block.value.styles),
+            props: readonly(toRaw(block.value.props)),
           },
           renderSlots()
         )}

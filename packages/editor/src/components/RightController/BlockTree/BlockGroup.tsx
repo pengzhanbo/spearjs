@@ -4,6 +4,7 @@ import { ElIcon } from 'element-plus'
 import type { PropType } from 'vue'
 import { computed, defineComponent } from 'vue'
 import Blocks from './Blocks'
+import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'TreeBlockGroup',
@@ -26,13 +27,15 @@ export default defineComponent({
       return props.roadMap ? `${props.roadMap}|group::${props.index}` : ''
     })
     return () => (
-      <li>
-        <p>
-          <ElIcon>
-            <Folder />
-          </ElIcon>
-          <span>{props.group.label}</span>
-        </p>
+      <li class={styles.treeBlockItem}>
+        <div class={styles.treeTitle}>
+          <p class="flex items-center">
+            <ElIcon>
+              <Folder />
+            </ElIcon>
+            <span class="ml-1">{props.group.label}</span>
+          </p>
+        </div>
         <Blocks blocks={props.group.blocks} roadMap={roadMap.value}></Blocks>
       </li>
     )

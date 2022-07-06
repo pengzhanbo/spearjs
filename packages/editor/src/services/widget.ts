@@ -1,4 +1,4 @@
-import { spearJs } from '@editor/common'
+import { widgetMap } from '@spearjs/shared'
 import type { ComponentWidget } from '@spearjs/shared'
 
 export interface WidgetComponentItem {
@@ -58,7 +58,6 @@ export const getWidgetComponentList = async ({
 }
 
 export const findWidget = (id: string, version: string): ComponentWidget => {
-  const widgetMap = spearJs.widgetMap || {}
   const key = `${id}-${version}`
   return widgetMap[key]
 }

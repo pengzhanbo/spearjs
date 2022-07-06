@@ -37,13 +37,35 @@
     }
   }
 
-  &.has-slot::before {
+  &.has-slot::before,
+  &.has-group::before {
     display: none;
   }
+}
+
+.widget-component-group.right {
+  &:hover::after,
+  &.focus::after {
+    @apply -right-2 translate-x-full;
+
+    left: auto;
+  }
+}
+
+.group-placeholder {
+  @apply min-h-10 text-center text-xs py-1 border border-dashed border-gray-200;
 }
 
 .drag-layer {
   @apply fixed top-0 left-0 z-50 pointer-events-none;
 
   width: inherit;
+}
+
+.context-menu-wrapper {
+  @apply absolute z-99;
+
+  .menu-item {
+    @apply truncate cursor-pointer text-sm;
+  }
 }

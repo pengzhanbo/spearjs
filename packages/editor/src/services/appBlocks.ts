@@ -12,6 +12,9 @@ const blockIndex: Record<string, number> = {
   block: 0,
 }
 
+/**
+ * 生成一个 block label
+ */
 const getBlockLabel = (label?: string): string => {
   if (!label) {
     return 'block_' + blockIndex.block++
@@ -104,11 +107,11 @@ export interface AppBlockAction {
    */
   type: 'global' | 'block'
   /**
-   * type 为 block 时，通过 bid 查找 block 上的 service
+   * type 为 block 时，通过 bid 查找 block 上的 expose
    */
   bid?: string
   /**
-   * server name
+   * expose name
    */
   name: string
   /**

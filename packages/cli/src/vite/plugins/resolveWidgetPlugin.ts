@@ -23,6 +23,7 @@ const resolveRenderCode = ({ renderFiles }: UserConfig): string | null => {
 const resolveConfigCode = (userConfig: UserConfig): string => {
   const pkg = require(path.resolve(process.cwd(), 'package.json'))
 
+  // todo 这里的逻辑需要优化
   const config: Record<any, any> = {
     id: pkg.widgetId || '',
     version: pkg.version || '',
@@ -30,7 +31,7 @@ const resolveConfigCode = (userConfig: UserConfig): string => {
     platform: userConfig.platform,
     type: userConfig.type,
     componentType: (userConfig as any).componentType,
-    componentSubType: (userConfig as any).componentSubType,
+    dependence: (userConfig as any).dependence,
   }
   return `export default ${JSON.stringify(config, null, 2)}`
 }
