@@ -1,0 +1,19 @@
+{
+  "name": "widget-project",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "spearjs build",
+    "dev": "spearjs dev",
+    "publish:release": "spearjs publish"
+  },
+  "dependencies": {
+    "@spearjs/shared": "^1.0.0",
+    "vue": "^3.2.33"
+  },
+  "devDependencies": {
+    "@spearjs/cli": "^1.0.0",
+    "postcss": "^8.4.14",
+    "sass": "^1.51.0"
+  }
+}

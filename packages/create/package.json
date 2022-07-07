@@ -1,0 +1,30 @@
+{
+  "name": "create-spearjs",
+  "version": "1.0.0",
+  "description": "create spearjs widget",
+  "keywords": [],
+  "license": "ISC",
+  "author": "pengzhanbo",
+  "main": "dist/index.js",
+  "bin": {
+    "create-spearjs": "bin/index.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "template-*"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "clean": "rimraf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@spearjs/utils": "workspace:*",
+    "minimist": "^1.2.6"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.2",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.4"
+  }
+}
