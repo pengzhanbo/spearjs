@@ -1,6 +1,8 @@
 .preview {
+  background-color: var(--c-bg);
+
   @apply relative p-5 pb-10 flex justify-center items-center mb-5;
-  @apply border-2 border-cool-gray-400 border-dotted rounded-md overflow-hidden;
+  @apply rounded-md overflow-hidden;
 
   &:last-of-type {
     @apply mb-0;
@@ -8,8 +10,9 @@
 }
 
 .widget-label {
-  @apply absolute bottom-0 left-0 w-full py-1 flex items-center justify-center;
-  @apply text-center bg-amber-200;
+  @apply absolute bottom-0 right-0 px-2 flex items-center justify-center;
+  @apply text-center bg-blue-500 text-white text-sm;
+  @apply rounded-tl-md;
 
   span {
     @apply mr-2;
@@ -17,10 +20,10 @@
 }
 
 .widget-preview {
-  @apply relative;
+  @apply relative max-w-full;
 
   &::after {
-    @apply absolute top-0 right-0 bottom-0 left-0 cursor-move;
+    @apply absolute top-0 right-0 bottom-0 left-0 cursor-move shadow-md;
 
     z-index: 2;
     content: '';
