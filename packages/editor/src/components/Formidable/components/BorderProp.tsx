@@ -28,7 +28,7 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const borderRegExp = /^(\w+)\s(-?\d+\.?\d+?)(px|rem|%)?\s([^]+)$/
+    const borderRegExp = /^(\w+)\s(-?\d+\.?\d*?)(px|rem|%)?\s([^]+)$/
     const defaultColor = 'rgba(0, 0, 0, 1)'
     const model = useFormData(props.injectKey)
     const dotKey = useDotKey(props)
@@ -62,6 +62,7 @@ export default defineComponent({
         } else {
           const [, style = '', width = 0, unit = 'px', color = defaultColor] =
             border.trim().match(borderRegExp) || []
+          console.log(border, style, width, unit, color, border.trim().match(borderRegExp))
           borderStyle.value = { style, width, unit, color }
         }
       },
@@ -102,25 +103,27 @@ export default defineComponent({
         v-show={props.show}
       >
         <p class="w-full flex items-center justify-start">
+          <ElSelect
+            v-model={borderStyle.value.style}
+            style={{ width: '200px' }}
+            placeholder="边框样式"
+          >
+            {stylesBorerStyle.map((item) => (
+              <ElOption value={item.value}>
+                <p class="h-full flex items-center">
+                  <span class="mr-2">{item.label || '默认'}</span>
+                  {item.value ? (
+                    <span
+                      class="inline-block w-8 h-0 border-t-3 border-gray-400 my-auto"
+                      style={{ borderStyle: item.value }}
+                    ></span>
+                  ) : null}
+                </p>
+              </ElOption>
+            ))}
+          </ElSelect>
           <ElInput type="number" v-model={borderStyle.value.width} disabled={disabled.value}>
             {{
-              prepend: () => (
-                <ElSelect v-model={borderStyle.value.style} style={{ width: '100px' }}>
-                  {stylesBorerStyle.map((item) => (
-                    <ElOption value={item.value}>
-                      <p class="h-full flex items-center">
-                        <span class="mr-2">{item.label || '默认'}</span>
-                        {item.value ? (
-                          <span
-                            class="inline-block w-8 h-0 border-t-3 border-gray-400 my-auto"
-                            style={{ borderStyle: item.value }}
-                          ></span>
-                        ) : null}
-                      </p>
-                    </ElOption>
-                  ))}
-                </ElSelect>
-              ),
               append: () => (
                 <ElSelect
                   v-model={borderStyle.value.unit}

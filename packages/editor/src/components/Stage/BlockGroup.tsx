@@ -29,24 +29,29 @@ export default defineComponent({
   },
   setup(props) {
     const roadMap = computed(() => {
-      return props.roadMap ? `${props.roadMap}|group::${props.index}` : ''
+      const roadMap = `${props.index}`
+      return props.roadMap ? `${props.roadMap}|${roadMap}` : roadMap
     })
     const { dragCollect, dropCollect, setItem, setRef } = useBlockDnd({
       bid: props.group.bid,
       index: props.index,
       roadMap: roadMap.value,
+      group: true,
+      layer: 'block',
     })
 
     watch(
-      [props],
-      ([props]) => {
+      [() => props, () => roadMap.value],
+      ([props, roadMap]) => {
         setItem({
           bid: props.group.bid,
           index: props.index,
-          roadMap: roadMap.value,
+          roadMap: roadMap,
+          group: true,
+          layer: 'block',
         })
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     )
 
     const pageStore = useAppPagesStore()
@@ -73,8 +78,6 @@ export default defineComponent({
         ref={(el) => setRef(el as Element)}
         class={[
           styles.widgetComponentGroup,
-          styles.hasGroup,
-          styles.right,
           {
             [styles.focus]: props.preview || props.group.bid === focusBlock.value?.bid,
           },

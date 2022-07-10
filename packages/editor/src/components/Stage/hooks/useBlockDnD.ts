@@ -1,21 +1,19 @@
-/* TODO 拖拽交互需要重写
- * 目前体验下来，整个拖拽交互并不能满足实际的需求
- * 其中比较明显的问题是，如何判断是平级添加/移动，还是插入到分组/slot中
- */
-
 import { WIDGET_DND_TYPE } from '@editor/common'
 import { createBlock } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import type { ComponentWidget } from '@spearjs/shared'
 import { getEmptyImage } from 'react-dnd-html5-backend'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useDrag, useDrop } from 'vue3-dnd'
 import type { XYCoord } from 'vue3-dnd'
+import { usePlaceHolder } from './usePlaceHolder'
 
 export interface BlockDragItem {
   index: number
   roadMap: string
   bid: string
+  group: boolean
+  layer: 'inline-block' | 'block'
 }
 
 export const useBlockDnd = (_item: BlockDragItem) => {
@@ -23,6 +21,9 @@ export const useBlockDnd = (_item: BlockDragItem) => {
   const pageStore = useAppPagesStore()
 
   const item = ref<BlockDragItem>(_item)
+  const setItem = (_item: BlockDragItem) => {
+    item.value = _item
+  }
 
   const [dragCollect, drag, preview] = useDrag({
     type: WIDGET_DND_TYPE.Block,
@@ -37,9 +38,15 @@ export const useBlockDnd = (_item: BlockDragItem) => {
     preview(getEmptyImage(), { captureDraggingState: true })
   })
 
-  const setItem = (_item: BlockDragItem) => {
-    item.value = _item
-  }
+  const { setPlaceholderHoverEl, origin, showPlaceholder } = usePlaceHolder()
+  watch(
+    () => dragCollect.value.isDragging,
+    (isDragging) => {
+      showPlaceholder.value = isDragging
+    }
+  )
+
+  const getParentRoadMap = (roadMap: string) => roadMap.slice(0, roadMap.lastIndexOf('|') || 0)
 
   const [dropCollect, drop] = useDrop<
     BlockDragItem,
@@ -58,43 +65,85 @@ export const useBlockDnd = (_item: BlockDragItem) => {
       isCurrentOver: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
     }),
-    drop(dragItem: BlockDragItem | ComponentWidget, monitor) {
+    hover(dragItem: BlockDragItem | ComponentWidget, monitor) {
+      if (!blockEl.value) return
+      if (!monitor.isOver({ shallow: true })) return
+      setPlaceholderHoverEl(blockEl.value)
       const type = monitor.getItemType()
+      const hoverItem = item.value
+      if (type === WIDGET_DND_TYPE.Block && (dragItem as BlockDragItem).bid === hoverItem.bid) {
+        origin.value = 'self'
+      } else {
+        const { x, y } = monitor.getClientOffset() as XYCoord
+        const { top, left, right, bottom } = blockEl.value.getBoundingClientRect()
+        const width = right - left
+        const height = bottom - top
+        const rx = (x - left) / width
+        const ry = (y - top) / height
+        const w = width / 3
+        const h = height / 3
+        const m = height / 2
 
+        if (hoverItem.layer !== 'inline-block') {
+          if (hoverItem.group && h <= y - top && y - top <= 2 * h) {
+            origin.value = 'center'
+          } else if (y - top > m) {
+            origin.value = 'bottom'
+          } else {
+            origin.value = 'top'
+          }
+        } else {
+          if (hoverItem.group && w <= x && x <= 2 * w && h <= y && y <= 2 * h) {
+            origin.value = 'center'
+          } else if (ry > 0.5 && rx > 1 - ry && 1 - rx > 1 - ry) {
+            origin.value = 'bottom'
+          } else if (ry <= 0.5 && rx > ry && 1 - rx > ry) {
+            origin.value = 'top'
+          } else if (rx < 0.5 && rx < ry && rx < 1 - ry) {
+            origin.value = 'left'
+          } else if (rx >= 0.5 && ry > 1 - rx && 1 - ry > 1 - rx) {
+            origin.value = 'right'
+          }
+        }
+      }
+    },
+    drop(dragItem: BlockDragItem | ComponentWidget, monitor) {
       if (!blockEl.value) return
       if (!monitor.isOver({ shallow: true })) return
 
       const hoverItem = item.value
-      const clientOffset = monitor.getClientOffset() as XYCoord
-      const hoverRect = blockEl.value.getBoundingClientRect()
+      const type = monitor.getItemType()
 
-      // 获取 悬浮目标的 Y轴中位线
-      const middleY = (hoverRect.bottom - hoverRect.top) / 2
-
-      // 获取 拖拽目标与 悬浮目标的 Y轴差值
-      // 可以通过比较两者之间的大小，来判断是否位于 上方还是下方
-      const clientY = clientOffset.y - hoverRect.top
+      let index = hoverItem.index
+      if (origin.value === 'bottom' || origin.value === 'right') {
+        index += 1
+      }
 
       if (type === WIDGET_DND_TYPE.Component) {
         const block = createBlock(dragItem as ComponentWidget)
-
-        // 根据 hoverItem -> roadMap， 以及 鼠标位置，判断 插入位置
-        const index = middleY > clientY ? hoverItem.index : hoverItem.index + 1
-
-        pageStore.addBlock(block, hoverItem.roadMap, index)
+        if (hoverItem.group && origin.value === 'center') {
+          pageStore.pushBlockToGroup(block, hoverItem.roadMap)
+        } else {
+          pageStore.addBlock(block, hoverItem.roadMap, index)
+        }
       } else {
         dragItem = dragItem as BlockDragItem
-
         if (dragItem.bid === hoverItem.bid) return
-        if (dragItem.roadMap === hoverItem.roadMap) {
-          if (dragItem.index < hoverItem.index && clientY < middleY) return
-          if (dragItem.index > hoverItem.index && clientY > middleY) return
-
-          pageStore.moveSameRoadMapBlock(dragItem.index, hoverItem.index, dragItem.roadMap)
+        const dragRoadMap = dragItem.roadMap
+        const hoverRoadMap = hoverItem.roadMap
+        if (
+          getParentRoadMap(dragRoadMap) === getParentRoadMap(hoverRoadMap) &&
+          origin.value !== 'center'
+        ) {
+          pageStore.moveSameRoadMapBlock(dragItem.index, index, hoverRoadMap)
         } else {
-          pageStore.deleteBlock(dragItem.index, dragItem.roadMap, (block) => {
-            const insertTo = middleY > clientY ? hoverItem.index : hoverItem.index + 1
-            pageStore.addBlock(block, hoverItem.roadMap, insertTo)
+          if (!hoverRoadMap || hoverRoadMap.startsWith(dragRoadMap)) return
+          pageStore.deleteBlock(dragItem.index, dragRoadMap, (block) => {
+            if (hoverItem.group && origin.value === 'center') {
+              pageStore.pushBlockToGroup(block, hoverRoadMap)
+            } else {
+              pageStore.addBlock(block, hoverRoadMap, index)
+            }
           })
         }
       }

@@ -65,29 +65,45 @@ export const useAppPagesStore = defineStore('pages', {
     updateBlocks(blocks: AppBlocks): void {
       this.currentPage.blocks = [...blocks]
     },
-    getBlocksByRoadMap(roadMap: string): AppBlocks {
+    parseRoadMap(roadMap: string) {
+      let blocks = this.currentPage.blocks
+      let block!: AppBlock | AppBlockGroup
+      if (!roadMap) return { blocks, block }
       const mapList = roadMap.split('|')
-      let i = 0,
-        blocks = this.currentPage.blocks
+      let i = 0
       while (i < mapList.length) {
-        const [type, name, index] = mapList[i].split(':')
-        if (type === 'slot') {
-          blocks = blocks[index].slots[name]
-        }
-        if (type === 'group') {
-          blocks = blocks[index].blocks
+        if (i === 0) {
+          block = blocks[mapList[i]]
+        } else {
+          const [type, name] = mapList[i].split(':')
+          if (type !== 'slot') {
+            const index = Number(type)
+            if (block.type === 'group') {
+              blocks = block.blocks
+            }
+            block = blocks[index]
+          } else {
+            blocks = (block as AppBlock).slots[name]
+          }
         }
         i++
       }
-      return blocks
+      return { blocks, block }
     },
     addBlock(block: AppBlock | AppBlockGroup, roadMap?: string, insertTo?: number): void {
       roadMap = roadMap || ''
-      const blocks = this.getBlocksByRoadMap(roadMap)
+      const { blocks } = this.parseRoadMap(roadMap)
       if (insertTo === undefined) {
         blocks.push(block)
       } else {
         blocks.splice(insertTo, 0, block)
+      }
+    },
+    pushBlockToGroup(item: AppBlock | AppBlockGroup, roadMap?: string) {
+      roadMap = roadMap || ''
+      const { block } = this.parseRoadMap(roadMap)
+      if (block.type === 'group') {
+        block.blocks.push(item)
       }
     },
     deleteBlock(
@@ -96,7 +112,7 @@ export const useAppPagesStore = defineStore('pages', {
       done?: (block: AppBlock | AppBlockGroup) => void
     ): AppBlock | AppBlockGroup {
       roadMap = roadMap || ''
-      const blocks = this.getBlocksByRoadMap(roadMap)
+      const { blocks } = this.parseRoadMap(roadMap)
       const block = blocks[index]
       done && done(block)
       blocks.splice(index, 1)
@@ -104,10 +120,15 @@ export const useAppPagesStore = defineStore('pages', {
     },
     moveSameRoadMapBlock(source: number, target: number, roadMap?: string): void {
       roadMap = roadMap || ''
-      const blocks = this.getBlocksByRoadMap(roadMap)
+      const { blocks } = this.parseRoadMap(roadMap)
       const block = blocks[source]
-      blocks.splice(source, 1)
-      blocks.splice(target, 0, block)
+      if (source > target) {
+        blocks.splice(source, 1)
+        blocks.splice(target, 0, block)
+      } else {
+        blocks.splice(target, 0, block)
+        blocks.splice(source, 1)
+      }
     },
     setFocusBlock(block: AppBlock | AppBlockGroup | null) {
       this.focusBlock = block

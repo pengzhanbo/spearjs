@@ -1,4 +1,5 @@
 import type { AppBlock, AppBlockGroup } from '@editor/services'
+import { getElOffset } from '@editor/utils'
 import type { Directive, Ref } from 'vue'
 import { onMounted, onUnmounted, ref } from 'vue'
 
@@ -38,13 +39,7 @@ const open = (
   }
   // 计算 菜单打开的位置信息
   // 位置信息相对于 stage容器计算位置
-  const root = contextMenuRoot.value!
-  let parent = ev.target as HTMLElement
-  let { offsetLeft, offsetTop } = parent
-  while ((parent = parent.offsetParent as HTMLElement) && parent !== root) {
-    offsetLeft += parent.offsetLeft
-    offsetTop += parent.offsetTop
-  }
+  const { offsetLeft, offsetTop } = getElOffset(ev.target as HTMLElement, contextMenuRoot.value!)
   style.value = {
     left: offsetLeft + ev.offsetX + 'px',
     top: offsetTop + ev.offsetY + 'px',
@@ -95,6 +90,7 @@ export const setupContextMenu = () => {
     roadMap: currentBlockRoadMap,
     index: currentIndex,
     close,
+    setContextMenuRoot,
   }
 }
 
@@ -102,6 +98,5 @@ export const useContextMenu = () => {
   return {
     open,
     close,
-    setContextMenuRoot,
   }
 }

@@ -1,6 +1,6 @@
 import type { AppBlock, AppBlockGroup, AppBlocks } from '@editor/services'
-import type { PropType } from 'vue'
 import { defineComponent, TransitionGroup } from 'vue'
+import type { PropType } from 'vue'
 import Block from './Block'
 import BlockGroup from './BlockGroup'
 
@@ -24,7 +24,7 @@ export default defineComponent({
     return () => (
       <TransitionGroup name="flip-list">
         {props.blocks.map((block, index) => {
-          if ((block as AppBlockGroup).blocks) {
+          if (block && (block as AppBlockGroup).blocks) {
             return (
               <BlockGroup
                 group={block as AppBlockGroup}

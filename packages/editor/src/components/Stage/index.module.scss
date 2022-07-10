@@ -9,8 +9,7 @@
   line-height: 0;
 }
 
-.widget-component,
-.widget-component-group {
+.widget-component {
   @apply relative cursor-move;
 
   contain: layout;
@@ -26,8 +25,6 @@
 
   &:hover,
   &.focus {
-    @apply outline-solid-blue-500;
-
     &::after {
       @apply inline-block absolute top-0 -left-2 cursor-move;
       @apply bg-blue-500 text-white -translate-x-full transform;
@@ -37,23 +34,50 @@
     }
   }
 
-  &.has-slot::before,
-  &.has-group::before {
+  &:hover {
+    @apply outline-solid-blue-400;
+  }
+
+  &.focus {
+    @apply outline-solid-blue-500;
+  }
+
+  &.has-slot::before {
     display: none;
   }
 }
 
-.widget-component-group.right {
-  &:hover::after,
-  &.focus::after {
-    @apply -right-2 translate-x-full;
+.widget-component-group {
+  contain: layout;
+  outline: dashed 1px;
+  outline-offset: 0;
+  transition: outline 0.2s ease-in-out, margin 0.2s ease-in-out;
+  @apply relative cursor-move outline-gray-300;
 
-    left: auto;
+  &:hover,
+  &.focus {
+    outline: solid 2px;
+
+    &::after {
+      @apply inline-block absolute top-0 right-0 cursor-move;
+      @apply bg-blue-500 text-white translate-x-full transform;
+      @apply px-2 py-1.5 text-sm leading-3 rounded-sm font-bold;
+
+      content: attr(data-label);
+    }
+  }
+
+  &:hover {
+    @apply outline-solid-blue-400;
+  }
+
+  &.focus {
+    @apply outline-solid-blue-500;
   }
 }
 
 .group-placeholder {
-  @apply min-h-10 text-center text-xs py-1 border border-dashed border-gray-200;
+  @apply min-h-10 text-center text-xs py-1;
 }
 
 .drag-layer {
@@ -68,4 +92,10 @@
   .menu-item {
     @apply truncate cursor-pointer text-sm;
   }
+}
+
+.stage-placeholder {
+  outline: solid 2px;
+  outline-offset: 0;
+  @apply absolute transition-all z-999 outline-green-500 bg-green-400 bg-opacity-30;
 }

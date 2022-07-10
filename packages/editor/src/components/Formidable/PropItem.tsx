@@ -1,6 +1,6 @@
 import type { WidgetPropItem } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
-import { computed, defineComponent, h, readonly, toRaw } from 'vue'
+import { computed, defineComponent, h, readonly } from 'vue'
 import type { PropType } from 'vue'
 import { components } from './components'
 import type { FormInjectKey } from './hooks'
@@ -26,7 +26,7 @@ export default defineComponent({
     const model = useFormData(props.injectKey)
     const show = computed(() => {
       const showProp = typeof props.config.showProp === 'undefined' ? true : props.config.showProp
-      return isFunction(showProp) ? showProp(readonly(toRaw(model.value))) : showProp
+      return isFunction(showProp) ? showProp(readonly(model.value)) : showProp
     })
 
     return () =>

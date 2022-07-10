@@ -40,11 +40,11 @@ export default defineComponent({
     const { blocks, name } = toRefs(props)
 
     const roadMap = computed(() => {
-      const roadMap = `slot:${props.name}:${props.index}`
+      const roadMap = `slot:${props.name}`
       return props.roadMap ? `${props.roadMap}|${roadMap}` : roadMap
     })
 
-    const { dropCollect, setRef } = useBlocksDrop(roadMap)
+    const { dropCollect, setDropRef } = useBlocksDrop(roadMap)
 
     const slotClass = computed(() => {
       const list = [styles.blockSlot, dropCollect.value.canDrop ? styles.canDrop : '']
@@ -59,7 +59,7 @@ export default defineComponent({
     return () => (
       <div
         class={slotClass.value}
-        ref={(el) => setRef(el as HTMLElement)}
+        ref={(el) => setDropRef(el as HTMLElement)}
         data-handler-id={dropCollect.value.handlerId}
         style={props.option.style}
       >

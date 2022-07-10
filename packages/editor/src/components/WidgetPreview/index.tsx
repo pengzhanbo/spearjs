@@ -1,9 +1,10 @@
 import { WIDGET_DND_TYPE } from '@editor/common'
+import { usePlaceHolder } from '@editor/components/Stage/hooks'
 import type { WidgetComponentItem } from '@editor/services/widget'
 import { findWidget } from '@editor/services/widget'
 import { ElIcon, ElPopover } from 'element-plus'
 import type { PropType } from 'vue'
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
 import { useDrag } from 'vue3-dnd'
 import { InfoIcon } from '../Icons'
 import styles from './index.module.scss'
@@ -18,11 +19,24 @@ export default defineComponent({
   },
   setup(props) {
     const widget = findWidget(props.widget.id, props.widget.version)
+    const { showPlaceholder } = usePlaceHolder()
 
-    const [, dragSource] = useDrag({
+    const [collect, dragSource] = useDrag({
       type: WIDGET_DND_TYPE.Component,
       item: widget,
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
     })
+
+    watch(
+      () => collect.value.isDragging,
+      (isDragging) => {
+        if (!isDragging) {
+          showPlaceholder.value = false
+        }
+      }
+    )
 
     return () => (
       <div class={[styles.preview, 'preview-container']}>

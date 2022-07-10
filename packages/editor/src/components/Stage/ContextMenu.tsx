@@ -1,16 +1,29 @@
 import { createBlockGroup } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import { ElCard } from 'element-plus'
-import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, watch } from 'vue'
 import { contextMenuOutSide, setupContextMenu } from './hooks'
 import styles from './index.module.scss'
 
 export default defineComponent({
   name: 'StageContextMenu',
   directives: { contextMenuOutSide },
-  setup: () => {
-    const { isOpen, style, block, roadMap, index, close } = setupContextMenu()
+  props: {
+    rootRef: {
+      type: Object as PropType<HTMLElement>,
+      default: document.body,
+    },
+  },
+  setup: (props) => {
+    const { isOpen, style, block, roadMap, index, close, setContextMenuRoot } = setupContextMenu()
     const appPageStore = useAppPagesStore()
+
+    watch(
+      () => props.rootRef,
+      (root) => setContextMenuRoot(root),
+      { deep: true }
+    )
 
     const onDelete = () => {
       appPageStore.deleteBlock(index.value!, roadMap.value)

@@ -22,7 +22,7 @@ pnpm dev
 - [ ] 原型设计阶段
 - [ ] Editor 开发中
 - [ ] Cli 开发中
-- [ ] Server 未开始
+- [ ] Server 开发中
 - [ ] Admin 未开始
 
 ## 理念

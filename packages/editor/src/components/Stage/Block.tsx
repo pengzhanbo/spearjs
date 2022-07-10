@@ -3,7 +3,7 @@ import type { AppBlock } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import type { WidgetSlots } from '@spearjs/shared'
 import { storeToRefs } from 'pinia'
-import { computed, defineComponent, h, readonly, toRaw, watch, withModifiers } from 'vue'
+import { computed, defineComponent, h, readonly, watch, withModifiers } from 'vue'
 import type { PropType, StyleValue } from 'vue'
 import { useBlockDnd, useContextMenu } from './hooks'
 import styles from './index.module.scss'
@@ -30,25 +30,33 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const roadMap = computed(() => {
+      const roadMap = `${props.index}`
+      return props.roadMap ? `${props.roadMap}|${roadMap}` : roadMap
+    })
     // --- block dnd begin ---
     // block dnd 拖拽
     const { setRef, dragCollect, dropCollect, setItem } = useBlockDnd({
       bid: props.block.bid,
       index: props.index,
-      roadMap: props.roadMap,
+      roadMap: roadMap.value,
+      group: false,
+      layer: props.block.styles.display!,
     })
 
     // props 变化时，更新 拖拽目标信息
     watch(
-      [props],
-      ([props]) => {
+      [() => props, () => roadMap.value],
+      ([props, roadMap]) => {
         setItem({
           bid: props.block.bid,
           index: props.index,
-          roadMap: props.roadMap,
+          roadMap: roadMap,
+          group: false,
+          layer: props.block.styles.display!,
         })
       },
-      { immediate: true }
+      { immediate: true, deep: true }
     )
     // --- block dnd end ---
 
@@ -98,7 +106,7 @@ export default defineComponent({
           <SlotItem
             name={slot}
             index={props.index}
-            roadMap={props.roadMap}
+            roadMap={roadMap.value}
             blocks={blocks}
             option={option}
           />
@@ -140,7 +148,7 @@ export default defineComponent({
           {
             bid: block.value.bid,
             // 对于内部而言，属性应该是只读的，内部不可修改
-            props: readonly(toRaw(block.value.props)),
+            props: readonly(block.value.props),
           },
           renderSlots()
         )}
