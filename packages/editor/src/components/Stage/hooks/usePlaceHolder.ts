@@ -1,3 +1,7 @@
+/**
+ * 当进行拖拽操作时，提示当前拖拽操作的结果，
+ * 拖拽元素将会被插入到哪个位置
+ */
 import { getElOffset } from '@editor/utils'
 import type { Ref } from 'vue'
 import { ref, watch } from 'vue'

@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, watch } from 'vue'
+import { computed, defineComponent, Transition, watch } from 'vue'
 import { setupPlaceholder } from './hooks'
 import styles from './index.module.scss'
 
@@ -29,7 +29,13 @@ export default defineComponent({
       }
     })
     return () => (
-      <div v-show={showPlaceholder.value} class={styles.stagePlaceholder} style={style.value}></div>
+      <Transition name="el-fade-in-linear">
+        <div
+          v-show={showPlaceholder.value}
+          class={styles.stagePlaceholder}
+          style={style.value}
+        ></div>
+      </Transition>
     )
   },
 })

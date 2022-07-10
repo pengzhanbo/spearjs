@@ -1,6 +1,7 @@
 :root {
   /* application color */
   --app-c-brand: #666;
+  --app-c-bg: var(--c-bg-container);
 }
 
 html.dark {

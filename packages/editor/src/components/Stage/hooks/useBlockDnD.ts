@@ -39,6 +39,7 @@ export const useBlockDnd = (_item: BlockDragItem) => {
   })
 
   const { setPlaceholderHoverEl, origin, showPlaceholder } = usePlaceHolder()
+  // 监听是否在拖拽中，并显示 拖拽目标位置提示占位符
   watch(
     () => dragCollect.value.isDragging,
     (isDragging) => {
@@ -46,6 +47,9 @@ export const useBlockDnd = (_item: BlockDragItem) => {
     }
   )
 
+  /**
+   * 通过 roadMap 来解析 block 归属的 block group
+   */
   const getParentRoadMap = (roadMap: string) => roadMap.slice(0, roadMap.lastIndexOf('|') || 0)
 
   const [dropCollect, drop] = useDrop<
@@ -68,12 +72,32 @@ export const useBlockDnd = (_item: BlockDragItem) => {
     hover(dragItem: BlockDragItem | ComponentWidget, monitor) {
       if (!blockEl.value) return
       if (!monitor.isOver({ shallow: true })) return
+
       setPlaceholderHoverEl(blockEl.value)
+
       const type = monitor.getItemType()
       const hoverItem = item.value
+
+      // 判定 拖拽元素悬浮与自身之上时，隐藏 拖拽目标位置占位符，
+      // 表示 元素位置不会发生变更
       if (type === WIDGET_DND_TYPE.Block && (dragItem as BlockDragItem).bid === hoverItem.bid) {
         origin.value = 'self'
       } else {
+        /**
+         * 对于一个拖拽元素，当其悬浮于某个元素时，
+         * 需要判断 拖拽的元素最终会放置于 悬浮元素的哪一个位置。
+         *
+         * 这里的判断是根据 鼠标位置相对于悬浮元素为参考系的偏移信息 (x, y)；
+         * 根据 鼠标的位置，来判断 插入位置。
+         * 判断方式是根据悬浮元素的对角线
+         *  _____
+         * |\   /|   根据鼠标的位置， 分为 top、right、bottom、left，
+         * | \ / |   如果是分组类型的元素，那么相对于中心位置，使用三分线，在矩形的中心的三分之一矩形内，
+         * | / \ |   那么类型为 center，表示插入到分组中
+         * |/   \|
+         * -------
+         *
+         */
         const { x, y } = monitor.getClientOffset() as XYCoord
         const { top, left, right, bottom } = blockEl.value.getBoundingClientRect()
         const width = right - left
@@ -84,6 +108,9 @@ export const useBlockDnd = (_item: BlockDragItem) => {
         const h = height / 3
         const m = height / 2
 
+        /**
+         * 如果是 layer是block类型，即表示 block独占一行，那么只需要判断 top/center/bottom即可
+         */
         if (hoverItem.layer !== 'inline-block') {
           if (hoverItem.group && h <= y - top && y - top <= 2 * h) {
             origin.value = 'center'
@@ -128,16 +155,23 @@ export const useBlockDnd = (_item: BlockDragItem) => {
         }
       } else {
         dragItem = dragItem as BlockDragItem
+
         if (dragItem.bid === hoverItem.bid) return
+
         const dragRoadMap = dragItem.roadMap
         const hoverRoadMap = hoverItem.roadMap
+
+        // 表示两个 block都属于同一个 blocks group
         if (
           getParentRoadMap(dragRoadMap) === getParentRoadMap(hoverRoadMap) &&
           origin.value !== 'center'
         ) {
           pageStore.moveSameRoadMapBlock(dragItem.index, index, hoverRoadMap)
         } else {
+          // 这里需要规避一种情况，即 拖拽元素悬浮与其内部的子元素中，
+          // 需要避免 拽拽元素插入到其自身的子元素中
           if (!hoverRoadMap || hoverRoadMap.startsWith(dragRoadMap)) return
+
           pageStore.deleteBlock(dragItem.index, dragRoadMap, (block) => {
             if (hoverItem.group && origin.value === 'center') {
               pageStore.pushBlockToGroup(block, hoverRoadMap)
@@ -150,6 +184,9 @@ export const useBlockDnd = (_item: BlockDragItem) => {
     },
   })
 
+  /**
+   * 同时设置 元素为 拖拽元素，以及 拖拽容器
+   */
   const setRef = (el: Element) => {
     blockEl.value = el as HTMLDivElement
     drag(drop(el), { dropEffect: 'move' })
