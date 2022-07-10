@@ -14,3 +14,9 @@ export const ArrowDoubleRightIcon: FunctionalComponent = () => (
     <path d="M13 6l-1.41 1.41L16.17 12l-4.58 4.59L13 18l6-6z" fill="currentColor"></path>
   </IconBase>
 )
+
+export const ArrowMiniRightIcon: FunctionalComponent = () => (
+  <IconBase viewBox="0 0 24 24">
+    <path d="M8 5v14l11-7L8 5z" fill="currentColor"></path>
+  </IconBase>
+)

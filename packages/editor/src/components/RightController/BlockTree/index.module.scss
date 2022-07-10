@@ -33,7 +33,7 @@
   .title-item {
     @apply flex items-center;
 
-    :global {
+    & :global {
       .el-icon {
         @apply opacity-0 transition-opacity cursor-pointer;
       }
@@ -66,5 +66,16 @@
 }
 
 .tree-slot-title {
-  @apply text-xs pl-1;
+  @apply flex items-center justify-start text-xs cursor-pointer;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  & :global .el-icon {
+    transition: transform 300ms ease;
+    transform: rotate(90deg);
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  &.hide :global .el-icon {
+    transform: rotate(0);
+  }
 }

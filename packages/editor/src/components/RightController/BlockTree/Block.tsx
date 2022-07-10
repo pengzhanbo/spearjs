@@ -64,7 +64,7 @@ export default defineComponent({
     }
 
     const submitEdit = () => {
-      pageStore.updateBlockLabel(props.block.bid, blockLabel.value)
+      pageStore.updateBlockLabel(props.block.bid, blockLabel.value || props.block.label)
       isEdit.value = false
     }
 
@@ -74,7 +74,6 @@ export default defineComponent({
     }
 
     const iptKeyDown = (ev: KeyboardEvent) => {
-      console.log(ev.key)
       if (ev.key === 'Enter') {
         submitEdit()
       }

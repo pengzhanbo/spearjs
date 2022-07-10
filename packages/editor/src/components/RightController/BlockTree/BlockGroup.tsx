@@ -8,6 +8,7 @@ import {
 } from '@editor/components/Icons'
 import type { AppBlockGroup } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import { ElCollapseTransition } from 'element-plus'
 import type { PropType } from 'vue'
 import { computed, defineComponent, nextTick, ref, watch, withModifiers } from 'vue'
 import Blocks from './Blocks'
@@ -62,7 +63,7 @@ export default defineComponent({
     }
 
     const submitEdit = () => {
-      pageStore.updateBlockLabel(props.group.bid, blockLabel.value)
+      pageStore.updateBlockLabel(props.group.bid, blockLabel.value || props.group.label)
       isEdit.value = false
     }
 
@@ -72,7 +73,6 @@ export default defineComponent({
     }
 
     const iptKeyDown = (ev: KeyboardEvent) => {
-      console.log(ev.key)
       if (ev.key === 'Enter') {
         submitEdit()
       }
@@ -141,7 +141,9 @@ export default defineComponent({
             </span>
           </p>
         </div>
-        <Blocks v-show={spread.value} blocks={props.group.blocks} roadMap={roadMap.value} />
+        <ElCollapseTransition>
+          <Blocks v-show={spread.value} blocks={props.group.blocks} roadMap={roadMap.value} />
+        </ElCollapseTransition>
       </li>
     )
   },
