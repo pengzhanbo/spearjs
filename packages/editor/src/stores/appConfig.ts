@@ -18,7 +18,7 @@ export const useAppConfigStore = defineStore('appConfig', {
     themeConfig: {
       CssVars: {
         '--app-c-bg': '#fff',
-        '--app-c-text': '',
+        '--app-c-text': '#000',
         '--app-c-brand': '',
       },
     },

@@ -26,8 +26,39 @@
 }
 
 .tree-title {
-  @apply pl-1 py-0.5 my-0 bg-transparent transition cursor-pointer;
-  @apply hover:bg-light-500;
+  @apply pl-1 py-0.5 my-0 bg-white rounded;
+  @apply hover:bg-light-500 transition;
+  @apply flex justify-between items-center pr-2;
+
+  .title-item {
+    @apply flex items-center;
+
+    :global {
+      .el-icon {
+        @apply opacity-0 transition-opacity cursor-pointer;
+      }
+    }
+
+    .icon-show {
+      @apply opacity-100;
+    }
+
+    .block-ipt {
+      width: 120px;
+      height: 20px;
+      @apply bg-white text-black px-2 ml-2;
+    }
+  }
+
+  &:hover .title-item :global {
+    .el-icon {
+      @apply opacity-100;
+    }
+  }
+
+  &.focus {
+    @apply bg-blue-500 text-white;
+  }
 }
 
 .tree-block-slot {

@@ -73,6 +73,8 @@ export default defineComponent({
       return dragCollect.value.isDragging ? 0 : 1
     })
 
+    const visibility = computed(() => (props.group.editor.visibility ? 'inherit' : 'hidden'))
+
     return () => (
       <div
         ref={(el) => setRef(el as Element)}
@@ -82,7 +84,7 @@ export default defineComponent({
             [styles.focus]: props.preview || props.group.bid === focusBlock.value?.bid,
           },
         ]}
-        style={{ opacity: opacity.value }}
+        style={{ opacity: opacity.value, visibility: visibility.value }}
         data-label={props.group.label}
         data-handler-id={dropCollect.value.handlerId}
         onClick={withModifiers(setFocusBlock, ['stop'])}

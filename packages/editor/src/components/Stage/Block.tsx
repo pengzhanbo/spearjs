@@ -61,7 +61,7 @@ export default defineComponent({
     // --- block dnd end ---
 
     const block = computed(() => {
-      const { label, component, bid, props: _props, styles, slots } = props.block
+      const { label, component, bid, props: _props, styles, slots, editor } = props.block
       const widget = findWidget(component.id, component.version)
       return {
         component: createWidgetComponent(widget),
@@ -70,6 +70,7 @@ export default defineComponent({
         props: _props,
         styles,
         slots,
+        editor,
       }
     })
 
@@ -93,6 +94,7 @@ export default defineComponent({
       if (block.value.styles.position !== '' && block.value.styles.position !== 'relative') {
         style.position = 'absolute'
       }
+      style.visibility = block.value.editor.visibility ? 'inherit' : 'hidden'
       return style
     })
 

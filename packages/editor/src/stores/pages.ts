@@ -1,4 +1,11 @@
-import type { AppBlock, AppBlockAction, AppBlockGroup, AppBlocks } from '@editor/services'
+import type {
+  AppBlock,
+  AppBlockAction,
+  AppBlockGroup,
+  AppBlocks,
+  BlockEditorOption,
+} from '@editor/services'
+import { findBlockByBid } from '@editor/services'
 import { hasOwn } from '@spearjs/shared'
 import { defineStore } from 'pinia'
 
@@ -166,6 +173,18 @@ export const useAppPagesStore = defineStore('pages', {
     deleteFocusBlockAction(name: string, index: number) {
       if (this.focusBlock && this.focusBlock.type === 'block') {
         this.focusBlock.actions[name].splice(index, 1)
+      }
+    },
+    updateBlockLabel(bid: string, label: string) {
+      const block = findBlockByBid(this.currentPage.blocks, bid)
+      if (block) {
+        block.label = label
+      }
+    },
+    updateBlockEditorOption(bid: string, option: BlockEditorOption) {
+      const block = findBlockByBid(this.currentPage.blocks, bid)
+      if (block) {
+        Object.assign(block.editor, option)
       }
     },
   },

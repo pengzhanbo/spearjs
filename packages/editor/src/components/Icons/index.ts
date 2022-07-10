@@ -17,6 +17,7 @@ export * from './Info'
 
 export * from './Arrow'
 export * from './Folder'
+export * from './File'
 
 export * from './Template'
 export * from './Platform'

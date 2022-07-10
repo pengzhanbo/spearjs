@@ -2,7 +2,7 @@ import { createBlockGroup } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import { ElCard } from 'element-plus'
 import type { PropType } from 'vue'
-import { defineComponent, watch } from 'vue'
+import { defineComponent, watch, withModifiers } from 'vue'
 import { contextMenuOutSide, setupContextMenu } from './hooks'
 import styles from './index.module.scss'
 
@@ -26,11 +26,18 @@ export default defineComponent({
     )
 
     const onDelete = () => {
-      appPageStore.deleteBlock(index.value!, roadMap.value)
+      appPageStore.deleteBlock(index.value!, roadMap.value, (block) => {
+        appPageStore.focusBlock?.bid === block.bid && appPageStore.setFocusBlock(null)
+      })
       close()
     }
     const onAddBlockGroup = () => {
-      appPageStore.addBlock(createBlockGroup(), roadMap.value)
+      const group = createBlockGroup()
+      if (block.value?.type == 'group') {
+        appPageStore.pushBlockToGroup(group, roadMap.value)
+      } else {
+        appPageStore.addBlock(group, roadMap.value)
+      }
       close()
     }
     return () => (
@@ -39,13 +46,12 @@ export default defineComponent({
         style={style.value}
         class={styles.contextMenuWrapper}
         v-contextMenuOutSide
+        onContextmenu={withModifiers(() => {}, ['prevent'])}
       >
-        <ElCard bodyStyle={{ padding: '15px 10px' }}>
-          {block.value ? null : (
-            <div class={styles.menuItem} onClick={onAddBlockGroup}>
-              新建分组
-            </div>
-          )}
+        <ElCard bodyStyle={{ padding: '10px 0' }}>
+          <div class={styles.menuItem} onClick={onAddBlockGroup}>
+            新建分组
+          </div>
           {block.value ? (
             <p class={styles.menuItem} onClick={onDelete}>
               删除{block.value.type === 'block' ? '组件' : '分组'}

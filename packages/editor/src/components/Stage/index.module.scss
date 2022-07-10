@@ -90,7 +90,12 @@
   @apply absolute z-99;
 
   .menu-item {
-    @apply truncate cursor-pointer text-sm;
+    @apply truncate cursor-pointer text-sm py-1 px-2 bg-white;
+    @apply transition-colors select-none;
+
+    &:hover {
+      @apply bg-light-500;
+    }
   }
 }
 

@@ -26,7 +26,7 @@ export default defineComponent({
   },
   setup(props) {
     const roadMap = computed(() => {
-      const roadMap = `slot:${props.name}:${props.index}`
+      const roadMap = `slot:${props.name}`
       return props.roadMap ? `${props.roadMap}|${roadMap}` : roadMap
     })
 

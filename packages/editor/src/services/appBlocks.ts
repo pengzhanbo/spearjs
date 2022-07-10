@@ -44,6 +44,9 @@ export const createBlock = (widget: ComponentWidget): AppBlock => {
     styles: cloneDeep(createStyles(widget)),
     slots: _slots,
     actions: createBlockActions(widget.actions || []),
+    editor: {
+      visibility: true,
+    },
   }
 }
 
@@ -54,6 +57,9 @@ export const createBlockGroup = (label?: string): AppBlockGroup => {
     label: label || 'group_' + groupIndex++,
     type: 'group',
     blocks: [],
+    editor: {
+      visibility: true,
+    },
   }
 }
 
@@ -85,6 +91,7 @@ export interface AppBlockGroup {
   type: 'group'
   label: string
   blocks: AppBlocks
+  editor: BlockEditorOption
 }
 export interface AppBlock {
   type: 'block'
@@ -98,6 +105,7 @@ export interface AppBlock {
   styles: AppBlockStyles
   slots: Record<string, AppBlocks>
   actions: AppBlockActions
+  editor: BlockEditorOption
 }
 
 export type AppBlockActions = Record<string, AppBlockAction[]>
@@ -120,4 +128,8 @@ export interface AppBlockAction {
    * service的第一个参数必须是一个对象
    */
   mapping: any[]
+}
+
+export interface BlockEditorOption {
+  visibility: boolean
 }
