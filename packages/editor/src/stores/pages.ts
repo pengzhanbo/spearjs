@@ -41,6 +41,9 @@ export const useAppPagesStore = defineStore('pages', {
     },
   },
   actions: {
+    updateAppPage(state: AppPagesStore) {
+      Object.assign(this, state)
+    },
     // --- page
     createAppPage(option: { title: string; path: string; isHome?: boolean }): void {
       this.pages.push(createAppPage(option))

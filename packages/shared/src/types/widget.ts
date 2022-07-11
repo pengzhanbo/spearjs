@@ -40,10 +40,11 @@ export type WidgetComponentType = 'basis' | 'container' | 'form' | 'business'
  * 并且在编辑器中，会将这类型单独归到子类中以作为区分。
  *
  * vant vant UI 框架的组件 适用于 移动端
- *
  * element-plus  element-plus UI 框架的组件 适用于 PC端
+ * ant-design-vue UI框架，适用于PC端
+ * naive-ui UI框架，适用于PC端
  */
-export type WidgetDependence = 'vant' | 'element-plus'
+export type WidgetDependence = 'vant' | 'element-plus' | 'ant-design-vue' | 'naive-ui'
 
 /**
  * widget 适用平台

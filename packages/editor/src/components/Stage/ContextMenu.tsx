@@ -49,9 +49,11 @@ export default defineComponent({
         onContextmenu={withModifiers(() => {}, ['prevent'])}
       >
         <ElCard bodyStyle={{ padding: '10px 0' }}>
-          <div class={styles.menuItem} onClick={onAddBlockGroup}>
-            新建分组
-          </div>
+          {block.value?.type !== 'block' ? (
+            <div class={styles.menuItem} onClick={onAddBlockGroup}>
+              新建分组
+            </div>
+          ) : null}
           {block.value ? (
             <p class={styles.menuItem} onClick={onDelete}>
               删除{block.value.type === 'block' ? '组件' : '分组'}

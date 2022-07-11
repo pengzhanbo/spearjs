@@ -20,10 +20,6 @@ export interface UserBasicConfig {
   renderFiles?: string
 
   /**
-   * widget 的外部依赖库，用于构建时做体积优化等，一般是声明为 elementPlus, vant 等
-   */
-  lib?: string[]
-  /**
    * widget 打包构建输出目录
    *
    * 默认： dist

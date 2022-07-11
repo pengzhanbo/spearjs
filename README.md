@@ -13,6 +13,8 @@
 ## Usage
 
 ```sh
+# 项目初始化
+pnpm bootstrap
 # 启动开发
 pnpm dev
 ```
@@ -22,6 +24,7 @@ pnpm dev
 - [ ] 原型设计阶段
 - [ ] Editor 开发中
 - [ ] Cli 开发中
+- [ ] Create 开发中
 - [ ] Server 开发中
 - [ ] Admin 未开始
 

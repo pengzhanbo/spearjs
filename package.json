@@ -19,6 +19,7 @@
     "url": "git+git@github.com:pengzhanbo/spearjs.git"
   },
   "scripts": {
+    "bootstrap": "pnpm install && pnpm --filter=@spearjs/utils --filter=@spearjs/shared build",
     "cm": "cz",
     "dev": "pnpm --filter=@spearjs/editor --filter=@spearjs/server dev",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",

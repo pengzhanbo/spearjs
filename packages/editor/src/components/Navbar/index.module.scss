@@ -26,5 +26,10 @@
     &:hover {
       color: var(--c-brand);
     }
+
+    &.disabled {
+      color: var(--c-text-quote);
+      @apply cursor-not-allowed;
+    }
   }
 }

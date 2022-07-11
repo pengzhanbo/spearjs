@@ -27,7 +27,7 @@ const resolveConfigCode = (userConfig: UserConfig): string => {
   const config: Record<any, any> = {
     id: pkg.widgetId || '',
     version: pkg.version || '',
-    name: userConfig.name || pkg.name,
+    label: userConfig.name || pkg.name,
     platform: userConfig.platform,
     type: userConfig.type,
     componentType: (userConfig as any).componentType,

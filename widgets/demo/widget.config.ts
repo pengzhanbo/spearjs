@@ -9,6 +9,5 @@ export default defineConfig({
   platform: 'mobile',
   editorFiles: path.resolve(__dirname, './src/editor.ts'),
   renderFiles: path.resolve(__dirname, './src/render.tsx'),
-  lib: ['vant'],
   dest: 'dist',
 })

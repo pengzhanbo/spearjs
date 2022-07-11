@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App'
+import { setupStoreCache } from './hooks'
 import { setupElementPlus, setupVant } from './plugins'
 import { router, setupRouter } from './router'
 import { setupStore } from './stores'
@@ -16,5 +17,6 @@ setupStore(app)
 setupRouter(app)
 setupElementPlus(app)
 setupVant(app)
+setupStoreCache()
 
 router.isReady().then(() => app.mount('#app'))

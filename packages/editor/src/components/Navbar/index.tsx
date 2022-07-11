@@ -6,6 +6,7 @@ import {
   TemplateIcon,
   UndoIcon,
 } from '@editor/components/Icons'
+import { useStoreCache } from '@editor/hooks'
 import { ArrowDown, Promotion } from '@element-plus/icons-vue'
 import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
@@ -15,6 +16,8 @@ import styles from './index.module.scss'
 export default defineComponent({
   name: 'Navbar',
   setup: () => {
+    const { canRedo, canUndo, redo, undo } = useStoreCache()
+
     const SiteBrand: FunctionalComponent = () => {
       return (
         <div class={styles.siteBrand}>
@@ -62,13 +65,13 @@ export default defineComponent({
             </ElIcon>
             <span>预览</span>
           </p>
-          <p class={styles.headerItem}>
+          <p class={[styles.headerItem, canRedo.value ? '' : styles.disabled]} onClick={redo}>
             <ElIcon class="el-icon--left">
               <RedoIcon />
             </ElIcon>
             <span>前进</span>
           </p>
-          <p class={styles.headerItem}>
+          <p class={[styles.headerItem, canUndo.value ? '' : styles.disabled]} onClick={undo}>
             <ElIcon class="el-icon--left">
               <UndoIcon />
             </ElIcon>
