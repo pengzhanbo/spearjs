@@ -5,12 +5,13 @@
 import type { AppConfig, AppPagesStore } from '@editor/stores'
 import { store, useAppConfigStore, useAppPagesStore } from '@editor/stores'
 import { useStorage } from '@vueuse/core'
+import throttle from 'lodash-es/throttle'
 import type { StateTree } from 'pinia'
 import { computed, ref, watch } from 'vue'
 
 type StoreCache = Record<string, StateTree>
 
-const MAX_CACHE_LENGTH = 10
+const MAX_CACHE_LENGTH = 15
 const CACHE_KEY = 'spearjs_store'
 
 let isUserControl = false
@@ -21,9 +22,9 @@ const index = ref(0)
 
 const addCache = (cache: StoreCache) => {
   if (index.value > 0 && index.value !== storeCache.value.length - 1) {
-    storeCache.value.splice(index.value, storeCache.value.length - index.value)
+    storeCache.value.splice(index.value, storeCache.value.length - index.value + 1)
   }
-  storeCache.value.push(cache)
+  storeCache.value.push(JSON.parse(JSON.stringify(cache)))
   if (storeCache.value.length >= MAX_CACHE_LENGTH) {
     storeCache.value.shift()
   }
@@ -42,13 +43,20 @@ export const setupStoreCache = () => {
     updateConfig(storage.value.appConfig as AppConfig)
   }
 
+  /**
+   * 对于高频次变更状态，取 1秒的时间区间，在区间内的变更，仅计算为一次缓存
+   */
+  const throttleAddCache = throttle((state: StoreCache) => addCache(state), 1000, {
+    leading: false,
+    trailing: true,
+  })
+
   watch(
     () => store.state.value,
     (state) => {
       storage.value = state
       if (!isUserControl) {
-        addCache(JSON.parse(JSON.stringify(state)))
-        isUserControl = false
+        throttleAddCache(state)
       }
     },
     { deep: true }
@@ -61,22 +69,27 @@ export const useStoreCache = () => {
 
   const canRedo = computed(() => index.value < storeCache.value.length - 1)
   const canUndo = computed(() => index.value > 0)
-  const redo = () => {
-    if (!canRedo.value) return
+  const redo = async () => {
+    if (index.value >= storeCache.value.length - 1) return
 
     index.value += 1
+    isUserControl = true
     const cache = storeCache.value[index.value]
     updateAppPage(cache.pages as AppPagesStore)
     updateConfig(cache.appConfig as AppConfig)
-    isUserControl = true
+    await Promise.resolve()
+    isUserControl = false
   }
-  const undo = () => {
-    if (!canUndo.value) return
+  const undo = async () => {
+    if (index.value <= 0) return
+
     index.value -= 1
+    isUserControl = true
     const cache = storeCache.value[index.value]
     updateAppPage(cache.pages as AppPagesStore)
     updateConfig(cache.appConfig as AppConfig)
-    isUserControl = true
+    await Promise.resolve()
+    isUserControl = false
   }
   return { canRedo, canUndo, redo, undo }
 }
