@@ -10,4 +10,6 @@ export * from './createStyles'
 
 export * from './appActions'
 
+export * from './appPages'
+
 export * from './Loader'

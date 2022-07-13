@@ -14,6 +14,7 @@ export * from './DataSource'
 export * from './Eye'
 export * from './Save'
 export * from './Info'
+export * from './Home'
 
 export * from './Arrow'
 export * from './Folder'

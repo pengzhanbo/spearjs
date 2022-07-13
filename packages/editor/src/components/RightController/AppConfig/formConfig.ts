@@ -15,12 +15,9 @@ export default [
     placeholder: '请输入应用名称',
   },
   {
-    type: 'radio',
+    type: 'textView',
     key: 'platform',
     label: '归属平台',
-    button: true,
-    defaultValue: 'PC',
-    options: ['PC', 'mobile'],
   },
   {
     type: 'select',

@@ -1,13 +1,12 @@
+import { AddIcon, CloseIcon, EditIcon, HomeIcon } from '@editor/components/Icons'
 import { useAppPagesStore } from '@editor/stores'
 import type { AppPageItem } from '@editor/stores'
 import { parsePathMath, toPathMath } from '@editor/utils'
-import { CirclePlus, Close, Edit, HomeFilled } from '@element-plus/icons-vue'
 import {
   ElButton,
   ElDialog,
   ElForm,
   ElFormItem,
-  ElIcon,
   ElInput,
   ElMessage,
   ElMessageBox,
@@ -127,7 +126,7 @@ export default defineComponent({
     }
     return () => (
       <div class={styles.pageTree}>
-        <ElButton icon={CirclePlus} type="primary" onClick={openDialogByCreate}>
+        <ElButton icon={AddIcon} type="primary" onClick={openDialogByCreate}>
           新增页面
         </ElButton>
         {/* @ts-ignore */}
@@ -159,14 +158,14 @@ export default defineComponent({
           </li>
           {pages.value.map((page, index) => (
             <li class={{ [styles.current]: page.path === currentPage.value.path }} key={page.path}>
-              <p class="flex-1">
+              <p class="flex-1 mr-5 cursor-pointer" onClick={() => routeTo(page)}>
                 <ElTooltip
                   effect="dark"
                   show-after={600}
                   placement="bottom-start"
                   content={`${page.title} (${page.path})`}
                 >
-                  <span class="cursor-pointer" onClick={() => routeTo(page)}>
+                  <span class="cursor-pointer">
                     {page.title} ({page.path})
                   </span>
                 </ElTooltip>
@@ -178,29 +177,22 @@ export default defineComponent({
                   placement="bottom-start"
                   content="设置为首页"
                 >
-                  <ElIcon
-                    class={{ 'is-home': page.isHome }}
-                    // @ts-ignore
+                  <span
+                    class={['el-icon', { 'is-home': page.isHome }]}
                     onClick={() => pageStore.updateHomePage(page)}
                   >
-                    <HomeFilled />
-                  </ElIcon>
+                    <HomeIcon />
+                  </span>
                 </ElTooltip>
                 <ElTooltip show-after={600} effect="dark" placement="bottom-start" content="编辑">
-                  <ElIcon
-                    // @ts-ignore
-                    onClick={() => openDialogByEdit(page, index)}
-                  >
-                    <Edit />
-                  </ElIcon>
+                  <span class="el-icon" onClick={() => openDialogByEdit(page, index)}>
+                    <EditIcon />
+                  </span>
                 </ElTooltip>
                 <ElTooltip show-after={600} effect="dark" placement="bottom-start" content="删除">
-                  <ElIcon
-                    // @ts-ignore
-                    onClick={() => removePage(page, index)}
-                  >
-                    <Close />
-                  </ElIcon>
+                  <span class="el-icon" onClick={() => removePage(page, index)}>
+                    <CloseIcon />
+                  </span>
                 </ElTooltip>
               </p>
             </li>
