@@ -8,15 +8,21 @@ import './widgets'
 
 import 'virtual:windi-devtools'
 import 'virtual:windi.css'
-
 import './styles/index.scss'
 
-const app = createApp(App)
+const bootstrap = async () => {
+  const app = createApp(App)
 
-setupStore(app)
-setupRouter(app)
-setupElementPlus(app)
-setupVant(app)
-setupStoreCache()
+  setupElementPlus(app)
+  setupVant(app)
 
-router.isReady().then(() => app.mount('#app'))
+  setupStore(app)
+  await setupStoreCache()
+
+  setupRouter(app)
+
+  await router.isReady()
+  app.mount('#app')
+}
+
+bootstrap()

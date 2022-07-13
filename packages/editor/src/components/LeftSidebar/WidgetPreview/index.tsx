@@ -1,4 +1,5 @@
 import { WIDGET_DND_TYPE } from '@editor/common'
+import { InfoIcon } from '@editor/components/Icons'
 import { usePlaceHolder } from '@editor/components/Stage/hooks'
 import type { WidgetComponentItem } from '@editor/services/widget'
 import { findWidget } from '@editor/services/widget'
@@ -6,7 +7,6 @@ import { ElIcon, ElPopover } from 'element-plus'
 import type { PropType } from 'vue'
 import { defineComponent, watch } from 'vue'
 import { useDrag } from 'vue3-dnd'
-import { InfoIcon } from '../Icons'
 import styles from './index.module.scss'
 
 export default defineComponent({

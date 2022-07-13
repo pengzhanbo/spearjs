@@ -1,5 +1,6 @@
 import { useAppPagesStore } from '@editor/stores'
 import type { AppPageItem } from '@editor/stores'
+import { parsePathMath, toPathMath } from '@editor/utils'
 import { CirclePlus, Close, Edit, HomeFilled } from '@element-plus/icons-vue'
 import {
   ElButton,
@@ -15,6 +16,7 @@ import {
 import { storeToRefs } from 'pinia'
 import type { Ref } from 'vue'
 import { computed, defineComponent, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import styles from './index.module.scss'
 
 type PageOption = Pick<AppPageItem, 'title' | 'path'>
@@ -24,6 +26,19 @@ export default defineComponent({
   setup: () => {
     const pageStore = useAppPagesStore()
     const { pages, currentPage } = storeToRefs(pageStore)
+
+    const router = useRouter()
+    const route = useRoute()
+
+    const routeTo = (page: AppPageItem) => {
+      router.push({
+        name: 'appPage',
+        params: {
+          appId: route.params.appId,
+          pathMath: toPathMath(page.path),
+        },
+      })
+    }
 
     const showDialog = ref(false)
     const isEdit = ref(false)
@@ -38,7 +53,7 @@ export default defineComponent({
 
     const newPage: Ref<PageOption> = ref({
       title: '',
-      path: '',
+      path: '/',
     })
     const pageIndex = ref(0)
 
@@ -53,21 +68,31 @@ export default defineComponent({
       showDialog.value = true
     }
     const submitDialog = (): void => {
-      const { title, path } = newPage.value
-      if (title && path) {
-        if (isEdit.value) {
-          pageStore.updatePage(pageIndex.value, newPage.value)
-        } else {
-          pageStore.createAppPage(newPage.value)
-        }
-        showDialog.value = false
-        newPage.value = { title: '', path: '' }
-      } else {
+      let { title, path } = newPage.value
+      title = title.trim()
+      path = path.trim()
+      path = path.startsWith('/') ? path : `/${path}`
+      if (!title || !path) {
         ElMessage({
           message: '标题或路径不能为空',
           type: 'warning',
         })
+        return
       }
+      if (pages.value.some((page) => page.path === path)) {
+        ElMessage({
+          message: '页面路径已存在，请重新修改',
+          type: 'warning',
+        })
+        return
+      }
+      if (isEdit.value) {
+        pageStore.updatePage(pageIndex.value, newPage.value)
+      } else {
+        pageStore.createAppPage(newPage.value)
+      }
+      showDialog.value = false
+      newPage.value = { title: '', path: '/' }
     }
     const removePage = async (page: PageOption, index: number): Promise<void> => {
       await ElMessageBox.confirm(`是否删除 ${page.title} ?`, '警告', {
@@ -76,6 +101,11 @@ export default defineComponent({
         type: 'warning',
       })
       pageStore.removePage(index)
+      const pathMath = parsePathMath(route.params.pathMath)
+      if (pathMath === page.path) {
+        const homePage = pages.value.find((page) => page.isHome) || pageStore.pages[0]
+        routeTo(homePage)
+      }
     }
     return () => (
       <div class={styles.pageTree}>
@@ -118,7 +148,7 @@ export default defineComponent({
                   placement="bottom-start"
                   content={`${page.title} (${page.path})`}
                 >
-                  <span class="cursor-pointer" onClick={() => pageStore.setCurrentPage(page)}>
+                  <span class="cursor-pointer" onClick={() => routeTo(page)}>
                     {page.title} ({page.path})
                   </span>
                 </ElTooltip>

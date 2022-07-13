@@ -31,7 +31,7 @@ const addCache = (cache: StoreCache) => {
   index.value = storeCache.value.length - 1
 }
 
-export const setupStoreCache = () => {
+export const setupStoreCache = async () => {
   // todo 应用ID与缓存中的应用ID对比判断缓存是否可用
   // todo 判断远程草稿中与当前缓存，根据时间关系 应用哪一份数据
   const storage = useStorage(CACHE_KEY, store.state.value)

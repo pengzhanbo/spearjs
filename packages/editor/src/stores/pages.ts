@@ -57,6 +57,11 @@ export const useAppPagesStore = defineStore('pages', {
     setCurrentPage(page: AppPageItem): void {
       this.currentPage = page
     },
+    setCurrentPageByPath(path: string): string {
+      const page = this.pages.find((page) => page.path === path)
+      this.currentPage = page || this.pages[0]
+      return this.currentPage.path
+    },
     updateHomePage(page: AppPageItem): void {
       if (page.isHome) return
       this.pages.forEach((item) => {

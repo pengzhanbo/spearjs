@@ -10,6 +10,6 @@ export const router: Router = createRouter({
 })
 
 export const setupRouter = (app: App) => {
-  setupGlobalGuards(router)
   app.use(router as any)
+  setupGlobalGuards(router)
 }
