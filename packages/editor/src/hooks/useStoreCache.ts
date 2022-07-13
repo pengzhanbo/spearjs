@@ -14,7 +14,7 @@ type StoreCache = Record<string, StateTree>
 const MAX_CACHE_LENGTH = 15
 const CACHE_KEY = 'spearjs_store'
 
-let isUserControl = false
+let ignore = false
 
 const storeCache = ref<StoreCache[]>([])
 
@@ -55,12 +55,20 @@ export const setupStoreCache = async () => {
     () => store.state.value,
     (state) => {
       storage.value = state
-      if (!isUserControl) {
+      if (!ignore) {
         throttleAddCache(state)
       }
     },
     { deep: true }
   )
+}
+
+export const ignoreStoreCache = async <T>(fn: () => T | Promise<T>): Promise<T> => {
+  ignore = true
+  const result = await fn()
+  await Promise.resolve()
+  ignore = false
+  return result
 }
 
 export const useStoreCache = () => {
@@ -73,23 +81,21 @@ export const useStoreCache = () => {
     if (index.value >= storeCache.value.length - 1) return
 
     index.value += 1
-    isUserControl = true
-    const cache = storeCache.value[index.value]
-    updateAppPage(cache.pages as AppPagesStore)
-    updateConfig(cache.appConfig as AppConfig)
-    await Promise.resolve()
-    isUserControl = false
+    ignoreStoreCache(() => {
+      const cache = storeCache.value[index.value]
+      updateAppPage(cache.pages as AppPagesStore)
+      updateConfig(cache.appConfig as AppConfig)
+    })
   }
   const undo = async () => {
     if (index.value <= 0) return
 
     index.value -= 1
-    isUserControl = true
-    const cache = storeCache.value[index.value]
-    updateAppPage(cache.pages as AppPagesStore)
-    updateConfig(cache.appConfig as AppConfig)
-    await Promise.resolve()
-    isUserControl = false
+    ignoreStoreCache(() => {
+      const cache = storeCache.value[index.value]
+      updateAppPage(cache.pages as AppPagesStore)
+      updateConfig(cache.appConfig as AppConfig)
+    })
   }
   return { canRedo, canUndo, redo, undo }
 }

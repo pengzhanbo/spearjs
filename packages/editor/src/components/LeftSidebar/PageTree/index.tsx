@@ -15,7 +15,7 @@ import {
 } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import type { Ref } from 'vue'
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import styles from './index.module.scss'
 
@@ -30,15 +30,33 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
 
+    let isRouterTo = false
+
     const routeTo = (page: AppPageItem) => {
+      if (page.path === currentPage.value.path) return
+      isRouterTo = true
       router.push({
-        name: 'appPage',
+        state: { ignoreStoreCache: false },
         params: {
-          appId: route.params.appId,
           pathMath: toPathMath(page.path),
         },
       })
     }
+
+    watch(
+      () => currentPage.value,
+      (nowPage, oldPage) => {
+        if (nowPage.path !== oldPage.path && !isRouterTo) {
+          router.replace({
+            state: { ignoreStoreCache: true },
+            params: {
+              pathMath: toPathMath(nowPage.path),
+            },
+          })
+        }
+        isRouterTo = false
+      }
+    )
 
     const showDialog = ref(false)
     const isEdit = ref(false)

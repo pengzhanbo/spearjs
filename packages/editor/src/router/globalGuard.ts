@@ -1,3 +1,4 @@
+import { ignoreStoreCache } from '@editor/hooks'
 import { useAppConfigStore, useAppPagesStore } from '@editor/stores'
 import { parsePathMath, toPathMath } from '@editor/utils'
 import NProgress from 'nprogress'
@@ -36,11 +37,14 @@ export const setupGlobalGuards = (router: Router) => {
    * 校验当前路由的路径是否匹配 应用配置的 页面路径
    * 如果不符合，则需要重定向要 应用的首页，或者应用配置的第一个页面
    */
-  router.beforeEach((to) => {
+  router.beforeEach(async (to) => {
     const { pages, setCurrentPageByPath } = useAppPagesStore()
     const homePath = pages.find((page) => page.isHome)?.path || pages[0].path
     const pathMath = parsePathMath(to.params.pathMath) || homePath
-    const currentPath = setCurrentPageByPath(pathMath)
+    const ignore = history.state.ignoreStoreCache || false
+    const currentPath = ignore
+      ? await ignoreStoreCache(() => setCurrentPageByPath(pathMath))
+      : setCurrentPageByPath(pathMath)
     if (currentPath === pathMath) {
       return true
     } else {
