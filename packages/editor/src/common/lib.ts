@@ -4,7 +4,7 @@
 export const thirdLibList = [
   {
     name: 'element-plus',
-    platform: 'PC',
+    platform: 'pc',
     assert: {
       js: ['//unpkg.com/element-plus'],
       css: ['//unpkg.com/element-plus/dist/index.css'],
@@ -21,7 +21,7 @@ export const thirdLibList = [
   // ant-design-vue 有 dayjs的依赖，所以需要全局安装dayjs
   {
     name: 'ant-design-vue',
-    platform: 'PC',
+    platform: 'pc',
     assert: {
       js: ['//unpkg.com/ant-design-vue'],
       css: ['//unpkg.com/ant-design-vue/antd.min.css'],
@@ -29,7 +29,7 @@ export const thirdLibList = [
   },
   {
     name: 'naive-ui',
-    platform: 'PC',
+    platform: 'pc',
     asserts: {
       js: ['//unpkg.com/naive-ui/dist/index.prod.js'],
     },

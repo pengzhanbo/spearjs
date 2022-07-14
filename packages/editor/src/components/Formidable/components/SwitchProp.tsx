@@ -40,8 +40,6 @@ export default defineComponent({
         inactiveValue,
         activeText,
         inactiveText,
-        activeIcon: activeText ? undefined : 'Check',
-        inactiveIcon: inactiveText ? undefined : 'Close',
       }
       return option
     })

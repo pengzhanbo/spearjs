@@ -1,3 +1,4 @@
+import type { Platform } from '@spearjs/shared'
 import { defineStore } from 'pinia'
 
 /**
@@ -11,10 +12,14 @@ export const useAppConfigStore = defineStore('appConfig', {
   state: (): AppConfig => ({
     appId: 'test-1',
     name: '',
-    platform: 'PC',
+    platform: 'mobile',
     description: '描述信息',
     dependence: '',
     services: [],
+    layout: {
+      width: '100%',
+      center: true,
+    },
     themeConfig: {
       CssVars: {
         '--app-c-bg': '#fff',
@@ -33,11 +38,19 @@ export const useAppConfigStore = defineStore('appConfig', {
 export interface AppConfig {
   appId: string
   name: string
-  platform: string
+  platform: Platform
   description: string
   dependence: string
   services: AppService[]
   themeConfig: Record<string, any>
+  /**
+   * 仅当platform为 pc时， layout有效，
+   * 配置页面内容布局。指定网页内容宽度，是否居中
+   */
+  layout: {
+    width: string
+    center: boolean
+  }
 }
 
 export interface AppService {

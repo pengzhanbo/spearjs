@@ -1,7 +1,7 @@
+import { useAppLayout } from '@editor/hooks'
 import { useAppPagesStore } from '@editor/stores'
 import type { Ref } from 'vue'
-import { computed, defineComponent, onMounted, ref, withModifiers } from 'vue'
-import { useStagePosition } from '../../hooks/useStagePosition'
+import { defineComponent, ref, withModifiers } from 'vue'
 import LeftSidebar from '../LeftSidebar'
 import Navbar from '../Navbar'
 import RightController from '../RightController'
@@ -13,33 +13,15 @@ export default defineComponent({
   name: 'Home',
   setup() {
     const pageStore = useAppPagesStore()
-    const position = useStagePosition()
     const { close } = useContextMenu()
-
-    const containerStyle = computed(() => ({
-      width: position.value.cw + 'px',
-      height: position.value.ch + 'px',
-    }))
-    const stageStyle = computed(() => ({
-      'position': 'absolute',
-      'top': position.value.y + 'px',
-      'left': position.value.x + 'px',
-      'width': position.value.sw + 'px',
-      'min-height': position.value.sh + 'px',
-    }))
-
-    const wrapperEl: Ref<HTMLElement | null> = ref(null)
 
     const blurBlockHandle = () => {
       pageStore.setFocusBlock(null)
       close()
     }
 
-    onMounted(() => {
-      if (wrapperEl.value) {
-        wrapperEl.value.scrollTo({ left: position.value.cl, top: position.value.ct })
-      }
-    })
+    const wrapperEl: Ref<HTMLElement | null> = ref(null)
+    const { containerLayout, stageLayout } = useAppLayout(wrapperEl)
 
     return () => (
       <div ref={(el) => (wrapperEl.value = el as HTMLElement)} class={styles.editorWrapper}>
@@ -47,10 +29,10 @@ export default defineComponent({
         <LeftSidebar />
         <div
           class={styles.editorContainer}
-          style={containerStyle.value}
+          style={containerLayout.value}
           onClick={withModifiers(blurBlockHandle, ['self', 'stop'])}
         >
-          <Stage style={stageStyle.value}></Stage>
+          <Stage style={stageLayout.value} />
         </div>
         <RightController />
       </div>
