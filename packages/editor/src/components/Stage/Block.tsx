@@ -1,3 +1,4 @@
+import { useBlockDnd, useContextMenu } from '@editor/hooks'
 import { createWidgetComponent, findWidget } from '@editor/services'
 import type { AppBlock } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
@@ -5,7 +6,6 @@ import type { WidgetSlots } from '@spearjs/shared'
 import { storeToRefs } from 'pinia'
 import { computed, defineComponent, h, readonly, watch, withModifiers } from 'vue'
 import type { PropType, StyleValue } from 'vue'
-import { useBlockDnd, useContextMenu } from './hooks'
 import styles from './index.module.scss'
 import SlotItem from './SlotItem'
 

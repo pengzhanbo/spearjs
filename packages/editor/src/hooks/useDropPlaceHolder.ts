@@ -37,7 +37,7 @@ const setPlaceholderHoverEl = (el: HTMLElement) => {
   hoverEl.value = el
 }
 
-export const setupPlaceholder = () => {
+export const setupDropPlaceholder = () => {
   watch(
     [() => root.value, () => hoverEl.value, () => origin.value],
     ([root, hoverEl, origin]) => {
@@ -92,7 +92,7 @@ export const setupPlaceholder = () => {
   return { setPlaceholderRoot, rectBound, showPlaceholder }
 }
 
-export const usePlaceHolder = () => {
+export const useDropPlaceHolder = () => {
   return {
     setPlaceholderHoverEl,
     showPlaceholder,

@@ -1,9 +1,9 @@
+import { contextMenuOutSide, setupContextMenu } from '@editor/hooks'
 import { createBlockGroup } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import { ElCard } from 'element-plus'
 import type { PropType } from 'vue'
 import { defineComponent, watch, withModifiers } from 'vue'
-import { contextMenuOutSide, setupContextMenu } from './hooks'
 import styles from './index.module.scss'
 
 export default defineComponent({

@@ -2,7 +2,7 @@ import type { AppBlock } from '@editor/services'
 import { emitAction, findBlockByBid } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import type { CSSProperties } from 'vue'
-import { getCurrentInstance, mergeProps, readonly, toRaw } from 'vue'
+import { getCurrentInstance, mergeProps, readonly } from 'vue'
 
 export const useBlock = (bid?: string) => {
   const pageStore = useAppPagesStore()
@@ -27,7 +27,7 @@ But you can useBlock(bid) to get a block.
   const action = (name: string) => emitAction(block.actions, name)
 
   return {
-    props: readonly(toRaw(block.props)),
+    props: readonly(block.props),
     setProps,
     setStyles,
     action,

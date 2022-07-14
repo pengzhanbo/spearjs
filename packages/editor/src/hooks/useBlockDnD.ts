@@ -6,7 +6,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend'
 import { onMounted, ref, watch } from 'vue'
 import { useDrag, useDrop } from 'vue3-dnd'
 import type { XYCoord } from 'vue3-dnd'
-import { usePlaceHolder } from './usePlaceHolder'
+import { useDropPlaceHolder } from './useDropPlaceHolder'
 
 export interface BlockDragItem {
   index: number
@@ -38,7 +38,7 @@ export const useBlockDnd = (_item: BlockDragItem) => {
     preview(getEmptyImage(), { captureDraggingState: true })
   })
 
-  const { setPlaceholderHoverEl, origin, showPlaceholder } = usePlaceHolder()
+  const { setPlaceholderHoverEl, origin, showPlaceholder } = useDropPlaceHolder()
   // 监听是否在拖拽中，并显示 拖拽目标位置提示占位符
   watch(
     () => dragCollect.value.isDragging,

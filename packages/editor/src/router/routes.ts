@@ -1,14 +1,15 @@
+import Home from '@editor/components/Home'
 import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/:appId/:pathMath(.*)*',
     name: 'appPage',
-    component: () => import('../components/Home'),
+    component: Home,
   },
   {
     path: '/',
     name: 'home',
-    component: () => import('../components/Home'),
+    component: Home,
   },
 ]

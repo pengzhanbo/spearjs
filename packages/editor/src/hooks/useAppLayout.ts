@@ -1,5 +1,5 @@
 import { useAppConfigStore } from '@editor/stores'
-import type { Platform } from '@spearjs/shared/'
+import type { Platform } from '@spearjs/shared'
 import { storeToRefs } from 'pinia'
 import type { CSSProperties, Ref } from 'vue'
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'

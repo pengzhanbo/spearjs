@@ -1,6 +1,6 @@
 import { WIDGET_DND_TYPE } from '@editor/common'
 import { InfoIcon } from '@editor/components/Icons'
-import { usePlaceHolder } from '@editor/components/Stage/hooks'
+import { useDropPlaceHolder } from '@editor/hooks'
 import type { WidgetComponentItem } from '@editor/services/widget'
 import { findWidget } from '@editor/services/widget'
 import { ElIcon, ElPopover } from 'element-plus'
@@ -19,7 +19,7 @@ export default defineComponent({
   },
   setup(props) {
     const widget = findWidget(props.widget.id, props.widget.version)
-    const { showPlaceholder } = usePlaceHolder()
+    const { showPlaceholder } = useDropPlaceHolder()
 
     const [collect, dragSource] = useDrag({
       type: WIDGET_DND_TYPE.Component,

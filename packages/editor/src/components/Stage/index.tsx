@@ -1,10 +1,10 @@
+import { useBlocksDrop, useContextMenu } from '@editor/hooks'
 import { useAppPagesStore } from '@editor/stores'
 import { storeToRefs } from 'pinia'
 import { defineComponent, ref, withModifiers } from 'vue'
 import Blocks from './Blocks'
 import ContextMenu from './ContextMenu'
 import DragLayer from './DragLayer'
-import { useBlocksDrop, useContextMenu } from './hooks'
 import styles from './index.module.scss'
 import PlaceHolder from './PlaceHolder'
 

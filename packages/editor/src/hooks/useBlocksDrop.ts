@@ -10,12 +10,12 @@ import type { ComputedRef } from 'vue'
 import { ref } from 'vue'
 import { useDrop } from 'vue3-dnd'
 import type { BlockDragItem } from './useBlockDnD'
-import { usePlaceHolder } from './usePlaceHolder'
+import { useDropPlaceHolder } from './useDropPlaceHolder'
 
 export const useBlocksDrop = (_roadMap?: ComputedRef<string>) => {
   const pageStore = useAppPagesStore()
   const blocksEl = ref<HTMLElement | null>(null)
-  const { origin, setPlaceholderHoverEl } = usePlaceHolder()
+  const { origin, setPlaceholderHoverEl } = useDropPlaceHolder()
   const [dropCollect, drop] = useDrop<
     BlockDragItem,
     void,
