@@ -75,7 +75,7 @@
     "vite": "^3.0.0",
     "vue-eslint-parser": "^9.0.3"
   },
-  "packageManager": "pnpm",
+  "packageManager": "pnpm@7.5.0",
   "engines": {
     "node": "^14.18.0 || >=16.0.0",
     "pnpm": ">=7.0.0"
