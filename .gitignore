@@ -27,6 +27,7 @@ packages/server/static
 *.njsproj
 *.sln
 *.sw?
+*.eslintcache
 
 # Tests
 **/coverage
