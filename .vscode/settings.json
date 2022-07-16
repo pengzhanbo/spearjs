@@ -12,6 +12,7 @@
   "scss.validate": false,
   "css.validate": false,
   "cSpell.words": [
+    "attributify",
     "autosize",
     "bumpp",
     "Cascader",
@@ -23,6 +24,7 @@
     "nprogress",
     "pinia",
     "pnpm",
+    "preinstall",
     "spearjs",
     "spearjslowcoderc",
     "tsbuildinfo",

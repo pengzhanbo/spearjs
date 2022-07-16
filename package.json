@@ -22,6 +22,7 @@
     "bootstrap": "pnpm install && pnpm --filter=@spearjs/utils --filter=@spearjs/shared build",
     "cm": "cz",
     "dev": "pnpm --filter=@spearjs/editor --filter=@spearjs/server dev",
+    "preinstall": "npx only-allow pnpm",
     "lint": "eslint --ext .js,.ts,.tsx,.vue .",
     "prepare": "husky install",
     "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
@@ -29,15 +30,12 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --cache --fix",
+      "prettier --write --cache --ignore-unknown"
     ],
-    "*.{css,scss}": [
-      "prettier --write"
-    ],
-    "*.{json,yml}": "prettier --write",
-    "package.json": "sort-package-json",
-    "*.md": "prettier --write"
+    "*.d.ts": "eslint --cache --fix",
+    "*.{css,scss,json,yml,md}": "prettier --write --cache --ignore-unknown",
+    "package.json": "sort-package-json"
   },
   "config": {
     "commitizen": {
@@ -53,33 +51,34 @@
     "bumpp": "^7.1.1",
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.2.2",
-    "eslint": "^8.17.0",
+    "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-define-config": "^1.5.1",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.1.1",
     "husky": "^8.0.1",
     "lint-staged": "^12.4.1",
     "postcss": "^8.4.14",
     "postcss-html": "^1.4.1",
     "postcss-scss": "^4.0.4",
-    "prettier": "^2.6.2",
+    "prettier": "^2.7.1",
     "sort-package-json": "^1.57.0",
-    "stylelint": "^14.8.2",
+    "stylelint": "^14.9.1",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "typescript": "^4.6.4",
-    "vite": "^2.9.9",
-    "vue-eslint-parser": "^9.0.2"
+    "typescript": "^4.7.4",
+    "vite": "^3.0.0",
+    "vue-eslint-parser": "^9.0.3"
   },
+  "packageManager": "pnpm",
   "engines": {
-    "node": ">=14",
-    "pnpm": ">=7"
+    "node": "^14.18.0 || >=16.0.0",
+    "pnpm": ">=7.0.0"
   },
   "pnpm": {
     "peerDependencyRules": {

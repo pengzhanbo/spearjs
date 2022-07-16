@@ -6,6 +6,15 @@
     "SpearJs",
     "utils"
   ],
+  "homepage": "https://github.com/pengzhanbo/spearjs#readme",
+  "bugs": {
+    "url": "https://github.com/pengzhanbo/spearjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:pengzhanbo/spearjs.git",
+    "directory": "packages/utils"
+  },
   "license": "MIT",
   "author": "pengzhanbo",
   "main": "dist/index.js",

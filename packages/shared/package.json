@@ -13,7 +13,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:pengzhanbo/spearjs.git"
+    "url": "git+git@github.com:pengzhanbo/spearjs.git",
+    "directory": "packages/shared"
   },
   "license": "MIT",
   "author": "pengzhanbo",
@@ -40,9 +41,9 @@
     "copy": "cpx \"src/**/*.css\" dist"
   },
   "dependencies": {
-    "element-plus": "^2.2.0",
-    "vue": "^3.2.36",
-    "vue-router": "^4.0.15"
+    "element-plus": "^2.2.6",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.2"
   },
   "devDependencies": {
     "cpx2": "^4.2.0",
