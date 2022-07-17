@@ -1,0 +1,25 @@
+{
+  "name": "@spearjs/widget-element-plus-tree-column-layout",
+  "version": "1.0.0",
+  "private": true,
+  "description": "页面布局容器-三栏布局",
+  "keywords": [
+    "spearjs",
+    "low-code",
+    "widget"
+  ],
+  "license": "ISC",
+  "author": "pengzhanbo",
+  "main": "index.js",
+  "scripts": {
+    "build": "spearjs build",
+    "dev": "spearjs dev",
+    "publish:release": "spearjs publish"
+  },
+  "dependencies": {
+    "@spearjs/cli": "workspace:*",
+    "@spearjs/shared": "workspace:*",
+    "element-plus": "^2.2.6",
+    "vue": "^3.2.37"
+  }
+}

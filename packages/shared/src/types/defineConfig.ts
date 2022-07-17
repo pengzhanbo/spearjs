@@ -5,6 +5,7 @@ import type {
   WidgetActions,
   WidgetComponentLayer,
   WidgetExposeList,
+  WidgetSlots,
 } from './widget'
 import type { WidgetProps } from './widgetProps'
 
@@ -29,7 +30,8 @@ export interface RenderConfigByComponent<Props, RawBindings> {
     this: RawBindings & ComponentPublicInstance<Props>,
     options: {
       props: Readonly<Props>
-      slots: Record<string, RenderFunction>
+      slots: WidgetSlots
+      action: (name: string) => void
     }
   ) => ReturnType<RenderFunction>
 }

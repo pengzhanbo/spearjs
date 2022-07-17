@@ -54,4 +54,4 @@ export default defineConfig(({ mode }): UserConfig => {
       include: ['@vueuse/core', 'element-plus', 'lodash-es', 'vue3-dnd'],
     },
   }
-})
+}) as UserConfig

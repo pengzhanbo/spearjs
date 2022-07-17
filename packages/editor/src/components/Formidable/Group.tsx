@@ -3,7 +3,7 @@ import type { WidgetGroupProp } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
 import { ElCollapseTransition, ElIcon } from 'element-plus'
 import isBoolean from 'lodash-es/isBoolean'
-import { computed, defineComponent, readonly, ref, toRaw } from 'vue'
+import { computed, defineComponent, readonly, ref } from 'vue'
 import type { PropType } from 'vue'
 import type { FormInjectKey } from './hooks'
 import { useFormData } from './hooks'
@@ -34,7 +34,7 @@ export default defineComponent({
     }
     const show = computed(() => {
       const showProp = typeof props.config.showProp === 'undefined' ? true : props.config.showProp
-      return isFunction(showProp) ? showProp(readonly(toRaw(model))) : showProp
+      return isFunction(showProp) ? showProp(readonly(model)) : showProp
     })
     return () => (
       <div class={styles.groupWrapper} v-show={show.value}>

@@ -1,0 +1,25 @@
+{
+  "name": "@spearjs/widget-vant-cell-group",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [
+    "spearjs",
+    "low-code",
+    "widget"
+  ],
+  "license": "ISC",
+  "author": "pengzhanbo",
+  "main": "index.js",
+  "scripts": {
+    "build": "spearjs build",
+    "dev": "spearjs dev",
+    "publish:release": "spearjs publish"
+  },
+  "dependencies": {
+    "@spearjs/cli": "workspace:*",
+    "@spearjs/shared": "workspace:*",
+    "vant": "^3.5.2",
+    "vue": "^3.2.37"
+  }
+}

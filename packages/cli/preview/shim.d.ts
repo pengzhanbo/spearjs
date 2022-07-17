@@ -5,8 +5,8 @@ declare module 'spearjs/widget/*' {
 
 declare module 'spearjs/widget/config' {
   import type {
-    WidgetComponentSubType,
     WidgetComponentType,
+    WidgetDependence,
     WidgetPlatform,
     WidgetType,
     WidgetVersion,
@@ -18,7 +18,7 @@ declare module 'spearjs/widget/config' {
     platform: WidgetPlatform
     type: WidgetType
     componentType: WidgetComponentType
-    componentSubType: WidgetComponentSubType
+    dependence: WidgetDependence
   }
   export default config
 }

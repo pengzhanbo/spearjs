@@ -3,6 +3,7 @@ import widgetConfig from 'spearjs/widget/config'
 import render from 'spearjs/widget/render'
 
 registerWidget({
-  ...widgetConfig,
+  id: widgetConfig.id,
+  version: widgetConfig.version,
   ...render,
 })

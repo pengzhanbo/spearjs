@@ -65,12 +65,13 @@ export function createWidgetComponent({
       // 允许 widget 内部自定义 setup，自定义其他的数据或者逻辑，
       // 在 render 中可以通过 this[prop] 获取到相关的返回内容
       if (setup) {
+        // @ts-ignore
         Object.assign(res, setup(props.props, { ...ctx, bid: props.bid, expose }) || {})
       }
       return res
     },
     render({ props, $attrs, $slots, $emit }) {
-      return render!.bind(this)({
+      return render!.bind(this as any)({
         props,
         slots: $slots,
         attrs: $attrs,
