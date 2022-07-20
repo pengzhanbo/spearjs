@@ -1,6 +1,6 @@
 import { useBlockDnd, useContextMenu } from '@editor/hooks'
-import type { AppBlockGroup } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlockGroup } from '@spearjs/core'
 import { storeToRefs } from 'pinia'
 import type { PropType } from 'vue'
 import { computed, defineComponent, watch, withModifiers } from 'vue'

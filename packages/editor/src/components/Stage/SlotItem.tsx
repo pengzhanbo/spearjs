@@ -4,7 +4,7 @@
  * 并且支持 传入 class 以及 style 来控制 slot容器的表现；
  */
 import { useBlocksDrop } from '@editor/hooks'
-import type { AppBlocks } from '@editor/services'
+import type { AppBlocks } from '@spearjs/core'
 import type { WidgetSlotOptions } from '@spearjs/shared'
 import { isArray } from '@spearjs/shared'
 import { computed, defineComponent, toRefs } from 'vue'

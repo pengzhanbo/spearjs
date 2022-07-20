@@ -1,7 +1,7 @@
 import { useBlockDnd, useContextMenu } from '@editor/hooks'
 import { createWidgetComponent, findWidget } from '@editor/services'
-import type { AppBlock } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlock } from '@spearjs/core'
 import type { WidgetSlots } from '@spearjs/shared'
 import { storeToRefs } from 'pinia'
 import { computed, defineComponent, h, readonly, watch, withModifiers } from 'vue'
@@ -61,10 +61,10 @@ export default defineComponent({
     // --- block dnd end ---
 
     const block = computed(() => {
-      const { label, component, bid, props: _props, styles, slots, editor } = props.block
-      const widget = findWidget(component.id, component.version)
+      const { label, widget, bid, props: _props, styles, slots, editor } = props.block
+      const _widget = findWidget(widget.id, widget.version)
       return {
-        component: createWidgetComponent(widget),
+        component: createWidgetComponent(_widget),
         label,
         bid,
         props: _props,

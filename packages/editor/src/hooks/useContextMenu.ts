@@ -1,5 +1,5 @@
-import type { AppBlock, AppBlockGroup } from '@editor/services'
 import { getElOffset } from '@editor/utils'
+import type { AppBlock, AppBlockGroup } from '@spearjs/core'
 import type { Directive, Ref } from 'vue'
 import { onMounted, onUnmounted, ref } from 'vue'
 

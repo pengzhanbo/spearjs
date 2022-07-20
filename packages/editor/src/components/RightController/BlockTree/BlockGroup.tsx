@@ -6,8 +6,8 @@ import {
   FolderIcon,
   FolderOpenIcon,
 } from '@editor/components/Icons'
-import type { AppBlockGroup } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlockGroup } from '@spearjs/core'
 import { ElCollapseTransition } from 'element-plus'
 import type { PropType } from 'vue'
 import { computed, defineComponent, nextTick, ref, watch, withModifiers } from 'vue'

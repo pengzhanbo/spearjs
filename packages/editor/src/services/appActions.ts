@@ -1,6 +1,6 @@
+import type { AppBlockActions } from '@spearjs/core'
 import type { WidgetActions } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
-import type { AppBlockActions } from './appBlocks'
 import { getComponentInstance } from './componentInstanceMap'
 
 export const createBlockActions = (actions: WidgetActions): AppBlockActions => {

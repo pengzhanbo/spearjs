@@ -1,10 +1,10 @@
+import type { AppBlock, AppBlockGroup, AppBlocks } from '@spearjs/core'
 import type { ComponentWidget } from '@spearjs/shared'
 import { isFunction } from '@spearjs/shared'
 import cloneDeep from 'lodash-es/cloneDeep'
 import { readonly } from 'vue'
 import { createBlockActions } from './appActions'
 import { createProps } from './createProps'
-import type { AppBlockStyles } from './createStyles'
 import { createStyles } from './createStyles'
 import { generateBid, generateBlockGroupKey } from './idGenerator'
 
@@ -35,9 +35,12 @@ export const createBlock = (widget: ComponentWidget): AppBlock => {
   return {
     type: 'block',
     label: getBlockLabel(widget.label),
-    component: {
+    widget: {
       id: widget.id,
       version: widget.version,
+      // todo widget js css
+      js: '',
+      css: '',
     },
     bid: generateBid(),
     props,
@@ -84,52 +87,52 @@ export const findBlockByBid = (blocks: AppBlocks, bid: string): AppBlock | AppBl
   return null
 }
 
-export type AppBlocks = (AppBlock | AppBlockGroup)[]
+// export type AppBlocks = (AppBlock | AppBlockGroup)[]
 
-export interface AppBlockGroup {
-  bid: string
-  type: 'group'
-  label: string
-  blocks: AppBlocks
-  editor: BlockEditorOption
-}
-export interface AppBlock {
-  type: 'block'
-  label: string
-  component: {
-    id: string
-    version: string
-  }
-  bid: string
-  props: Record<string, any>
-  styles: AppBlockStyles
-  slots: Record<string, AppBlocks>
-  actions: AppBlockActions
-  editor: BlockEditorOption
-}
+// export interface AppBlockGroup {
+//   bid: string
+//   type: 'group'
+//   label: string
+//   blocks: AppBlocks
+//   editor: BlockEditorOption
+// }
+// export interface AppBlock {
+//   type: 'block'
+//   label: string
+//   component: {
+//     id: string
+//     version: string
+//   }
+//   bid: string
+//   props: Record<string, any>
+//   styles: AppBlockStyles
+//   slots: Record<string, AppBlocks>
+//   actions: AppBlockActions
+//   editor: BlockEditorOption
+// }
 
-export type AppBlockActions = Record<string, AppBlockAction[]>
-export interface AppBlockAction {
-  /**
-   * service 查找区间
-   */
-  type: 'global' | 'block'
-  /**
-   * type 为 block 时，通过 bid 查找 block 上的 expose
-   */
-  bid?: string
-  /**
-   * expose name
-   */
-  name: string
-  /**
-   * 参数映射
-   * 将当前 block props 映射为 service 需要的第一个入参
-   * service的第一个参数必须是一个对象
-   */
-  mapping: any[]
-}
+// export type AppBlockActions = Record<string, AppBlockAction[]>
+// export interface AppBlockAction {
+//   /**
+//    * service 查找区间
+//    */
+//   type: 'global' | 'block'
+//   /**
+//    * type 为 block 时，通过 bid 查找 block 上的 expose
+//    */
+//   bid?: string
+//   /**
+//    * expose name
+//    */
+//   name: string
+//   /**
+//    * 参数映射
+//    * 将当前 block props 映射为 service 需要的第一个入参
+//    * service的第一个参数必须是一个对象
+//    */
+//   mapping: any[]
+// }
 
-export interface BlockEditorOption {
-  visibility: boolean
-}
+// export interface BlockEditorOption {
+//   visibility: boolean
+// }

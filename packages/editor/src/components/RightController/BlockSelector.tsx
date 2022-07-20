@@ -1,5 +1,5 @@
-import type { AppBlock, AppBlocks } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlock, AppBlocks } from '@spearjs/core'
 import { useVModel } from '@vueuse/core'
 import { ElOption, ElOptionGroup, ElSelect } from 'element-plus'
 import type { PropType } from 'vue'

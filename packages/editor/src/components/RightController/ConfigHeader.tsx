@@ -1,4 +1,4 @@
-import type { AppBlock } from '@editor/services'
+import type { AppBlock } from '@spearjs/core'
 import type { FunctionalComponent } from 'vue'
 
 export const BlockHeader: FunctionalComponent<{ block: AppBlock }> = ({ block }) => {

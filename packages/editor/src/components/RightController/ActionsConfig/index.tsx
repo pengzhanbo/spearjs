@@ -1,8 +1,8 @@
 import { actionTypeList, preExposeList } from '@editor/common'
 import { InfoIcon } from '@editor/components/Icons'
-import type { AppBlock, AppBlockAction } from '@editor/services'
 import { findBlockByBid, findWidget } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlock, AppBlockAction } from '@spearjs/core'
 import type { WidgetAction, WidgetActions } from '@spearjs/shared'
 import {
   ElButton,
@@ -59,9 +59,9 @@ export default defineComponent({
     })
 
     const widget = computed(() => {
-      const component = block.value?.component
-      if (component) {
-        return findWidget(component.id, component.version)
+      const widget = block.value?.widget
+      if (widget) {
+        return findWidget(widget.id, widget.version)
       }
       return null
     })
@@ -108,7 +108,7 @@ export default defineComponent({
           pageStore.currentPage.blocks,
           actionHandler.value.bid
         ) as AppBlock
-        const curWidget = findWidget(curBlock.component.id, curBlock.component.version)
+        const curWidget = findWidget(curBlock.widget.id, curBlock.widget.version)
         return [...preExposeList, ...(curWidget.expose || [])].filter((expose) => {
           if (curBlock.bid === block.value?.bid) {
             return expose.type === 'method'

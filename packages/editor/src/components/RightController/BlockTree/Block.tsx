@@ -1,6 +1,6 @@
 import { CloseIcon, EditIcon, EyeIcon, EyeSlashIcon, FileIcon } from '@editor/components/Icons'
-import type { AppBlock } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlock } from '@spearjs/core'
 import type { Component, PropType } from 'vue'
 import { computed, defineComponent, nextTick, ref, watch, withModifiers } from 'vue'
 import styles from './index.module.scss'

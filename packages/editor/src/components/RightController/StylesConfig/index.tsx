@@ -1,7 +1,7 @@
 import Formidable from '@editor/components/Formidable'
-import type { AppBlockStyles } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
 import { Close } from '@element-plus/icons-vue'
+import type { AppBlockStyles } from '@spearjs/core'
 import { ElIcon } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
 import { computed, defineComponent } from 'vue'

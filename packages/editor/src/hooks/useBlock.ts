@@ -1,6 +1,6 @@
-import type { AppBlock } from '@editor/services'
 import { emitAction, findBlockByBid } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlock } from '@spearjs/core'
 import type { CSSProperties } from 'vue'
 import { getCurrentInstance, mergeProps, readonly } from 'vue'
 

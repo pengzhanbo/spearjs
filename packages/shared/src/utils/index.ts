@@ -1,5 +1,5 @@
 export * from './hasOwn'
 export * from './is'
-export * from './widget'
+export * from './global'
 export * from './defineConfig'
 export * from './loadAssert'

@@ -1,5 +1,5 @@
 import type { AppPageList } from '@editor/stores'
-import type { AppBlocks } from './appBlocks'
+import type { AppBlocks } from '@spearjs/core'
 import { findWidget } from './widget'
 
 const findBlocksDependencies = (blocks: AppBlocks, result: string[] = []): string[] => {
@@ -8,7 +8,7 @@ const findBlocksDependencies = (blocks: AppBlocks, result: string[] = []): strin
     if (block.type === 'group') {
       findBlocksDependencies(block.blocks, result)
     } else {
-      const widget = findWidget(block.component.id, block.component.version)
+      const widget = findWidget(block.widget.id, block.widget.version)
       widget && widget.dependence && result.push(widget.dependence)
       const slots = Object.keys(block.slots).map((key: string) => block.slots[key])
       if (slots.length) {

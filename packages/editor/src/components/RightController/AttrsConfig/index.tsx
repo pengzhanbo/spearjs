@@ -21,9 +21,9 @@ export default defineComponent({
     })
 
     const widget = computed(() => {
-      const component = block.value?.component
-      if (component) {
-        return findWidget(component.id, component.version)
+      const widget = block.value?.widget
+      if (widget) {
+        return findWidget(widget.id, widget.version)
       }
       return null
     })

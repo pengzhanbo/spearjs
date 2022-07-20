@@ -1,5 +1,5 @@
 import { ArrowMiniRightIcon } from '@editor/components/Icons'
-import type { AppBlocks } from '@editor/services'
+import type { AppBlocks } from '@spearjs/core'
 import { ElCollapseTransition } from 'element-plus'
 import type { PropType } from 'vue'
 import { computed, defineComponent, ref } from 'vue'

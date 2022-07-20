@@ -7,8 +7,9 @@
     "types": ["vite/client", "node"],
     "paths": {
       "@editor/*": ["./packages/editor/src/*"],
-      "@spearjs/*": ["./packages/*/src/index.ts"],
-      "@spearjs/shared/*": ["./packages/shared/src/*/index.ts"]
+      "@core/*": ["./packages/core/src/*"],
+      "@spearjs/core": ["./packages/core/src/core.ts"],
+      "@spearjs/*": ["./packages/*/src/index.ts"]
     }
   },
   "vueCompilerOptions": {

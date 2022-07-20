@@ -1,4 +1,4 @@
-import type { AppBlocks } from '@editor/services'
+import type { AppBlocks } from '@spearjs/core'
 import { defineComponent, TransitionGroup } from 'vue'
 import type { PropType } from 'vue'
 import Block from './Block'

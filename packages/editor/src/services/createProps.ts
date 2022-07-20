@@ -31,9 +31,9 @@ export function getDefaultValue(prop: WidgetPropItem): any {
     case 'array':
       if (prop.defaultValue) return prop.defaultValue
       if (isArray(prop.items)) {
-        return prop.items.map((item) => item.defaultValue)
+        return prop.items.map((item) => (item as any).defaultValue)
       } else {
-        return new Array(prop.minLength || 0).fill(prop.items.defaultValue)
+        return new Array(prop.minLength || 0).fill((prop.items as any).defaultValue)
       }
     case 'object':
       const obj = prop.defaultValue || {}

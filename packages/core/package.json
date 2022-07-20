@@ -1,0 +1,76 @@
+{
+  "name": "@spearjs/core",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/pengzhanbo/spearjs#readme",
+  "bugs": {
+    "url": "https://github.com/pengzhanbo/spearjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:pengzhanbo/spearjs.git",
+    "directory": "packages/core"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/core.js",
+      "require": "./dist/core.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "main": "./dist/core.umd.cjs",
+  "module": "./dist/core.js",
+  "types": "./dist/core.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsup --dts-only",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@spearjs/shared": "workspace:*",
+    "lodash-es": "^4.17.21",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.14",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vitejs/plugin-vue-jsx": "^2.0.0",
+    "postcss": "^8.4.14",
+    "sass": "^1.53.0",
+    "terser": "^5.14.2",
+    "tsup": "^5.12.9",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.1",
+    "vite-plugin-windicss": "^1.8.7",
+    "windicss": "^3.5.6"
+  },
+  "peerDependencies": {
+    "@spearjs/shared": ">=1.0.0",
+    "pinia": ">=2.0.14",
+    "vue": ">=3.2.37",
+    "vue-router": ">=4.1.2"
+  },
+  "tsup": {
+    "clean": false,
+    "splitting": false,
+    "dts": [
+      "src/core.ts"
+    ],
+    "entry": [
+      "src/core.ts"
+    ],
+    "outDir": "dist",
+    "sourcemap": false,
+    "target": "es2020",
+    "tsconfig": "tsconfig.dts.json"
+  }
+}

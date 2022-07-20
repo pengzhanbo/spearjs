@@ -1,8 +1,8 @@
 import { preExposeList } from '@editor/common'
 import { AddIcon, CloseIcon, EditIcon } from '@editor/components/Icons'
-import type { AppBlock, AppBlockAction } from '@editor/services'
 import { findBlockByBid, findWidget } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
+import type { AppBlock, AppBlockAction } from '@spearjs/core'
 import type { WidgetAction } from '@spearjs/shared'
 import { ElButton } from 'element-plus'
 import type { PropType } from 'vue'
@@ -31,7 +31,7 @@ export default defineComponent({
             props.block.bid === handler.bid
               ? props.block
               : (findBlockByBid(pageStore.currentPage.blocks, handler.bid!) as AppBlock)
-          const widget = findWidget(block.component.id, block.component.version)
+          const widget = findWidget(block.widget.id, block.widget.version)
           const widgetAction = [...preExposeList, ...(widget.expose || [])].find(
             (item) => item.name === handler.name
           )

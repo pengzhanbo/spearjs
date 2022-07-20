@@ -1,11 +1,11 @@
+import { findBlockByBid } from '@editor/services'
 import type {
   AppBlock,
   AppBlockAction,
   AppBlockGroup,
   AppBlocks,
   BlockEditorOption,
-} from '@editor/services'
-import { findBlockByBid } from '@editor/services'
+} from '@spearjs/core'
 import { hasOwn } from '@spearjs/shared'
 import { defineStore } from 'pinia'
 
