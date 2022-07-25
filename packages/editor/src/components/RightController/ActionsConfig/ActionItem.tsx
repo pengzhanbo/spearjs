@@ -59,14 +59,14 @@ export default defineComponent({
             </div>
             <p class="ml-5">
               <ElButton
-                icon={EditIcon}
+                icon={EditIcon as any}
                 type="primary"
                 size="small"
                 circle
                 onClick={() => emit('edit', props.action.action, handler, index)}
               />
               <ElButton
-                icon={CloseIcon}
+                icon={CloseIcon as any}
                 type="danger"
                 size="small"
                 circle
@@ -76,7 +76,11 @@ export default defineComponent({
           </div>
         ))}
         <div class="text-right mt-5">
-          <ElButton type="primary" icon={AddIcon} onClick={() => emit('add', props.action.action)}>
+          <ElButton
+            type="primary"
+            icon={AddIcon as any}
+            onClick={() => emit('add', props.action.action)}
+          >
             新增动作响应
           </ElButton>
         </div>

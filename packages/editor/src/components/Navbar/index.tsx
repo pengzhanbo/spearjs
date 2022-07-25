@@ -1,14 +1,13 @@
 import {
-  PlatformIcon,
   PreviewIcon,
+  PromotionIcon,
   RedoIcon,
   SaveIcon,
   TemplateIcon,
   UndoIcon,
 } from '@editor/components/Icons'
 import { useStoreCache } from '@editor/hooks'
-import { ArrowDown, Promotion } from '@element-plus/icons-vue'
-import { ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
+import { ElIcon } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
 import { defineComponent } from 'vue'
 import styles from './index.module.scss'
@@ -36,27 +35,6 @@ export default defineComponent({
             </ElIcon>
             <span>模板</span>
           </p>
-          <ElDropdown>
-            {{
-              default: () => (
-                <p class={styles.headerItem}>
-                  <ElIcon class="el-icon--left">
-                    <PlatformIcon />
-                  </ElIcon>
-                  <span>平台</span>
-                  <ElIcon class="el-icon--right">
-                    <ArrowDown />
-                  </ElIcon>
-                </p>
-              ),
-              dropdown: () => (
-                <ElDropdownMenu>
-                  <ElDropdownItem>PC(1280x768)</ElDropdownItem>
-                  <ElDropdownItem>Mobile</ElDropdownItem>
-                </ElDropdownMenu>
-              ),
-            }}
-          </ElDropdown>
         </div>
         <div class="flex items-center">
           <p class={styles.headerItem}>
@@ -85,7 +63,7 @@ export default defineComponent({
           </p>
           <p class={styles.headerItem}>
             <ElIcon class="el-icon--left">
-              <Promotion />
+              <PromotionIcon />
             </ElIcon>
             <span>提交</span>
           </p>

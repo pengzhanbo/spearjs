@@ -76,14 +76,18 @@ export const createPublish = (): PublishCommand => {
       'editorAssert',
       JSON.stringify({
         js: 'editor/index.iife.js',
-        css: 'editor/style.css',
+        css: fs.existsSync(path.join(process.cwd(), dest, 'editor/style.css'))
+          ? 'editor/style.css'
+          : '',
       })
     )
     formData.append(
       'renderAssert',
       JSON.stringify({
         js: 'render/index.iife.js',
-        css: 'render/style.css',
+        css: fs.existsSync(path.join(process.cwd(), dest, 'render/style.css'))
+          ? 'render/style.css'
+          : '',
       })
     )
     formData.append('latest', latest ? 1 : 0)

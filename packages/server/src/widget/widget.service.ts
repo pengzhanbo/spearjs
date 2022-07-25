@@ -115,9 +115,9 @@ export class WidgetService {
     const editorAssert = JSON.parse(widget.editorAssert)
     const renderAssert = JSON.parse(widget.renderAssert)
     editorAssert.js = path.join(widgetDir, editorAssert.js)
-    editorAssert.css = path.join(widgetDir, editorAssert.css)
+    editorAssert.css = editorAssert.css ? path.join(widgetDir, editorAssert.css) : ''
     renderAssert.js = path.join(widgetDir, renderAssert.js)
-    renderAssert.css = path.join(widgetDir, renderAssert.css)
+    renderAssert.css = renderAssert.css ? path.join(widgetDir, renderAssert.css) : ''
     return {
       renderAssert,
       editorAssert,
