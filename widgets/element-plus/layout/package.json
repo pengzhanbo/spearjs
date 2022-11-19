@@ -19,7 +19,7 @@
   "dependencies": {
     "@spearjs/cli": "workspace:*",
     "@spearjs/shared": "workspace:*",
-    "element-plus": "^2.2.6",
-    "vue": "^3.2.37"
+    "element-plus": "^2.2.22",
+    "vue": "^3.2.45"
   }
 }

@@ -30,7 +30,7 @@
     "@spearjs/shared": "workspace:*",
     "@types/debug": "^4.1.7",
     "@types/fs-extra": "^9.0.13",
-    "@types/inquirer": "^8.2.1",
+    "@types/inquirer": "^8.2.5",
     "chalk": "4.1.2",
     "debug": "^4.3.4",
     "fs-extra": "^10.1.0",

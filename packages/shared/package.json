@@ -41,14 +41,14 @@
     "copy": "cpx \"src/**/*.css\" dist"
   },
   "dependencies": {
-    "element-plus": "^2.2.6",
-    "vue": "^3.2.37",
-    "vue-router": "^4.1.2"
+    "element-plus": "^2.2.22",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "cpx2": "^4.2.0",
     "rimraf": "^3.0.2",
-    "tsup": "^5.12.8"
+    "tsup": "^6.5.0"
   },
   "publishConfig": {
     "access": "public"

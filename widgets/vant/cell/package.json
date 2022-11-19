@@ -19,7 +19,7 @@
   "dependencies": {
     "@spearjs/cli": "workspace:*",
     "@spearjs/shared": "workspace:*",
-    "vant": "^3.5.2",
-    "vue": "^3.2.37"
+    "vant": "^3.6.5",
+    "vue": "^3.2.45"
   }
 }
