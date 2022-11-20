@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true
+  },
+  "files": [],
+  "references": [
+    { "path": "./cli/tsconfig.build.json" },
+    { "path": "./core/tsconfig.dts.json" },
+    { "path": "./create/tsconfig.build.json" },
+    { "path": "./editor/tsconfig.build.json" },
+    { "path": "./shared/tsconfig.dts.json" },
+    { "path": "./utils/tsconfig.build.json" }
+  ]
+}

@@ -1,10 +1,10 @@
-import * as chalk from 'chalk'
-import * as debug from 'debug'
-import * as globby from 'globby'
-import * as inquirer from 'inquirer'
-import * as ora from 'ora'
+import debug from 'debug'
+import fastGlob from 'fast-glob'
+import inquirer from 'inquirer'
+import ora from 'ora'
+import colors from 'picocolors'
 
-export { debug, chalk, globby, ora, inquirer }
+export { debug, colors, fastGlob, ora, inquirer }
 
 export * as fs from 'fs-extra'
 export * as path from 'upath'

@@ -18,6 +18,7 @@
     "type": "git",
     "url": "git+git@github.com:pengzhanbo/spearjs.git"
   },
+  "type": "module",
   "scripts": {
     "bootstrap": "pnpm install && pnpm --filter=@spearjs/utils --filter=@spearjs/shared build",
     "cm": "cz",

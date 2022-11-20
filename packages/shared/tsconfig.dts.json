@@ -1,9 +1,9 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": "./",
     "rootDir": "./src",
-    "composite": false,
+    "composite": true,
     "types": []
   },
   "include": ["src/**/*"],
