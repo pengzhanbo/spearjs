@@ -1,4 +1,4 @@
-import { chalk } from '@spearjs/utils'
+import { colors } from '@spearjs/utils'
 import { cac } from 'cac'
 import { createBuild, createConfig, createDev, createPublish } from './commands'
 import { allowTs } from './utils'
@@ -6,7 +6,7 @@ import { allowTs } from './utils'
 const wrapCommand = (cmd: (...args: any[]) => Promise<void>): typeof cmd => {
   const wrappedCommand: typeof cmd = (...args) =>
     cmd(...args).catch((err) => {
-      console.error(chalk.red(err.stack))
+      console.error(colors.red(err.stack))
       process.exit(1)
     })
   return wrappedCommand

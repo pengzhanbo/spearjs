@@ -8,7 +8,7 @@
  * 6. 压缩构建包
  * 7. 调用接口发布widget
  */
-import { chalk, fs, inquirer, logger, path } from '@spearjs/utils'
+import { colors, fs, inquirer, logger, path } from '@spearjs/utils'
 import * as FormData from 'form-data'
 import * as zipDir from 'zip-dir'
 import type { UserConfigByComponent } from '../../userConfig'
@@ -101,9 +101,9 @@ export const createPublish = (): PublishCommand => {
 
     if (res.code === 200) {
       logger.info(`
-        widget id: ${chalk.cyan(pkg.widgetId)}
-        widget name: ${chalk.cyan(userConfig.name)}
-        widget version: ${chalk.cyan(pkg.version)}
+        widget id: ${colors.cyan(pkg.widgetId)}
+        widget name: ${colors.cyan(userConfig.name)}
+        widget version: ${colors.cyan(pkg.version)}
 
         发布成功！
       `)

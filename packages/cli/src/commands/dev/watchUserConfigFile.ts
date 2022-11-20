@@ -1,4 +1,4 @@
-import { chalk, logger } from '@spearjs/utils'
+import { colors, logger } from '@spearjs/utils'
 import * as chokidar from 'chokidar'
 import type { FSWatcher } from 'chokidar'
 
@@ -19,7 +19,7 @@ export const watchUserConfigFile = ({
   })
 
   configWatcher.on('change', (configFile) => {
-    logger.info(`config ${chalk.magenta(configFile)} is modified`)
+    logger.info(`config ${colors.magenta(configFile)} is modified`)
     restart()
   })
 
@@ -29,7 +29,7 @@ export const watchUserConfigFile = ({
   })
 
   depsWatcher.on('change', (depFile) => {
-    logger.info(`config dependency ${chalk.magenta(depFile)} is modified`)
+    logger.info(`config dependency ${colors.magenta(depFile)} is modified`)
     restart()
   })
 

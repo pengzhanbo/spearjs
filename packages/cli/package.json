@@ -17,7 +17,15 @@
   },
   "license": "MIT",
   "author": "pengzhanbo",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "spearjs": "bin/spear.js"
   },

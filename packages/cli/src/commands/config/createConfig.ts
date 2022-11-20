@@ -1,4 +1,4 @@
-import { chalk, inquirer, logger } from '@spearjs/utils'
+import { colors, inquirer, logger } from '@spearjs/utils'
 import { loadCliConfig, writeCliConfig } from '../../cliConfig'
 import type { ConfigCommandOptions } from './types'
 
@@ -14,11 +14,11 @@ export const createConfig = () => {
 
     if (addRepository && !config.repositoryList.includes(addRepository)) {
       config.repositoryList.push(addRepository)
-      logger.info(`Add repository: ${chalk.cyan(addRepository)} success`)
+      logger.info(`Add repository: ${colors.cyan(addRepository)} success`)
 
       if (!config.repository) {
         config.repository = addRepository
-        logger.info(`Current repository : ${chalk.cyan(addRepository)}`)
+        logger.info(`Current repository : ${colors.cyan(addRepository)}`)
       }
     }
 
@@ -26,9 +26,9 @@ export const createConfig = () => {
       const index = config.repositoryList.indexOf(deleteRepository)
       if (index !== -1) {
         config.repositoryList.splice(index, 1)
-        logger.info(`Delete repository: ${chalk.cyan(deleteRepository)} success`)
+        logger.info(`Delete repository: ${colors.cyan(deleteRepository)} success`)
       } else {
-        logger.warn(`${chalk.cyan(deleteRepository)} Not found, delete failed.`)
+        logger.warn(`${colors.cyan(deleteRepository)} Not found, delete failed.`)
       }
     }
 
@@ -45,7 +45,7 @@ export const createConfig = () => {
         },
       ])
       config.repository = repo
-      logger.info(`Current repository : ${chalk.cyan(repo)}`)
+      logger.info(`Current repository : ${colors.cyan(repo)}`)
     }
 
     writeCliConfig(config)
