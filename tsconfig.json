@@ -18,5 +18,8 @@
   },
   "include": ["./packages/**/*", "./docs/**/*", "./widgets/**/*"],
   "exclude": ["node_modules", "dist"],
-  "references": [{ "path": "./packages/tsconfig.build.json" }]
+  "references": [
+    { "path": "./packages/tsconfig.build.json" },
+    { "path": "./packages/editor/tsconfig.node.json" }
+  ]
 }
