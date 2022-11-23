@@ -1,11 +1,12 @@
+import fs from 'node:fs/promises'
+import path from 'node:path'
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { InjectRepository } from '@nestjs/typeorm'
-import { fs, path } from '@spearjs/utils'
-import * as extractZip from 'extract-zip'
+import extractZip from 'extract-zip'
 import { EntityManager, Repository } from 'typeorm'
-import { WidgetEntity, WidgetHistoryEntity } from '../entities'
-import { UploadWidgetDto, WidgetDto } from './dto'
+import { WidgetEntity, WidgetHistoryEntity } from '../entities/index.js'
+import { UploadWidgetDto, WidgetDto } from './dto/index.js'
 
 @Injectable()
 export class WidgetService {
@@ -108,7 +109,7 @@ export class WidgetService {
     const widgetDir = path.join('/widgets', `${widget.widgetId}-${widget.version}`)
     const outputDir = path.join(staticDir, widgetDir)
 
-    await fs.ensureDir(outputDir) // 创建目录
+    await fs.mkdir(outputDir, { recursive: true }) // 创建目录
     await extractZip(file.path, { dir: outputDir }) // 解压
     await fs.unlink(file.path) // 删除临时压缩包
 

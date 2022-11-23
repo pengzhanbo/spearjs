@@ -10,8 +10,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { UploadWidgetDto } from './dto'
-import { WidgetService } from './widget.service'
+import { UploadWidgetDto } from './dto/index.js'
+import { WidgetService } from './widget.service.js'
 
 @Controller('/widget')
 export class WidgetController {

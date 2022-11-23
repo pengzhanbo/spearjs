@@ -1,2 +1,2 @@
-export * from './upload.dto'
-export * from './widget.dto'
+export * from './upload.dto.js'
+export * from './widget.dto.js'

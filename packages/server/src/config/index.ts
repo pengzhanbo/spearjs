@@ -1,6 +1,7 @@
 import * as path from 'path'
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { CookieOptions } from 'express'
+import { getDirname } from '../utils/index.js'
 interface ConfigOptions {
   staticDir: string
   database: TypeOrmModuleOptions
@@ -20,7 +21,7 @@ export default (): ConfigOptions => {
     staticDir: path.join(process.cwd(), 'static'),
     database: {
       type: 'mysql',
-      entities: [path.resolve(__dirname, '../entities', '*.entity.{ts,js}')],
+      entities: [path.resolve(getDirname(import.meta.url), '../entities', '*.entity.{ts,js}')],
       synchronize: true,
     },
     cookieSecret: 'faa61cf511218fe7c693be7c2b57bb21',

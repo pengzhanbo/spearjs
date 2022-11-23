@@ -1,6 +1,6 @@
 import { Exclude } from 'class-transformer'
 import { Column, Entity } from 'typeorm'
-import { BaseEntity } from './Base'
+import { BaseEntity } from './Base.js'
 
 /**
  * widget 列表

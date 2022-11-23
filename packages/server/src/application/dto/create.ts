@@ -1,5 +1,5 @@
 import { IsString, MaxLength } from 'class-validator'
-import { httpCode } from '../../shared'
+import { httpCode } from '../../shared/index.js'
 
 export class CreateApplicationDto {
   @MaxLength(50, {

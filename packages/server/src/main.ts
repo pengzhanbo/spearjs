@@ -1,7 +1,12 @@
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from './app.module'
-import { useGlobalFilter, useGlobalInterceptor, useGlobalMiddleware, useGlobalPipe } from './shared'
+import { AppModule } from './app.module.js'
+import {
+  useGlobalFilter,
+  useGlobalInterceptor,
+  useGlobalMiddleware,
+  useGlobalPipe,
+} from './shared/index.js'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {

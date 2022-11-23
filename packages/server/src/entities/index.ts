@@ -1,4 +1,4 @@
-export * from './Base'
+export * from './Base.js'
 
-export * from './applications.entity'
-export * from './widget.entity'
+export * from './applications.entity.js'
+export * from './widget.entity.js'

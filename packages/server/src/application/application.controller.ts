@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common'
-import { ApplicationService } from './application.service'
-import { CreateApplicationDto } from './dto'
+import { ApplicationService } from './application.service.js'
+import { CreateApplicationDto } from './dto/index.js'
 
 @Controller('/application')
 export class ApplicationController {

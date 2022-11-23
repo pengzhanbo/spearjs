@@ -1,1 +1,1 @@
-export * from './fetchException'
+export * from './fetchException.js'

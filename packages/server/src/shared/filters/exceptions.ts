@@ -1,6 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, LoggerService } from '@nestjs/common'
-import { FetchException } from '../exceptions'
-import { httpCode } from '../httpCode'
+import { FetchException } from '../exceptions/index.js'
+import { httpCode } from '../httpCode.js'
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {

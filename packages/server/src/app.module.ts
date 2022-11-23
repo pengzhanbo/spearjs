@@ -1,11 +1,11 @@
-import * as path from 'path'
+import path from 'path'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ApplicationModule } from './application/application.module'
-import AppConfig from './config'
-import { WidgetModule } from './widget/widget.module'
+import { ApplicationModule } from './application/application.module.js'
+import AppConfig from './config/index.js'
+import { WidgetModule } from './widget/widget.module.js'
 
 @Module({
   imports: [

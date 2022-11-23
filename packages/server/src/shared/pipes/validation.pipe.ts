@@ -1,6 +1,6 @@
 import { ValidationError, ValidationPipe } from '@nestjs/common'
-import { FetchException } from '../exceptions'
-import { httpCode } from '../httpCode'
+import { FetchException } from '../exceptions/index.js'
+import { httpCode } from '../httpCode.js'
 
 export const validation = () =>
   new ValidationPipe({
@@ -8,8 +8,8 @@ export const validation = () =>
     transform: true,
     exceptionFactory: (errors: ValidationError[]) => {
       const error: ValidationError = errors[0]
-      let code: number
-      let message: string
+      let code!: number
+      let message!: string
       if (error.constraints) {
         for (const key of Object.keys(error.constraints)) {
           message = error.constraints[key]

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common'
-import { httpCode, HttpCode } from '../httpCode'
+import { httpCode, HttpCode } from '../httpCode.js'
 
 export class FetchException extends HttpException {
   constructor(excData: HttpCode) {

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { ApplicationEntity } from '../entities/applications.entity'
-import { generateAppId } from '../utils/generateId'
-import { CreateApplicationDto } from './dto'
+import { ApplicationEntity } from '../entities/applications.entity.js'
+import { generateAppId } from '../utils/generateId.js'
+import { CreateApplicationDto } from './dto/index.js'
 
 @Injectable()
 export class ApplicationService {
