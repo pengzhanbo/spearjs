@@ -1,7 +1,7 @@
 import { useBlockDnd, useContextMenu } from '@editor/hooks'
 import { createWidgetComponent, findWidget } from '@editor/services'
 import { useAppPagesStore } from '@editor/stores'
-import type { AppBlock } from '@spearjs/core'
+import type { AppBlock, AppBlockStyles } from '@spearjs/core'
 import type { WidgetSlots } from '@spearjs/shared'
 import { storeToRefs } from 'pinia'
 import { computed, defineComponent, h, readonly, watch, withModifiers } from 'vue'
@@ -82,11 +82,11 @@ export default defineComponent({
     const blockStyles = computed(() => {
       const style: StyleValue = {}
       Object.keys(block.value.styles).forEach((key) => {
-        if (block.value.styles[key] && key !== 'border') {
-          style[key] = block.value.styles[key]
+        if (block.value.styles[key as keyof AppBlockStyles] && key !== 'border') {
+          style[key as any] = block.value.styles[key as keyof AppBlockStyles]
         } else {
           if (borderKey.includes(key)) {
-            style[key] = block.value.styles['border']
+            style[key as any] = (block.value.styles as any)['border']
           }
         }
       })
@@ -101,7 +101,7 @@ export default defineComponent({
     // 对于支持 slot 的 widget，需要 渲染其所有的 slot
     const renderSlots = (): WidgetSlots | undefined => {
       if (!block.value.slots) return
-      const slots = {}
+      const slots: WidgetSlots = {}
       Object.keys(block.value.slots).forEach((slot) => {
         const blocks = block.value.slots[slot] || []
         slots[slot] = (option = {}) => (
@@ -114,7 +114,7 @@ export default defineComponent({
           />
         )
       })
-      return slots as WidgetSlots
+      return slots
     }
 
     const pageStore = useAppPagesStore()

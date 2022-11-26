@@ -28,7 +28,7 @@ export const setupGlobalGuards = (router: Router) => {
   router.beforeEach((to) => {
     const appConfig = useAppConfigStore()
     if (!to.params.appId) {
-      return { name: 'appPage', params: { appId: appConfig.appId } }
+      return { name: 'appPage', params: { ...to.params, appId: appConfig.appId } }
     }
     return true
   })

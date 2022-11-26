@@ -1,5 +1,6 @@
 import { hasOwn, isArray } from '@spearjs/shared'
 import type { WidgetGroupProp, WidgetPropItem, WidgetProps } from '@spearjs/shared'
+import { isFunction } from 'lodash-es'
 
 export function getDefaultValue(prop: WidgetPropItem): any {
   switch (prop.type) {
@@ -18,7 +19,7 @@ export function getDefaultValue(prop: WidgetPropItem): any {
           : []
       } else {
         if (prop.defaultValue) return prop.defaultValue
-        if (!prop.options.length) return ''
+        if (isFunction(prop.options) || !prop.options.length) return ''
         if ((prop.options[0] as any).options) return (prop.options[0] as any).options[0].value || ''
         return (prop.options[0] as any).value || ''
       }

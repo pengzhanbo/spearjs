@@ -21,7 +21,7 @@ import styles from './index.module.scss'
 type PageOption = Pick<AppPageItem, 'title' | 'path'>
 
 export default defineComponent({
-  name: 'PageTess',
+  name: 'PageTree',
   setup: () => {
     const pageStore = useAppPagesStore()
     const { pages, currentPage } = storeToRefs(pageStore)
@@ -129,7 +129,6 @@ export default defineComponent({
         <ElButton icon={AddIcon} type="primary" onClick={openDialogByCreate}>
           新增页面
         </ElButton>
-        {/* @ts-ignore */}
         <ElDialog v-model={showDialog.value} title={dialogText.value.title} append-to-body>
           {{
             default: () => (

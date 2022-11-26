@@ -28,7 +28,7 @@ const getBlockLabel = (label?: string): string => {
 export const createBlock = (widget: ComponentWidget): AppBlock => {
   const props = cloneDeep(createProps(widget.props || []))
   const { slots = [] } = widget
-  const _slots = {}
+  const _slots: Record<string, AppBlocks> = {}
   ;(isFunction(slots) ? slots(readonly(props)) : slots).forEach((name: string) => {
     _slots[name] = []
   })

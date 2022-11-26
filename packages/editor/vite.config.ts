@@ -2,11 +2,10 @@ import { resolve } from 'path'
 import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import type { UserConfig } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 import windicss from 'vite-plugin-windicss'
 
-export default defineConfig(({ mode }): UserConfig => {
+export default defineConfig(({ mode }) => {
   const { VITE_BASE_URL } = loadEnv(mode, process.cwd())
   return {
     base: VITE_BASE_URL || '/',
@@ -54,4 +53,4 @@ export default defineConfig(({ mode }): UserConfig => {
       include: ['@vueuse/core', 'element-plus', 'lodash-es', 'vue3-dnd'],
     },
   }
-}) as UserConfig
+})

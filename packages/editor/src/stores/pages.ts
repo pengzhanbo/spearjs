@@ -88,7 +88,7 @@ export const useAppPagesStore = defineStore('pages', {
       let i = 0
       while (i < mapList.length) {
         if (i === 0) {
-          block = blocks[mapList[i]]
+          block = blocks[Number(mapList[i])]
         } else {
           const [type, name] = mapList[i].split(':')
           if (type !== 'slot') {
@@ -161,7 +161,7 @@ export const useAppPagesStore = defineStore('pages', {
     updateFocusBlockSlots(slotList: string[]): void {
       if (this.focusBlock && this.focusBlock.type === 'block') {
         const oldSlots = this.focusBlock.slots
-        const newSlots = {}
+        const newSlots: Record<string, AppBlocks> = {}
         slotList.forEach((name) => {
           newSlots[name] = oldSlots[name] || []
         })

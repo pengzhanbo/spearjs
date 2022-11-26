@@ -82,4 +82,5 @@ export interface AppBlockStyles {
   borderBottom?: LayerValue
   borderLeft?: LayerValue
   opacity?: number
+  [property: string]: any
 }

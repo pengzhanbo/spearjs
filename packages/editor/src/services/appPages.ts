@@ -21,8 +21,8 @@ const findBlocksDependencies = (blocks: AppBlocks, result: string[] = []): strin
   return result
 }
 
-export const getDependencies = (pages: AppPageList) => {
-  const result = []
+export const getDependencies = (pages: AppPageList): string[] => {
+  const result: string[] = []
   pages.forEach((page) => findBlocksDependencies(page.blocks, result))
   return Array.from(new Set(result))
 }

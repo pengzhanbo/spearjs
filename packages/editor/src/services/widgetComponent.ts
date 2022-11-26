@@ -1,6 +1,6 @@
 import { useBlock } from '@editor/hooks/useBlock'
 import type { ComponentWidget } from '@spearjs/shared'
-import type { DefineComponent, PropType, SetupContext } from 'vue'
+import type { ComponentOptions, DefineComponent, PropType, SetupContext } from 'vue'
 import { defineComponent, getCurrentInstance, onUnmounted } from 'vue'
 import { addComponentInstance, deleteComponentInstance } from './componentInstanceMap'
 import { generateWidgetName } from './idGenerator'
@@ -70,8 +70,8 @@ export function createWidgetComponent({
       }
       return res
     },
-    render({ props, $attrs, $slots, $emit }) {
-      return render!.bind(this as any)({
+    render({ props, $attrs, $slots, $emit }: ComponentOptions) {
+      return render!.bind(this)({
         props,
         slots: $slots,
         attrs: $attrs,
