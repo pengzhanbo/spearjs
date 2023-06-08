@@ -8,7 +8,13 @@ export const appConfig: AppConfig = {
   dependence: '',
   services: [],
   layout: { width: '100%', center: true },
-  themeConfig: { CssVars: { '--app-c-bg': '#fff', '--app-c-text': '#000', '--app-c-brand': '' } },
+  themeConfig: {
+    CssVars: {
+      '--app-c-bg': '#fff',
+      '--app-c-text': '#000',
+      '--app-c-brand': '',
+    },
+  },
   pages: [
     {
       title: '首页',
@@ -81,7 +87,12 @@ export const appConfig: AppConfig = {
               {
                 type: 'block',
                 label: 'vant-button_1',
-                widget: { id: 'vant-button', version: '1.0.0', js: '', css: '' },
+                widget: {
+                  id: 'vant-button',
+                  version: '1.0.0',
+                  js: '',
+                  css: '',
+                },
                 bid: 'com_ydwhyyxbsm',
                 props: {
                   text: '按钮',
@@ -109,7 +120,12 @@ export const appConfig: AppConfig = {
               {
                 type: 'block',
                 label: 'vant-button_2',
-                widget: { id: 'vant-button', version: '1.0.0', js: '', css: '' },
+                widget: {
+                  id: 'vant-button',
+                  version: '1.0.0',
+                  js: '',
+                  css: '',
+                },
                 bid: 'com_ebdlwcjmag',
                 props: {
                   text: '按钮',

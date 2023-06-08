@@ -74,7 +74,10 @@ export default defineComponent({
             <>
               {array.value.map((_, index) => (
                 <PropItem
-                  config={{ ...(props.config.items as WidgetArrayPropItem), key: `${index}` }}
+                  config={{
+                    ...(props.config.items as WidgetArrayPropItem),
+                    key: `${index}`,
+                  }}
                   injectKey={props.injectKey}
                   dotKey={dotKey.value}
                 >

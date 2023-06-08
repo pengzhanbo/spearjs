@@ -9,7 +9,7 @@ import { CreateApplicationDto } from './dto/index.js'
 export class ApplicationService {
   constructor(
     @InjectRepository(ApplicationEntity)
-    private readonly applicationEntity: Repository<ApplicationEntity>
+    private readonly applicationEntity: Repository<ApplicationEntity>,
   ) {}
 
   async create(appDto: CreateApplicationDto) {

@@ -1,7 +1,7 @@
 let head: HTMLHeadElement | null
 export const scriptLoader = (
   url: string,
-  name?: string
+  name?: string,
 ): [HTMLScriptElement, () => Promise<void>] => {
   const script = document.createElement('script')
   script.src = url
@@ -25,7 +25,7 @@ export const scriptLoader = (
 
 export const styleSheetLoader = (
   url: string,
-  name?: string
+  name?: string,
 ): [HTMLLinkElement, () => Promise<void>] => {
   const link = document.createElement('link')
   link.href = url

@@ -81,7 +81,9 @@ export default defineComponent({
 
     const selectOptions = computed(() => {
       const options = props.config.options
-      return isFunction(options) ? options(readonly(toRaw(model.value))) : options
+      return isFunction(options)
+        ? options(readonly(toRaw(model.value)))
+        : options
     })
     return () => (
       <ElFormItem
@@ -96,14 +98,26 @@ export default defineComponent({
               if ((option as WidgetSelectPropOptionsGroup).options) {
                 return (
                   <ElOptionGroup key={option.label} label={option.label}>
-                    {(option as WidgetSelectPropOptionsGroup).options.map((opt) => (
-                      <ElOption key={opt.value} label={opt.label} value={opt.value} />
-                    ))}
+                    {(option as WidgetSelectPropOptionsGroup).options.map(
+                      (opt) => (
+                        <ElOption
+                          key={opt.value}
+                          label={opt.label}
+                          value={opt.value}
+                        />
+                      ),
+                    )}
                   </ElOptionGroup>
                 )
               } else {
                 option = option as WidgetSelectPropOptionsItem
-                return <ElOption key={option.value} label={option.label} value={option.value} />
+                return (
+                  <ElOption
+                    key={option.value}
+                    label={option.label}
+                    value={option.value}
+                  />
+                )
               }
             })}
           </ElSelect>

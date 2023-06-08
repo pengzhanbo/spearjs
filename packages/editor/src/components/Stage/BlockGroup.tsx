@@ -46,12 +46,12 @@ export default defineComponent({
         setItem({
           bid: props.group.bid,
           index: props.index,
-          roadMap: roadMap,
+          roadMap,
           group: true,
           layer: 'block',
         })
       },
-      { immediate: true, deep: true }
+      { immediate: true, deep: true },
     )
 
     const pageStore = useAppPagesStore()
@@ -73,7 +73,9 @@ export default defineComponent({
       return dragCollect.value.isDragging ? 0 : 1
     })
 
-    const visibility = computed(() => (props.group.editor.visibility ? 'inherit' : 'hidden'))
+    const visibility = computed(() =>
+      props.group.editor.visibility ? 'inherit' : 'hidden',
+    )
 
     return () => (
       <div
@@ -81,7 +83,8 @@ export default defineComponent({
         class={[
           styles.widgetComponentGroup,
           {
-            [styles.focus]: props.preview || props.group.bid === focusBlock.value?.bid,
+            [styles.focus]:
+              props.preview || props.group.bid === focusBlock.value?.bid,
           },
         ]}
         style={{ opacity: opacity.value, visibility: visibility.value }}
@@ -91,7 +94,9 @@ export default defineComponent({
         onContextmenu={withModifiers(onContextMenu, ['stop'])}
       >
         {props.group.blocks.length === 0 ? (
-          <div class={styles.groupPlaceholder}>组件拖拽到此分组：{props.group.label}</div>
+          <div class={styles.groupPlaceholder}>
+            组件拖拽到此分组：{props.group.label}
+          </div>
         ) : (
           <Blocks
             blocks={props.group.blocks}

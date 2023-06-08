@@ -1,19 +1,23 @@
 import { loader } from '@core/loader'
-import type { AppBlocks, AppBlockWidgetAsset } from '@core/types'
+import type { AppBlockWidgetAsset, AppBlocks } from '@core/types'
 import { hasWidget } from '@spearjs/shared'
 import { defineComponent, ref, watchEffect } from 'vue'
 import { useCurrentPage } from '../hooks'
 
 const getPageWidgetList = (
   blocks: AppBlocks,
-  res: AppBlockWidgetAsset[] = []
+  res: AppBlockWidgetAsset[] = [],
 ): AppBlockWidgetAsset[] => {
   blocks.forEach((block) => {
     if (block.type === 'group') {
       getPageWidgetList(block.blocks, res)
     } else {
       const widget = block.widget
-      if (!res.find(({ id, version }) => id === widget.id && version === widget.version)) {
+      if (
+        !res.find(
+          ({ id, version }) => id === widget.id && version === widget.version,
+        )
+      ) {
         res.push(widget)
       }
       Object.keys(block.slots || {}).forEach((slotName) => {
@@ -37,7 +41,7 @@ export default defineComponent({
       pageWidgetList.forEach(
         ({ id, version, css, js }) =>
           !hasWidget({ id, version }) &&
-          promiseList.push(loader.load({ name: `${id}-${version}`, css, js }))
+          promiseList.push(loader.load({ name: `${id}-${version}`, css, js })),
       )
       await Promise.all(promiseList)
       loaded.value = true

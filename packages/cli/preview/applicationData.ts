@@ -1,7 +1,9 @@
 import { inject, provide } from 'vue'
 import type { InjectionKey } from 'vue'
 
-const applicationDataSymbol: InjectionKey<ReturnType<typeof initApplicationData>> = Symbol()
+const applicationDataSymbol: InjectionKey<
+  ReturnType<typeof initApplicationData>
+> = Symbol('application data')
 
 const initApplicationData = () => {
   const applicationData = {
@@ -80,7 +82,9 @@ export const setupApplicationData = () => {
   provide(applicationDataSymbol, applicationData)
 }
 
-export const useApplicationData = (): ReturnType<typeof initApplicationData> => {
+export const useApplicationData = (): ReturnType<
+  typeof initApplicationData
+> => {
   const applicationData = inject(applicationDataSymbol)
   if (!applicationData) {
     throw new Error('useApplicationData() is called without provider')

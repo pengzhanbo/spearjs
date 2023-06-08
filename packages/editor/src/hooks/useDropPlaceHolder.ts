@@ -6,7 +6,7 @@ import { getElOffset } from '@editor/utils'
 import type { Ref } from 'vue'
 import { ref, watch } from 'vue'
 
-type RectBound = {
+interface RectBound {
   left: number
   top: number
   width: number
@@ -65,7 +65,7 @@ export const setupDropPlaceholder = () => {
           rect.height = height
           rect.left += width
           break
-        case 'center':
+        case 'center': {
           const w = width / 3
           const h = height / 3
           if (w < h) {
@@ -78,6 +78,7 @@ export const setupDropPlaceholder = () => {
             rect.width = w
           }
           break
+        }
         case 'self':
           showPlaceholder.value = false
           break
@@ -86,7 +87,7 @@ export const setupDropPlaceholder = () => {
     },
     {
       immediate: true,
-    }
+    },
   )
 
   return { setPlaceholderRoot, rectBound, showPlaceholder }

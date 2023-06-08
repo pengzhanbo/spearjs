@@ -4,7 +4,14 @@ import { useAppPagesStore } from '@editor/stores'
 import type { AppBlock, AppBlockStyles } from '@spearjs/core'
 import type { WidgetSlots } from '@spearjs/shared'
 import { storeToRefs } from 'pinia'
-import { computed, defineComponent, h, readonly, watch, withModifiers } from 'vue'
+import {
+  computed,
+  defineComponent,
+  h,
+  readonly,
+  watch,
+  withModifiers,
+} from 'vue'
 import type { PropType, StyleValue } from 'vue'
 import styles from './index.module.scss'
 import SlotItem from './SlotItem'
@@ -51,17 +58,25 @@ export default defineComponent({
         setItem({
           bid: props.block.bid,
           index: props.index,
-          roadMap: roadMap,
+          roadMap,
           group: false,
           layer: props.block.styles.display!,
         })
       },
-      { immediate: true, deep: true }
+      { immediate: true, deep: true },
     )
     // --- block dnd end ---
 
     const block = computed(() => {
-      const { label, widget, bid, props: _props, styles, slots, editor } = props.block
+      const {
+        label,
+        widget,
+        bid,
+        props: _props,
+        styles,
+        slots,
+        editor,
+      } = props.block
       const _widget = findWidget(widget.id, widget.version)
       return {
         component: createWidgetComponent(_widget),
@@ -82,16 +97,22 @@ export default defineComponent({
     const blockStyles = computed(() => {
       const style: StyleValue = {}
       Object.keys(block.value.styles).forEach((key) => {
-        if (block.value.styles[key as keyof AppBlockStyles] && key !== 'border') {
+        if (
+          block.value.styles[key as keyof AppBlockStyles] &&
+          key !== 'border'
+        ) {
           style[key as any] = block.value.styles[key as keyof AppBlockStyles]
         } else {
           if (borderKey.includes(key)) {
-            style[key as any] = (block.value.styles as any)['border']
+            style[key as any] = (block.value.styles as any).border
           }
         }
       })
       // 强制转换其他定位方式为 absolute
-      if (block.value.styles.position !== '' && block.value.styles.position !== 'relative') {
+      if (
+        block.value.styles.position !== '' &&
+        block.value.styles.position !== 'relative'
+      ) {
         style.position = 'absolute'
       }
       style.visibility = block.value.editor.visibility ? 'inherit' : 'hidden'
@@ -134,8 +155,10 @@ export default defineComponent({
         class={[
           styles.widgetComponent,
           {
-            [styles.focus]: props.preview || props.block.bid === focusBlock.value?.bid,
-            [styles.hasSlot]: props.block.slots && Object.keys(props.block.slots).length > 0,
+            [styles.focus]:
+              props.preview || props.block.bid === focusBlock.value?.bid,
+            [styles.hasSlot]:
+              props.block.slots && Object.keys(props.block.slots).length > 0,
           },
         ]}
         style={[blockStyles.value, { opacity: opacity.value }]}
@@ -152,7 +175,7 @@ export default defineComponent({
             // 对于内部而言，属性应该是只读的，内部不可修改
             props: readonly(block.value.props),
           },
-          renderSlots()
+          renderSlots(),
         )}
       </div>
     )

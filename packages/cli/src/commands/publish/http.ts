@@ -16,12 +16,8 @@ export const getHttp = (target?: string) => {
 }
 
 export const updateWidget = async (http: AxiosInstance, formData: FormData) => {
-  try {
-    const res = await http.post('/widget/publish', formData, {
-      headers: formData.getHeaders(),
-    } as any)
-    return res
-  } catch (e: any) {
-    throw e
-  }
+  const res = await http.post('/widget/publish', formData, {
+    headers: formData.getHeaders(),
+  } as any)
+  return res
 }

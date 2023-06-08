@@ -39,14 +39,21 @@ export default defineComponent({
 
     return () => (
       <div class={styles.treeBlockSlot}>
-        <p class={[styles.treeSlotTitle, spread.value ? '' : styles.hide]} onClick={triggerSpread}>
+        <p
+          class={[styles.treeSlotTitle, spread.value ? '' : styles.hide]}
+          onClick={triggerSpread}
+        >
           <span class="el-icon">
             <ArrowMiniRightIcon />
           </span>
           <span>slot: {props.name}</span>
         </p>
         <ElCollapseTransition>
-          <Blocks v-show={spread.value} blocks={props.blocks} roadMap={roadMap.value} />
+          <Blocks
+            v-show={spread.value}
+            blocks={props.blocks}
+            roadMap={roadMap.value}
+          />
         </ElCollapseTransition>
       </div>
     )

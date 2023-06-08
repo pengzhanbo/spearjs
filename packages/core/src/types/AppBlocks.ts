@@ -56,7 +56,14 @@ export interface BlockEditorOption {
 /**
  * 限定 layer的值格式
  */
-export type LayerValue = `${number}px` | `${number}rem` | `${number}%` | 0 | '0' | 'auto' | ''
+export type LayerValue =
+  | `${number}px`
+  | `${number}rem`
+  | `${number}%`
+  | 0
+  | '0'
+  | 'auto'
+  | ''
 
 export interface AppBlockStyles {
   display?: 'inline-block' | 'block'

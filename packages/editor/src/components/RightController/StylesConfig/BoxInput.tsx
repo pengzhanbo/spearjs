@@ -56,11 +56,12 @@ export default defineComponent({
         } else if (modelValue === 'auto') {
           input.value = { number: 0, unit: 'auto' }
         } else {
-          const [, number = 0, unit = 'px'] = modelValue.trim().match(inputRegExp) || []
+          const [, number = 0, unit = 'px'] =
+            modelValue.trim().match(inputRegExp) || []
           input.value = { number: Number(number), unit }
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
     watch(
       () => input.value,
@@ -76,7 +77,7 @@ export default defineComponent({
           emit('update:modelValue', `${number}${unit}`)
         }
       },
-      { deep: true }
+      { deep: true },
     )
 
     const options = computed(() => {
@@ -112,7 +113,12 @@ export default defineComponent({
           disabled={input.value.unit === 'auto'}
           onBlur={onBlur}
         />
-        <ElSelect class={styles.boxSelect} v-model={input.value.unit} size="small" suffixIcon="">
+        <ElSelect
+          class={styles.boxSelect}
+          v-model={input.value.unit}
+          size="small"
+          suffixIcon=""
+        >
           {unitList.value.map((item) => (
             <ElOption {...item} />
           ))}

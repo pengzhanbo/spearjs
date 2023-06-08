@@ -58,7 +58,7 @@ export default defineComponent({
                 <ElRadio label={value} border={props.config.border}>
                   {label}
                 </ElRadio>
-              )
+              ),
             )}
           </ElRadioGroup>
           {tips(props.config.tips)}

@@ -6,17 +6,17 @@ import { resolveWidgetPlugin } from '../plugins/resolveWidgetPlugin'
 
 export const resolveBasicConfig = (
   config: InlineConfig = {},
-  userConfig: UserConfig
+  userConfig: UserConfig,
 ): InlineConfig => {
   config.base = '/'
   config.plugins = [resolveWidgetPlugin(userConfig), vue(), vueJsx()]
   config.build = {}
-  ;(config.css = {
+  config.css = {
     modules: {
       localsConvention: 'camelCase',
     },
-  }),
-    (config.configFile = false)
+  }
+  config.configFile = false
   config.server = {}
   return config
 }

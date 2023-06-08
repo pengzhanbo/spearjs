@@ -19,7 +19,10 @@ export class WidgetController {
 
   @Post('/publish')
   @UseInterceptors(FileInterceptor('file'))
-  async publish(@UploadedFile() file: Express.Multer.File, @Body() body: UploadWidgetDto) {
+  async publish(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: UploadWidgetDto,
+  ) {
     const asserts = await this.widgetService.uploadFile(file, body)
     await this.widgetService.updateWidget(body, asserts)
     return {}
@@ -31,8 +34,13 @@ export class WidgetController {
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
     @Query('type') type: string,
-    @Query('componentType') componentType: string
+    @Query('componentType') componentType: string,
   ) {
-    return await this.widgetService.getWidgetList(page, pageSize, type, componentType)
+    return await this.widgetService.getWidgetList(
+      page,
+      pageSize,
+      type,
+      componentType,
+    )
   }
 }

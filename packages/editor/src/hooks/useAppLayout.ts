@@ -11,14 +11,17 @@ const mobileContentLayout = {
 
 const computedContainerLayout = (
   platform: Platform,
-  layout: { width: string; center: boolean }
+  layout: { width: string; center: boolean },
 ): CSSProperties => {
-  const { clientWidth: cw, clientHeight: ch } = document.body || document.documentElement
+  const { clientWidth: cw, clientHeight: ch } =
+    document.body || document.documentElement
   if (platform === 'mobile') {
     const px = cw - mobileContentLayout.width
     const py = (ch - mobileContentLayout.height) / 2
     return {
-      width: (cw - mobileContentLayout.width) * 2 + mobileContentLayout.width + 'px',
+      width: `${
+        (cw - mobileContentLayout.width) * 2 + mobileContentLayout.width
+      }px`,
       padding: `${py}px ${px}px`,
     }
   } else {
@@ -31,18 +34,19 @@ const computedContainerLayout = (
 
 const computedStageLayout = (
   platform: Platform,
-  layout: { width: string; center: boolean }
+  layout: { width: string; center: boolean },
 ): CSSProperties => {
-  const { clientWidth: cw, clientHeight: ch } = document.body || document.documentElement
+  const { clientWidth: cw, clientHeight: ch } =
+    document.body || document.documentElement
   let width: string
-  if (/%$/.test(layout.width.trim())) {
-    width = (parseFloat(layout.width.trim()) * cw) / 100 + 'px'
+  if (layout.width.trim().endsWith('%')) {
+    width = `${(parseFloat(layout.width.trim()) * cw) / 100}px`
   } else {
     width = layout.width
   }
   const style: CSSProperties = {
     width: platform === 'mobile' ? `${mobileContentLayout.width}px` : width,
-    minHeight: (platform === 'mobile' ? mobileContentLayout.height : ch) + 'px',
+    minHeight: `${platform === 'mobile' ? mobileContentLayout.height : ch}px`,
   }
   if (platform === 'pc' && layout.center) {
     style.margin = '0 auto'
@@ -51,7 +55,7 @@ const computedStageLayout = (
 }
 
 export const useAppLayout = (
-  wrapperEl: Ref<HTMLElement | null>
+  wrapperEl: Ref<HTMLElement | null>,
 ): {
   containerLayout: Ref<CSSProperties>
   stageLayout: Ref<CSSProperties>
@@ -62,7 +66,10 @@ export const useAppLayout = (
   const stageLayout = ref<CSSProperties>({})
 
   const resize = () => {
-    containerLayout.value = computedContainerLayout(platform.value, layout.value)
+    containerLayout.value = computedContainerLayout(
+      platform.value,
+      layout.value,
+    )
     stageLayout.value = computedStageLayout(platform.value, layout.value)
   }
   watch(
@@ -71,7 +78,7 @@ export const useAppLayout = (
       containerLayout.value = computedContainerLayout(platform, layout)
       stageLayout.value = computedStageLayout(platform, layout)
     },
-    { immediate: true, deep: true }
+    { immediate: true, deep: true },
   )
   watchEffect(() => {
     if (wrapperEl.value) {

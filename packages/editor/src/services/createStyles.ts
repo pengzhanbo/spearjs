@@ -1,7 +1,9 @@
 import type { AppBlockStyles } from '@spearjs/core'
 import type { ComponentWidget } from '@spearjs/shared'
 
-export const createLayerStyles = (layer: AppBlockStyles = {}): AppBlockStyles => {
+export const createLayerStyles = (
+  layer: AppBlockStyles = {},
+): AppBlockStyles => {
   return Object.assign(
     {
       display: 'block',
@@ -28,7 +30,7 @@ export const createLayerStyles = (layer: AppBlockStyles = {}): AppBlockStyles =>
       width: '',
       height: '',
     } as AppBlockStyles,
-    layer
+    layer,
   )
 }
 

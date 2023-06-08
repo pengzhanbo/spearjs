@@ -2,7 +2,7 @@ import type { InlineConfig } from 'vite'
 
 export const resolveBuildConfig = (
   config: InlineConfig = {},
-  { name, fileName, entry }: { name: string; fileName: string; entry: string }
+  { name, fileName, entry }: { name: string; fileName: string; entry: string },
 ): InlineConfig => {
   config.build!.target = ['es2018']
   config.build!.minify = 'terser'

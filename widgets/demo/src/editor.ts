@@ -1,6 +1,7 @@
 import { defineEditorConfig } from '@spearjs/shared'
 import description from './description'
 import preview from './preview'
+
 export default defineEditorConfig({
   preview,
   description,

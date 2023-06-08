@@ -17,7 +17,7 @@ const blockIndex: Record<string, number> = {
  */
 const getBlockLabel = (label?: string): string => {
   if (!label) {
-    return 'block_' + blockIndex.block++
+    return `block_${blockIndex.block++}`
   }
   if (!blockIndex[label]) {
     blockIndex[label] = 0
@@ -29,9 +29,11 @@ export const createBlock = (widget: ComponentWidget): AppBlock => {
   const props = cloneDeep(createProps(widget.props || []))
   const { slots = [] } = widget
   const _slots: Record<string, AppBlocks> = {}
-  ;(isFunction(slots) ? slots(readonly(props)) : slots).forEach((name: string) => {
-    _slots[name] = []
-  })
+  ;(isFunction(slots) ? slots(readonly(props)) : slots).forEach(
+    (name: string) => {
+      _slots[name] = []
+    },
+  )
   return {
     type: 'block',
     label: getBlockLabel(widget.label),
@@ -57,7 +59,7 @@ let groupIndex = 0
 export const createBlockGroup = (label?: string): AppBlockGroup => {
   return {
     bid: generateBlockGroupKey(),
-    label: label || 'group_' + groupIndex++,
+    label: label || `group_${groupIndex++}`,
     type: 'group',
     blocks: [],
     editor: {
@@ -66,7 +68,10 @@ export const createBlockGroup = (label?: string): AppBlockGroup => {
   }
 }
 
-export const findBlockByBid = (blocks: AppBlocks, bid: string): AppBlock | AppBlockGroup | null => {
+export const findBlockByBid = (
+  blocks: AppBlocks,
+  bid: string,
+): AppBlock | AppBlockGroup | null => {
   const block = blocks.find((block) => block.bid === bid)
   if (block) return block
   for (let i = 0, l = blocks.length; i < l; i++) {
@@ -75,7 +80,9 @@ export const findBlockByBid = (blocks: AppBlocks, bid: string): AppBlock | AppBl
       const current = findBlockByBid(block.blocks, bid)
       if (current) return current
     } else {
-      const slots = Object.keys(block.slots).map((key: string) => block.slots[key])
+      const slots = Object.keys(block.slots).map(
+        (key: string) => block.slots[key],
+      )
       if (slots.length) {
         for (let s = 0, sl = slots.length; s < sl; s++) {
           const current = findBlockByBid(slots[s], bid)

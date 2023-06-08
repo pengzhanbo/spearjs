@@ -5,7 +5,10 @@ interface OptionsItem {
   label: string
 }
 
-export const getPropSelectOptions = (props: WidgetProps, options: OptionsItem[] = []) => {
+export const getPropSelectOptions = (
+  props: WidgetProps,
+  options: OptionsItem[] = [],
+) => {
   props.forEach((prop) => {
     if (prop.type === 'group') {
       getPropSelectOptions(prop.props, options)

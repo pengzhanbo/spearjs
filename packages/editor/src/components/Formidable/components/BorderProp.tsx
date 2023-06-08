@@ -1,6 +1,12 @@
 import { stylesBorerStyle, stylesUnit } from '@editor/common'
 import type { WidgetBorderProp } from '@spearjs/shared'
-import { ElColorPicker, ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
+import {
+  ElColorPicker,
+  ElFormItem,
+  ElInput,
+  ElOption,
+  ElSelect,
+} from 'element-plus'
 import { computed, defineComponent, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 import type { FormInjectKey } from '../hooks'
@@ -51,7 +57,6 @@ export default defineComponent({
             unit: 'px',
             color: defaultColor,
           }
-          return
         } else if (border === 'none') {
           borderStyle.value = {
             style: 'none',
@@ -62,11 +67,19 @@ export default defineComponent({
         } else {
           const [, style = '', width = 0, unit = 'px', color = defaultColor] =
             border.trim().match(borderRegExp) || []
-          console.log(border, style, width, unit, color, border.trim().match(borderRegExp))
+          // eslint-disable-next-line no-console
+          console.log(
+            border,
+            style,
+            width,
+            unit,
+            color,
+            border.trim().match(borderRegExp),
+          )
           borderStyle.value = { style, width, unit, color }
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     watch(
@@ -82,7 +95,7 @@ export default defineComponent({
           border.value = `${style} ${w} ${color}`
         }
       },
-      { deep: true }
+      { deep: true },
     )
 
     const colorOptions = computed(() => {
@@ -122,7 +135,11 @@ export default defineComponent({
               </ElOption>
             ))}
           </ElSelect>
-          <ElInput type="number" v-model={borderStyle.value.width} disabled={disabled.value}>
+          <ElInput
+            type="number"
+            v-model={borderStyle.value.width}
+            disabled={disabled.value}
+          >
             {{
               append: () => (
                 <ElSelect

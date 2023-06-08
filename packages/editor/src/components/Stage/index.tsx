@@ -26,7 +26,10 @@ export default defineComponent({
     const contextMenuHandler = (ev: MouseEvent) => open(ev, null)
 
     return () => (
-      <div class={styles.stageWrapper} ref={(el) => (stageRef.value = el as HTMLElement)}>
+      <div
+        class={styles.stageWrapper}
+        ref={(el) => (stageRef.value = el as HTMLElement)}
+      >
         <DragLayer />
         <ContextMenu rootRef={stageRef.value} />
         <PlaceHolder rootRef={stageRef.value} />

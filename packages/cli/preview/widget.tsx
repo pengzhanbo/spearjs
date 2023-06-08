@@ -40,7 +40,7 @@ export default {
       message2: 333,
     }
   },
-  render: ({ props }) => {
+  render: ({ props }: any) => {
     return (
       <p>
         Widget Demo Render message: {props.message}, message2: {props.message2}

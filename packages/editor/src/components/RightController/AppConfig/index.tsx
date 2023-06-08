@@ -29,7 +29,7 @@ export default defineComponent({
       () => dependencies.value,
       (dependencies) => {
         const dependenceItem = config.value.find(
-          (item) => item.type !== 'group' && item.key === 'dependence'
+          (item) => item.type !== 'group' && item.key === 'dependence',
         )!
         if (dependencies.length === 0) {
           dependenceItem.type = 'select'
@@ -37,12 +37,15 @@ export default defineComponent({
           dependenceItem.type = 'textView'
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     return () => (
       <div>
-        <Formidable v-model={appConfig.value} config={config.value}></Formidable>
+        <Formidable
+          v-model={appConfig.value}
+          config={config.value}
+        ></Formidable>
       </div>
     )
   },

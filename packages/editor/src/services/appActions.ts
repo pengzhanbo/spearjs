@@ -18,7 +18,9 @@ export const emitAction = (actions: AppBlockActions, name: string) => {
     if (type === 'block') {
       const instance = getComponentInstance(bid!)
       const expose =
-        instance && instance.exposed && instance.exposed[name] ? instance.exposed[name] : null
+        instance && instance.exposed && instance.exposed[name]
+          ? instance.exposed[name]
+          : null
       isFunction(expose) && (await expose())
     }
   })

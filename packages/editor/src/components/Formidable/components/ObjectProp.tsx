@@ -37,7 +37,11 @@ export default defineComponent({
             {tips(props.config.tips)}
           </p>
           {props.config.props.map((prop) => (
-            <PropItem config={prop} injectKey={props.injectKey} dotKey={dotKey.value} />
+            <PropItem
+              config={prop}
+              injectKey={props.injectKey}
+              dotKey={dotKey.value}
+            />
           ))}
         </div>
         {slots.default?.()}

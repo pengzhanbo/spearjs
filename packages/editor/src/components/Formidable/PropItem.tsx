@@ -25,7 +25,10 @@ export default defineComponent({
   setup(props, { slots }) {
     const model = useFormData(props.injectKey)
     const show = computed(() => {
-      const showProp = typeof props.config.showProp === 'undefined' ? true : props.config.showProp
+      const showProp =
+        typeof props.config.showProp === 'undefined'
+          ? true
+          : props.config.showProp
       return isFunction(showProp) ? showProp(readonly(model.value)) : showProp
     })
 
@@ -38,7 +41,7 @@ export default defineComponent({
           dotKey: props.dotKey,
           show: show.value,
         },
-        slots
+        slots,
       )
   },
 })

@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -30,7 +30,12 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    plugins: [vue(), vueJsx(), windicss(), legacy({ targets: ['defaults', 'not IE 11'] })],
+    plugins: [
+      vue(),
+      vueJsx(),
+      windicss(),
+      legacy({ targets: ['defaults', 'not IE 11'] }),
+    ],
     css: {
       modules: {
         localsConvention: 'camelCase',

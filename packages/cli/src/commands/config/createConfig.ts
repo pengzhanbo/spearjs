@@ -26,9 +26,13 @@ export const createConfig = () => {
       const index = config.repositoryList.indexOf(deleteRepository)
       if (index !== -1) {
         config.repositoryList.splice(index, 1)
-        logger.info(`Delete repository: ${colors.cyan(deleteRepository)} success`)
+        logger.info(
+          `Delete repository: ${colors.cyan(deleteRepository)} success`,
+        )
       } else {
-        logger.warn(`${colors.cyan(deleteRepository)} Not found, delete failed.`)
+        logger.warn(
+          `${colors.cyan(deleteRepository)} Not found, delete failed.`,
+        )
       }
     }
 

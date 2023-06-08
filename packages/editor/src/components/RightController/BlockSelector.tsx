@@ -48,7 +48,7 @@ export default defineComponent({
             Object.keys(block.slots).forEach((name) => {
               block.slots[name].length &&
                 slotBlockList.push({
-                  label: 'slot:' + name,
+                  label: `slot:${name}`,
                   children: getSelectOptions(block.slots[name]),
                 } as SelectGroup)
             })
@@ -65,7 +65,7 @@ export default defineComponent({
     }
 
     const selectOptions = computed<SelectOptions>(() =>
-      getSelectOptions(pageStore.currentPage.blocks)
+      getSelectOptions(pageStore.currentPage.blocks),
     )
 
     return () => (
@@ -75,13 +75,23 @@ export default defineComponent({
             return (
               <ElOptionGroup key={option.label} label={option.label}>
                 {(option as SelectGroup).children.map((opt) => (
-                  <ElOption key={opt.value} label={opt.label} value={opt.value} />
+                  <ElOption
+                    key={opt.value}
+                    label={opt.label}
+                    value={opt.value}
+                  />
                 ))}
               </ElOptionGroup>
             )
           } else {
             option = option as SelectItem
-            return <ElOption key={option.value} label={option.label} value={option.value} />
+            return (
+              <ElOption
+                key={option.value}
+                label={option.label}
+                value={option.value}
+              />
+            )
           }
         })}
       </ElSelect>

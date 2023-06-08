@@ -1,5 +1,5 @@
 import type { WidgetPropsType } from '@spearjs/shared'
-import type { DefineComponent } from 'vue'
+import type { Component } from 'vue'
 import ArrayProp from './ArrayProp'
 import BorderProp from './BorderProp'
 import CheckboxProp from './CheckboxProp'
@@ -17,7 +17,7 @@ import TextViewProp from './TextViewProp'
 
 export const components: Record<
   Exclude<WidgetPropsType, 'group'>,
-  DefineComponent<any, any, any>
+  Component
 > = {
   textView: TextViewProp,
   text: TextProp,

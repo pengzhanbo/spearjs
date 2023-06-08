@@ -21,13 +21,16 @@ export default defineComponent({
 
     const activeTab = ref(tabEnabled.value[0])
 
-    watch([() => pageStore.focusBlock, () => tabEnabled.value], ([block, list]) => {
-      if (!block || block.type === 'group') {
-        if (!list.includes(activeTab.value)) activeTab.value = 'page-config'
-      } else {
-        activeTab.value = list[0]
-      }
-    })
+    watch(
+      [() => pageStore.focusBlock, () => tabEnabled.value],
+      ([block, list]) => {
+        if (!block || block.type === 'group') {
+          if (!list.includes(activeTab.value)) activeTab.value = 'page-config'
+        } else {
+          activeTab.value = list[0]
+        }
+      },
+    )
 
     const isOpen = ref(true)
     const handleOpen = () => {
@@ -39,7 +42,11 @@ export default defineComponent({
         <div class={styles.btnArrow} onClick={handleOpen}>
           {isOpen.value ? <ArrowDoubleRightIcon /> : <ArrowDoubleLeftIcon />}
         </div>
-        <ElTabs v-model={activeTab.value} type="border-card" class={styles.tabs}>
+        <ElTabs
+          v-model={activeTab.value}
+          type="border-card"
+          class={styles.tabs}
+        >
           {tabs.map((tab) => (
             <ElTabPane
               label={tab.label}

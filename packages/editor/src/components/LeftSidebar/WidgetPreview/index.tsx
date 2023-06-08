@@ -35,7 +35,7 @@ export default defineComponent({
         if (!isDragging) {
           showPlaceholder.value = false
         }
-      }
+      },
     )
 
     return () => (
@@ -53,7 +53,10 @@ export default defineComponent({
             }}
           </ElPopover>
         </p>
-        <div class={styles.widgetPreview} ref={(el) => dragSource(el as HTMLElement)}>
+        <div
+          class={styles.widgetPreview}
+          ref={(el) => dragSource(el as HTMLElement)}
+        >
           {widget.preview()}
         </div>
       </div>

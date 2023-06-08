@@ -36,10 +36,12 @@ export default defineComponent({
 
     const pageStore = useAppPagesStore()
 
-    const isBlock = computed(() => collect.value.itemType === WIDGET_DND_TYPE.Block)
+    const isBlock = computed(
+      () => collect.value.itemType === WIDGET_DND_TYPE.Block,
+    )
 
     const block = computed(() =>
-      findBlockByBid(pageStore.currentPage.blocks, collect.value.item.bid)
+      findBlockByBid(pageStore.currentPage.blocks, collect.value.item.bid),
     )
 
     const blockStyles = computed(() => {

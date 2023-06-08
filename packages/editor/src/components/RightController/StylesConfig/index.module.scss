@@ -48,6 +48,7 @@
     &::before {
       z-index: 1;
       content: '';
+
       @apply relative block w-full h-full bg-gray-300;
     }
 
@@ -57,6 +58,7 @@
       height: 70%;
       content: '';
       transform: translate(-50%, -50%);
+
       @apply block absolute left-1/2 top-1/2 border bg-white cursor-pointer;
     }
   }
@@ -79,6 +81,7 @@
     &::before {
       z-index: 1;
       content: '';
+
       @apply relative block w-full h-full bg-gray-300;
     }
 
@@ -88,6 +91,7 @@
       height: 8px;
       content: '';
       transform: translate(-50%, -50%);
+
       @apply block absolute left-1/2 top-1/2 border bg-white cursor-pointer;
     }
   }
@@ -198,6 +202,7 @@
   .position-content {
     width: 100px;
     height: 100px;
+
     @apply flex justify-center items-center bg-gray-200;
   }
 }

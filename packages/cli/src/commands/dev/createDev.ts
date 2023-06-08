@@ -9,7 +9,7 @@ import { watchUserConfigFile } from './watchUserConfigFile'
 export const createDev = (): DevCommand => {
   const log = debug('spearjs:cli/dev')
   const dev: DevCommand = async (commandOptions = {}): Promise<void> => {
-    log(`commandOptions:`, commandOptions)
+    log('commandOptions:', commandOptions)
 
     if (process.env.NODE_ENV === undefined) {
       process.env.NODE_ENV = 'development'
@@ -19,7 +19,9 @@ export const createDev = (): DevCommand => {
 
     log('userConfigPath:', userConfigPath)
 
-    const { userConfig, userConfigDeps } = await resolveDevUserConfig(userConfigPath)
+    const { userConfig, userConfigDeps } = await resolveDevUserConfig(
+      userConfigPath,
+    )
 
     logger.info('Starting SpearJs Widget development server...')
 
@@ -31,7 +33,7 @@ export const createDev = (): DevCommand => {
       await Promise.all([...watchers.map((item) => item.close()), app.close()])
       watchers = []
       await dev(commandOptions)
-      logger.tip(`dev server has restarted, please refresh you browser`)
+      logger.tip('dev server has restarted, please refresh you browser')
     }
 
     if (userConfigPath) {
@@ -40,7 +42,7 @@ export const createDev = (): DevCommand => {
           userConfigPath,
           userConfigDeps,
           restart,
-        })
+        }),
       )
     }
   }

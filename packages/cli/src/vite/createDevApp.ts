@@ -6,7 +6,7 @@ import { resolveBasicConfig, resolveDevConfig } from './config'
 
 export const createDevApp = async (
   commandOptions: DevCommandOptions,
-  userConfig: UserConfig
+  userConfig: UserConfig,
 ): Promise<ViteDevServer> => {
   const config: InlineConfig = {}
 

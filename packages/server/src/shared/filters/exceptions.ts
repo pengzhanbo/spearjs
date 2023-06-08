@@ -1,4 +1,10 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, LoggerService } from '@nestjs/common'
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpStatus,
+  LoggerService,
+} from '@nestjs/common'
 import { FetchException } from '../exceptions/index.js'
 import { httpCode } from '../httpCode.js'
 
@@ -15,7 +21,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         code: httpCode.forbidden.code,
         message: 'invalid csrf token',
       })
-      return
     } else if (exception.getStatus) {
       // 自定义错误
       const httpException: FetchException = exception as FetchException
@@ -24,7 +29,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         code: httpResponse.statusCode,
         message: httpResponse.message,
       })
-      return
     } else {
       // 未知错误
       this.logger.warn(exception)

@@ -23,7 +23,10 @@ export default defineComponent({
     const { containerLayout, stageLayout } = useAppLayout(wrapperEl)
 
     return () => (
-      <div ref={(el) => (wrapperEl.value = el as HTMLElement)} class={styles.editorWrapper}>
+      <div
+        ref={(el) => (wrapperEl.value = el as HTMLElement)}
+        class={styles.editorWrapper}
+      >
         <Navbar />
         <LeftSidebar />
         <div

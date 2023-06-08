@@ -7,6 +7,7 @@ export class ApplicationEntity extends BaseEntity {
     super()
     Object.assign(this, options || {})
   }
+
   @Column('varchar', { length: 8, comment: 'appId', name: 'app_id' })
   appId!: string
 

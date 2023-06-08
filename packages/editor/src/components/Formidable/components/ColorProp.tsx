@@ -44,7 +44,11 @@ export default defineComponent({
         v-show={props.show}
       >
         <p class="w-full flex items-center justify-start">
-          <ElColorPicker class="flex-1" v-model={color.value} {...options.value} />
+          <ElColorPicker
+            class="flex-1"
+            v-model={color.value}
+            {...options.value}
+          />
           {tips(props.config.tips)}
           {slots.default?.()}
         </p>

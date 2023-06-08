@@ -1,5 +1,5 @@
 import type { AppBlocks } from '@spearjs/core'
-import { defineComponent, TransitionGroup } from 'vue'
+import { TransitionGroup, defineComponent } from 'vue'
 import type { PropType } from 'vue'
 import Block from './Block'
 import BlockGroup from './BlockGroup'
@@ -24,10 +24,22 @@ export default defineComponent({
           {props.blocks.map((block, index) => {
             if (block.type === 'group') {
               return (
-                <BlockGroup group={block} index={index} roadMap={props.roadMap} key={block.bid} />
+                <BlockGroup
+                  group={block}
+                  index={index}
+                  roadMap={props.roadMap}
+                  key={block.bid}
+                />
               )
             } else {
-              return <Block block={block} index={index} roadMap={props.roadMap} key={block.bid} />
+              return (
+                <Block
+                  block={block}
+                  index={index}
+                  roadMap={props.roadMap}
+                  key={block.bid}
+                />
+              )
             }
           })}
         </TransitionGroup>

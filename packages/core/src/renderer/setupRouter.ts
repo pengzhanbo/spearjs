@@ -1,6 +1,6 @@
 import type { AppConfig, AppPageList } from '@core/types'
 import NProgress from 'nprogress'
-import type { Router, RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw, Router } from 'vue-router'
 import { normalizePath } from '../utils'
 import Page from './components/Page'
 import 'nprogress/nprogress.css'
@@ -11,7 +11,7 @@ const addRoutes = (
   router: Router,
   children: AppPageList,
   parentPath = '',
-  parentName?: symbol | string
+  parentName?: symbol | string,
 ) => {
   children.forEach((item) => {
     const name = Symbol(item.title)

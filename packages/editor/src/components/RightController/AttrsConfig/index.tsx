@@ -44,19 +44,23 @@ export default defineComponent({
     watch(
       () => formData.value,
       (data) => {
-        if (!widget.value || !block.value || block.value.type !== 'block') return
+        if (!widget.value || !block.value || block.value.type !== 'block')
+          return
         if (isFunction(widget.value.slots)) {
           pageStore.updateFocusBlockSlots(widget.value.slots(data))
         }
       },
-      { deep: true }
+      { deep: true },
     )
 
     return () =>
       block.value && widget.value ? (
         <>
           <BlockHeader block={block.value}></BlockHeader>
-          <Formidable config={widget.value.props || []} v-model={formData.value} />
+          <Formidable
+            config={widget.value.props || []}
+            v-model={formData.value}
+          />
         </>
       ) : null
   },

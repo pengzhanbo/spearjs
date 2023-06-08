@@ -4,7 +4,11 @@ import type { ComputedRef } from 'vue'
 import { computed } from 'vue'
 import type { FormData } from './useFormData'
 
-function setDotProp(model: Record<string, any>, dotKey: string, value?: any): void {
+function setDotProp(
+  model: Record<string, any>,
+  dotKey: string,
+  value?: any,
+): void {
   const dotList = dotKey.split('.')
   const key = dotList.pop()!
   while (dotList.length) {
@@ -22,7 +26,10 @@ function getDotProp(model: Record<string, any>, dotKey: string): any {
   return model
 }
 
-export const useDotProp = <T = any>(model: FormData, dotKey: ComputedRef<string>) => {
+export const useDotProp = <T = any>(
+  model: FormData,
+  dotKey: ComputedRef<string>,
+) => {
   const binding = computed<T>({
     set(data) {
       setDotProp(model.value, dotKey.value, data)
@@ -35,7 +42,10 @@ export const useDotProp = <T = any>(model: FormData, dotKey: ComputedRef<string>
   return binding
 }
 
-export const useDotKey = (props: { dotKey: string; config: WidgetPropItem }) => {
+export const useDotKey = (props: {
+  dotKey: string
+  config: WidgetPropItem
+}) => {
   return computed(() => {
     const dotKey = props.dotKey
     return !isEmpty(dotKey) ? `${dotKey}.${props.config.key}` : props.config.key

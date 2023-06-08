@@ -10,7 +10,11 @@
 import { isArray } from '@spearjs/shared'
 
 export const parsePathMath = (pathMath: string | string[]): string => {
-  return isArray(pathMath) ? `/${pathMath.join('/')}` : pathMath ? `/${pathMath}` : ''
+  return isArray(pathMath)
+    ? `/${pathMath.join('/')}`
+    : pathMath
+    ? `/${pathMath}`
+    : ''
 }
 
 export const toPathMath = (pathMath = ''): string[] => {

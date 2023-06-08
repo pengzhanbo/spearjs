@@ -1,4 +1,4 @@
-import * as path from 'path'
+import * as path from 'node:path'
 import { Module } from '@nestjs/common'
 import { MulterModule } from '@nestjs/platform-express'
 import { TypeOrmModule } from '@nestjs/typeorm'

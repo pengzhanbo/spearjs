@@ -15,13 +15,18 @@ export class WidgetService {
     @InjectRepository(WidgetEntity)
     private readonly widgetEntity: Repository<WidgetEntity>,
     @InjectRepository(WidgetHistoryEntity)
-    private readonly widgetHistoryEntity: Repository<WidgetHistoryEntity>
+    private readonly widgetHistoryEntity: Repository<WidgetHistoryEntity>,
   ) {}
 
   /**
    * 获取 widget 列表
    */
-  async getWidgetList(page: number, pageSize: number, type: string, componentType: string) {
+  async getWidgetList(
+    page: number,
+    pageSize: number,
+    type: string,
+    componentType: string,
+  ) {
     const where: Record<string, string> = { type }
     componentType && (where.componentType = componentType)
     const [widgetList, total] = await this.widgetEntity
@@ -60,53 +65,61 @@ export class WidgetService {
       renderUrl,
       updateTime: currentTime,
     })
-    await this.widgetHistoryEntity.manager.transaction(async (manager: EntityManager) => {
-      // 在 widget 表中已存在，检查是否更新 latest 的版本，并将版本添加到 WidgetVersionList表
-      // 如果不存在，则更新widget，且添加版本
-      // 如果是版本号一致，则仅更新 widgetVersionList
-      const widgetEntity = manager.getRepository(WidgetEntity)
-      if (widget) {
-        latest &&
-          (await widgetEntity.update(widget.id, {
+    await this.widgetHistoryEntity.manager.transaction(
+      async (manager: EntityManager) => {
+        // 在 widget 表中已存在，检查是否更新 latest 的版本，并将版本添加到 WidgetVersionList表
+        // 如果不存在，则更新widget，且添加版本
+        // 如果是版本号一致，则仅更新 widgetVersionList
+        const widgetEntity = manager.getRepository(WidgetEntity)
+        if (widget) {
+          latest &&
+            (await widgetEntity.update(widget.id, {
+              ...current,
+            }))
+        } else {
+          const latestWidget: Partial<WidgetEntity> = {
             ...current,
-          }))
-      } else {
-        const latestWidget: Partial<WidgetEntity> = {
-          ...current,
-          widgetId: body.widgetId,
-          createTime: currentTime,
+            widgetId: body.widgetId,
+            createTime: currentTime,
+          }
+          await widgetEntity.save(latestWidget)
         }
-        await widgetEntity.save(latestWidget)
-      }
 
-      if (latest) {
-        // 如果重新设置 latest， 则需要将旧的重置为false
-        const latestWidget = await manager.findOne(WidgetHistoryEntity, {
-          where: { widgetId: body.widgetId, latest: true },
-        })
-        latestWidget &&
-          latestWidget.version !== body.version &&
-          (await manager.update(WidgetHistoryEntity, latestWidget.id, {
-            latest: false,
-            updateTime: new Date(),
-          }))
-      }
-      if (versionWidget) {
-        await manager.update(WidgetHistoryEntity, versionWidget.id, current)
-      } else {
-        current.widgetId = body.widgetId
-        current.createTime = currentTime
-        await manager.save(current)
-      }
-    })
+        if (latest) {
+          // 如果重新设置 latest， 则需要将旧的重置为false
+          const latestWidget = await manager.findOne(WidgetHistoryEntity, {
+            where: { widgetId: body.widgetId, latest: true },
+          })
+          latestWidget &&
+            latestWidget.version !== body.version &&
+            (await manager.update(WidgetHistoryEntity, latestWidget.id, {
+              latest: false,
+              updateTime: new Date(),
+            }))
+        }
+        if (versionWidget) {
+          await manager.update(WidgetHistoryEntity, versionWidget.id, current)
+        } else {
+          current.widgetId = body.widgetId
+          current.createTime = currentTime
+          await manager.save(current)
+        }
+      },
+    )
   }
 
   /**
    * 将上传的 widget 压缩包 解压到 对应的目录中
    */
-  async uploadFile(file: Express.Multer.File, widget: UploadWidgetDto): Promise<WidgetAssert> {
+  async uploadFile(
+    file: Express.Multer.File,
+    widget: UploadWidgetDto,
+  ): Promise<WidgetAssert> {
     const staticDir = this.config.get('staticDir')
-    const widgetDir = path.join('/widgets', `${widget.widgetId}-${widget.version}`)
+    const widgetDir = path.join(
+      '/widgets',
+      `${widget.widgetId}-${widget.version}`,
+    )
     const outputDir = path.join(staticDir, widgetDir)
 
     await fs.mkdir(outputDir, { recursive: true }) // 创建目录
@@ -116,9 +129,13 @@ export class WidgetService {
     const editorAssert = JSON.parse(widget.editorAssert)
     const renderAssert = JSON.parse(widget.renderAssert)
     editorAssert.js = path.join(widgetDir, editorAssert.js)
-    editorAssert.css = editorAssert.css ? path.join(widgetDir, editorAssert.css) : ''
+    editorAssert.css = editorAssert.css
+      ? path.join(widgetDir, editorAssert.css)
+      : ''
     renderAssert.js = path.join(widgetDir, renderAssert.js)
-    renderAssert.css = renderAssert.css ? path.join(widgetDir, renderAssert.css) : ''
+    renderAssert.css = renderAssert.css
+      ? path.join(widgetDir, renderAssert.css)
+      : ''
     return {
       renderAssert,
       editorAssert,

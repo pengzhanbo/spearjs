@@ -31,6 +31,7 @@ export default defineComponent({
     const model = useFormData(props.injectKey)
     const dotKey = useDotKey(props)
     const richText = useDotProp(model, dotKey)
+    // eslint-disable-next-line no-console
     console.log(richText.value)
 
     return () => (

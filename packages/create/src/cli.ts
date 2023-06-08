@@ -13,7 +13,10 @@ const renameFiles = {
   _gitignore: '.gitignore',
 }
 
-export const cli = async ({ template, typescript, targetDir }: ArgvOptions, cwd: string) => {
+export const cli = async (
+  { template, typescript, targetDir }: ArgvOptions,
+  cwd: string,
+) => {
   const defaultTargetDir = 'widget-project'
 
   const firstAnswer = await inquirer.prompt<{
@@ -33,8 +36,11 @@ export const cli = async ({ template, typescript, targetDir }: ArgvOptions, cwd:
       type: 'confirm',
       default: false,
       message: () =>
-        (targetDir === '.' ? 'Current Directory' : `Target Directory ${targetDir}`) +
-        ' is not empty. Remove existing files and continue?',
+        `${
+          targetDir === '.'
+            ? 'Current Directory'
+            : `Target Directory ${targetDir}`
+        } is not empty. Remove existing files and continue?`,
       when: () => fs.existsSync(targetDir) && !isEmpty(targetDir),
     },
   ])
@@ -46,7 +52,8 @@ export const cli = async ({ template, typescript, targetDir }: ArgvOptions, cwd:
     throw new Error(`${chalk.red('✖')} Operation cancelled.`)
   }
 
-  const getProjectName = () => (targetDir === '.' ? path.basename(path.resolve()) : targetDir)
+  const getProjectName = () =>
+    targetDir === '.' ? path.basename(path.resolve()) : targetDir
 
   const secondAnswer = await inquirer.prompt<{
     packageName: string
@@ -58,7 +65,8 @@ export const cli = async ({ template, typescript, targetDir }: ArgvOptions, cwd:
       message: '请输入包名',
       default: () => toValidPackageName(getProjectName()),
       when: () => isValidPackageName(getProjectName()),
-      validate: (input) => isValidPackageName(input) || 'Invalid package.json name',
+      validate: (input) =>
+        isValidPackageName(input) || 'Invalid package.json name',
     },
     {
       type: 'list',
@@ -87,7 +95,7 @@ export const cli = async ({ template, typescript, targetDir }: ArgvOptions, cwd:
   const templateDir = path.resolve(
     __dirname,
     '..',
-    `template-${template}` + (typescript ? '-ts' : '')
+    `template-${template}${typescript ? '-ts' : ''}`,
   )
   const write = (file: string, content?: string) => {
     const targetPath = renameFiles[file]
@@ -105,7 +113,9 @@ export const cli = async ({ template, typescript, targetDir }: ArgvOptions, cwd:
     write(file)
   }
 
-  const pkg = JSON.parse(fs.readFileSync(path.join(templateDir, 'package.json'), 'utf8'))
+  const pkg = JSON.parse(
+    fs.readFileSync(path.join(templateDir, 'package.json'), 'utf8'),
+  )
 
   pkg.name = packageName || getProjectName()
   write('package.json', JSON.stringify(pkg, null, 2))

@@ -6,7 +6,9 @@
 import type { InjectionKey, Ref, WritableComputedRef } from 'vue'
 import { inject, provide } from 'vue'
 
-export type FormData = Ref<Record<string, any>> | WritableComputedRef<Record<string, any>>
+export type FormData =
+  | Ref<Record<string, any>>
+  | WritableComputedRef<Record<string, any>>
 
 export type FormInjectKey = InjectionKey<FormData>
 
@@ -17,4 +19,5 @@ export const useFormDataProvide = (formData: FormData): FormInjectKey => {
   return key
 }
 
-export const useFormData = (key: FormInjectKey): FormData => inject<FormData>(key)!
+export const useFormData = (key: FormInjectKey): FormData =>
+  inject<FormData>(key)!

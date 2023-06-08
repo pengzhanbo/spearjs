@@ -8,7 +8,7 @@ import { resolveBasicConfig, resolveBuildConfig } from './config'
 export const createBuildApp = async (
   commandOptions: BuildCommandOptions,
   userConfig: UserConfig,
-  { name, fileName, entry }: { name: string; fileName: string; entry: string }
+  { name, fileName, entry }: { name: string; fileName: string; entry: string },
 ) => {
   const config: InlineConfig = {}
 
@@ -18,7 +18,7 @@ export const createBuildApp = async (
   config.build!.outDir = path.resolve(
     process.cwd(),
     commandOptions.dest || userConfig.dest || 'dist',
-    name
+    name,
   )
 
   config.build!.assetsDir = ''

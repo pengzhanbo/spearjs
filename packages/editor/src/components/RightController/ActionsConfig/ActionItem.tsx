@@ -24,17 +24,22 @@ export default defineComponent({
   setup: (props, { emit }) => {
     const pageStore = useAppPagesStore()
     const handlerList = computed(() => {
-      const handlerList: AppBlockAction[] = props.block.actions[props.action.action]
+      const handlerList: AppBlockAction[] =
+        props.block.actions[props.action.action]
       return handlerList.map((handler) => {
         if (handler.type === 'block') {
           const block =
             props.block.bid === handler.bid
               ? props.block
-              : (findBlockByBid(pageStore.currentPage.blocks, handler.bid!) as AppBlock)
+              : (findBlockByBid(
+                  pageStore.currentPage.blocks,
+                  handler.bid!,
+                ) as AppBlock)
           const widget = findWidget(block.widget.id, block.widget.version)
-          const widgetAction = [...preExposeList, ...(widget.expose || [])].find(
-            (item) => item.name === handler.name
-          )
+          const widgetAction = [
+            ...preExposeList,
+            ...(widget.expose || []),
+          ].find((item) => item.name === handler.name)
           return {
             handler,
             component: `关联组件：${block.label} (${block.bid})`,
@@ -63,7 +68,9 @@ export default defineComponent({
                 type="primary"
                 size="small"
                 circle
-                onClick={() => emit('edit', props.action.action, handler, index)}
+                onClick={() =>
+                  emit('edit', props.action.action, handler, index)
+                }
               />
               <ElButton
                 icon={CloseIcon as any}

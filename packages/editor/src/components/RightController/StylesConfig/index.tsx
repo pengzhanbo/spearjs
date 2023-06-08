@@ -45,11 +45,19 @@ export default defineComponent({
       <div class={styles.contentBox}>
         <p>content</p>
         <div class="flex justify-start items-center">
-          <BoxInput placeholder="width" auto v-model={blockStyles.value.width} />
+          <BoxInput
+            placeholder="width"
+            auto
+            v-model={blockStyles.value.width}
+          />
           <ElIcon size="small">
             <Close />
           </ElIcon>
-          <BoxInput placeholder="height" auto v-model={blockStyles.value.height} />
+          <BoxInput
+            placeholder="height"
+            auto
+            v-model={blockStyles.value.height}
+          />
         </div>
       </div>
     )
@@ -59,7 +67,10 @@ export default defineComponent({
         <div class="flex justify-center items-center">
           <div class="mb-1">
             <p>top</p>
-            <BoxInput direction="horizontal" v-model={blockStyles.value.paddingTop} />
+            <BoxInput
+              direction="horizontal"
+              v-model={blockStyles.value.paddingTop}
+            />
           </div>
         </div>
         <div class="flex justify-center items-center">
@@ -76,7 +87,10 @@ export default defineComponent({
         <div class="flex justify-center items-center">
           <div class="mt-1">
             <p>bottom</p>
-            <BoxInput direction="horizontal" v-model={blockStyles.value.paddingBottom} />
+            <BoxInput
+              direction="horizontal"
+              v-model={blockStyles.value.paddingBottom}
+            />
           </div>
         </div>
       </div>
@@ -98,7 +112,11 @@ export default defineComponent({
         <div class="flex justify-center items-center">
           <div class="mb-1">
             <p>top</p>
-            <BoxInput direction="horizontal" auto v-model={blockStyles.value.marginTop} />
+            <BoxInput
+              direction="horizontal"
+              auto
+              v-model={blockStyles.value.marginTop}
+            />
           </div>
         </div>
         <div class="flex justify-center items-center">
@@ -115,7 +133,11 @@ export default defineComponent({
         <div class="flex justify-center items-center">
           <div class="mt-1">
             <p>bottom</p>
-            <BoxInput direction="horizontal" auto v-model={blockStyles.value.marginBottom} />
+            <BoxInput
+              direction="horizontal"
+              auto
+              v-model={blockStyles.value.marginBottom}
+            />
           </div>
         </div>
       </div>
@@ -145,7 +167,10 @@ export default defineComponent({
         <div class="flex justify-center items-center">
           <div class="mt-1">
             <p>bottom</p>
-            <BoxInput direction="horizontal" v-model={blockStyles.value.bottom} />
+            <BoxInput
+              direction="horizontal"
+              v-model={blockStyles.value.bottom}
+            />
           </div>
         </div>
       </div>

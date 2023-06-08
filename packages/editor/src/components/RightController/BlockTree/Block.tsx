@@ -1,8 +1,21 @@
-import { CloseIcon, EditIcon, EyeIcon, EyeSlashIcon, FileIcon } from '@editor/components/Icons'
+import {
+  CloseIcon,
+  EditIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  FileIcon,
+} from '@editor/components/Icons'
 import { useAppPagesStore } from '@editor/stores'
 import type { AppBlock } from '@spearjs/core'
 import type { Component, PropType } from 'vue'
-import { computed, defineComponent, nextTick, ref, watch, withModifiers } from 'vue'
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  ref,
+  watch,
+  withModifiers,
+} from 'vue'
 import styles from './index.module.scss'
 import SlotItem from './SlotItem'
 
@@ -35,7 +48,12 @@ export default defineComponent({
         const blocks = props.block.slots[slot] || []
         if (blocks.length) {
           slots.push(
-            <SlotItem name={slot} index={props.index} roadMap={roadMap.value} blocks={blocks} />
+            <SlotItem
+              name={slot}
+              index={props.index}
+              roadMap={roadMap.value}
+              blocks={blocks}
+            />,
           )
         }
       })
@@ -44,7 +62,9 @@ export default defineComponent({
 
     const pageStore = useAppPagesStore()
 
-    const isFocus = computed(() => pageStore.focusBlock?.bid === props.block.bid)
+    const isFocus = computed(
+      () => pageStore.focusBlock?.bid === props.block.bid,
+    )
 
     const isEdit = ref(false)
 
@@ -54,7 +74,7 @@ export default defineComponent({
     watch(
       () => props.block.label,
       (label) => (blockLabel.value = label),
-      { immediate: true }
+      { immediate: true },
     )
 
     const openEdit = async () => {
@@ -64,7 +84,10 @@ export default defineComponent({
     }
 
     const submitEdit = () => {
-      pageStore.updateBlockLabel(props.block.bid, blockLabel.value || props.block.label)
+      pageStore.updateBlockLabel(
+        props.block.bid,
+        blockLabel.value || props.block.label,
+      )
       isEdit.value = false
     }
 
@@ -111,10 +134,16 @@ export default defineComponent({
                   onKeyup={iptKeyDown}
                   onBlur={cancelEdit}
                 />
-                <span class={['el-icon ml-2', styles.iconShow]} onClick={submitEdit}>
+                <span
+                  class={['el-icon ml-2', styles.iconShow]}
+                  onClick={submitEdit}
+                >
                   <EditIcon />
                 </span>
-                <span class={['el-icon ml-2', styles.iconShow]} onClick={cancelEdit}>
+                <span
+                  class={['el-icon ml-2', styles.iconShow]}
+                  onClick={cancelEdit}
+                >
                   <CloseIcon />
                 </span>
               </>

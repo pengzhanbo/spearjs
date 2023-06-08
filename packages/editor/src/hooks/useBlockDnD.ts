@@ -38,19 +38,21 @@ export const useBlockDnd = (_item: BlockDragItem) => {
     preview(getEmptyImage(), { captureDraggingState: true })
   })
 
-  const { setPlaceholderHoverEl, origin, showPlaceholder } = useDropPlaceHolder()
+  const { setPlaceholderHoverEl, origin, showPlaceholder } =
+    useDropPlaceHolder()
   // 监听是否在拖拽中，并显示 拖拽目标位置提示占位符
   watch(
     () => dragCollect.value.isDragging,
     (isDragging) => {
       showPlaceholder.value = isDragging
-    }
+    },
   )
 
   /**
    * 通过 roadMap 来解析 block 归属的 block group
    */
-  const getParentRoadMap = (roadMap: string) => roadMap.slice(0, roadMap.lastIndexOf('|') || 0)
+  const getParentRoadMap = (roadMap: string) =>
+    roadMap.slice(0, roadMap.lastIndexOf('|') || 0)
 
   const [dropCollect, drop] = useDrop<
     BlockDragItem,
@@ -80,7 +82,10 @@ export const useBlockDnd = (_item: BlockDragItem) => {
 
       // 判定 拖拽元素悬浮与自身之上时，隐藏 拖拽目标位置占位符，
       // 表示 元素位置不会发生变更
-      if (type === WIDGET_DND_TYPE.Block && (dragItem as BlockDragItem).bid === hoverItem.bid) {
+      if (
+        type === WIDGET_DND_TYPE.Block &&
+        (dragItem as BlockDragItem).bid === hoverItem.bid
+      ) {
         origin.value = 'self'
       } else {
         /**
@@ -99,7 +104,8 @@ export const useBlockDnd = (_item: BlockDragItem) => {
          *
          */
         const { x, y } = monitor.getClientOffset() as XYCoord
-        const { top, left, right, bottom } = blockEl.value.getBoundingClientRect()
+        const { top, left, right, bottom } =
+          blockEl.value.getBoundingClientRect()
         const width = right - left
         const height = bottom - top
         const rx = (x - left) / width

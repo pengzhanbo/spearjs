@@ -10,7 +10,14 @@ import { useAppPagesStore } from '@editor/stores'
 import type { AppBlockGroup } from '@spearjs/core'
 import { ElCollapseTransition } from 'element-plus'
 import type { PropType } from 'vue'
-import { computed, defineComponent, nextTick, ref, watch, withModifiers } from 'vue'
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  ref,
+  watch,
+  withModifiers,
+} from 'vue'
 import Blocks from './Blocks'
 import styles from './index.module.scss'
 
@@ -43,7 +50,9 @@ export default defineComponent({
 
     const pageStore = useAppPagesStore()
 
-    const isFocus = computed(() => pageStore.focusBlock?.bid === props.group.bid)
+    const isFocus = computed(
+      () => pageStore.focusBlock?.bid === props.group.bid,
+    )
 
     const isEdit = ref(false)
 
@@ -53,7 +62,7 @@ export default defineComponent({
     watch(
       () => props.group.label,
       (label) => (blockLabel.value = label),
-      { immediate: true }
+      { immediate: true },
     )
 
     const openEdit = async () => {
@@ -63,7 +72,10 @@ export default defineComponent({
     }
 
     const submitEdit = () => {
-      pageStore.updateBlockLabel(props.group.bid, blockLabel.value || props.group.label)
+      pageStore.updateBlockLabel(
+        props.group.bid,
+        blockLabel.value || props.group.label,
+      )
       isEdit.value = false
     }
 
@@ -97,7 +109,10 @@ export default defineComponent({
       <li class={styles.treeBlockItem}>
         <div class={[styles.treeTitle, isFocus.value ? styles.focus : '']}>
           <p class={styles.titleItem}>
-            <span class={['el-icon select-none', styles.iconShow]} onClick={triggerSpread}>
+            <span
+              class={['el-icon select-none', styles.iconShow]}
+              onClick={triggerSpread}
+            >
               {spread.value ? <FolderOpenIcon /> : <FolderIcon />}
             </span>
             {isEdit.value ? (
@@ -110,10 +125,16 @@ export default defineComponent({
                   onKeyup={iptKeyDown}
                   onBlur={cancelEdit}
                 />
-                <span class={['el-icon ml-2', styles.iconShow]} onClick={submitEdit}>
+                <span
+                  class={['el-icon ml-2', styles.iconShow]}
+                  onClick={submitEdit}
+                >
                   <EditIcon />
                 </span>
-                <span class={['el-icon ml-2', styles.iconShow]} onClick={cancelEdit}>
+                <span
+                  class={['el-icon ml-2', styles.iconShow]}
+                  onClick={cancelEdit}
+                >
                   <CloseIcon />
                 </span>
               </>
@@ -142,7 +163,11 @@ export default defineComponent({
           </p>
         </div>
         <ElCollapseTransition>
-          <Blocks v-show={spread.value} blocks={props.group.blocks} roadMap={roadMap.value} />
+          <Blocks
+            v-show={spread.value}
+            blocks={props.group.blocks}
+            roadMap={roadMap.value}
+          />
         </ElCollapseTransition>
       </li>
     )

@@ -1,7 +1,7 @@
 import type {
   App,
-  ComponentPublicInstance,
   CSSProperties,
+  ComponentPublicInstance,
   RenderFunction,
   SetupContext,
   VNode,
@@ -44,7 +44,11 @@ export type WidgetComponentType = 'basis' | 'container' | 'form' | 'business'
  * ant-design-vue UI框架，适用于PC端
  * naive-ui UI框架，适用于PC端
  */
-export type WidgetDependence = 'vant' | 'element-plus' | 'ant-design-vue' | 'naive-ui'
+export type WidgetDependence =
+  | 'vant'
+  | 'element-plus'
+  | 'ant-design-vue'
+  | 'naive-ui'
 
 /**
  * widget 适用平台
@@ -77,8 +81,10 @@ export interface BaseWidget {
 /**
  * 组件类型的widget
  */
-export interface ComponentWidget<P = Record<string, any>, RawBinding = Record<string, any>>
-  extends BaseWidget {
+export interface ComponentWidget<
+  P = Record<string, any>,
+  RawBinding = Record<string, any>,
+> extends BaseWidget {
   type: 'component'
   /**
    * 组件widget的类型，包括基础组件、容器组件、表单组件、业务组件等
@@ -124,7 +130,10 @@ export interface ComponentWidget<P = Record<string, any>, RawBinding = Record<st
    * 类似于 vue 组件的 setup函数，但是不能返回一个 render function
    * 支持返回一个数据对象，可以在render中通过 this[key] 获取
    */
-  setup?: (props: Readonly<P>, ctx: SetupContext & { bid: string }) => RawBinding | undefined
+  setup?: (
+    props: Readonly<P>,
+    ctx: SetupContext & { bid: string },
+  ) => RawBinding | undefined
   /**
    * 渲染函数
    */
@@ -135,7 +144,7 @@ export interface ComponentWidget<P = Record<string, any>, RawBinding = Record<st
       slots: WidgetSlots
       action: (name: string) => void
       [prop: string]: any
-    }
+    },
   ) => ReturnType<RenderFunction>
 }
 
@@ -220,7 +229,14 @@ export interface WidgetExpose {
 /**
  * 限定 layer的值格式
  */
-export type LayerValue = `${number}px` | `${number}rem` | `${number}%` | 0 | '0' | 'auto' | ''
+export type LayerValue =
+  | `${number}px`
+  | `${number}rem`
+  | `${number}%`
+  | 0
+  | '0'
+  | 'auto'
+  | ''
 
 /**
  * widget 组件所在层样式

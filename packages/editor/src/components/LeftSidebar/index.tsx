@@ -19,7 +19,11 @@ export default defineComponent({
         <div class={styles.btnArrow} onClick={handleOpen}>
           {h(isOpen.value ? ArrowDoubleLeftIcon : ArrowDoubleRightIcon)}
         </div>
-        <ElTabs v-model={activeTab.value} tab-position="left" class={styles.leftSidebarTabs}>
+        <ElTabs
+          v-model={activeTab.value}
+          tab-position="left"
+          class={styles.leftSidebarTabs}
+        >
           {tabs.map((tab) => (
             <ElTabPane name={tab.key} lazy>
               {{

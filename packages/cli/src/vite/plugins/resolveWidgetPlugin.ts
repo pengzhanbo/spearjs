@@ -1,4 +1,3 @@
-import { path } from '@spearjs/utils'
 import type { Plugin } from 'vite'
 import type { UserConfig } from '../../userConfig'
 
@@ -21,7 +20,9 @@ const resolveRenderCode = ({ renderFiles }: UserConfig): string | null => {
 }
 
 const resolveConfigCode = (userConfig: UserConfig): string => {
-  const pkg = require(path.resolve(process.cwd(), 'package.json'))
+  // const pkg = require(path.resolve(process.cwd(), 'package.json'))
+  // todo load package.json
+  const pkg: Record<string, any> = {}
 
   // todo 这里的逻辑需要优化
   const config: Record<any, any> = {
@@ -46,13 +47,13 @@ export const resolveWidgetPlugin = (userConfig: UserConfig): Plugin => {
     },
 
     load(id) {
-      if (id === editorModuleId + '.ts') {
+      if (id === `${editorModuleId}.ts`) {
         return resolveEditorCode(userConfig)
       }
-      if (id === renderModuleId + '.ts') {
+      if (id === `${renderModuleId}.ts`) {
         return resolveRenderCode(userConfig)
       }
-      if (id === configModuleId + '.ts') {
+      if (id === `${configModuleId}.ts`) {
         return resolveConfigCode(userConfig)
       }
     },

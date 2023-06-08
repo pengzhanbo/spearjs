@@ -34,7 +34,8 @@ export default defineComponent({
     const binding = useDotProp(model, dotKey)
 
     const options = computed(() => {
-      const { activeValue, inactiveValue, activeText, inactiveText } = props.config
+      const { activeValue, inactiveValue, activeText, inactiveText } =
+        props.config
       const option = {
         activeValue,
         inactiveValue,

@@ -1,6 +1,11 @@
 import type { WidgetCheckboxProp } from '@spearjs/shared'
 import { isObject } from '@spearjs/shared'
-import { ElCheckbox, ElCheckboxButton, ElCheckboxGroup, ElFormItem } from 'element-plus'
+import {
+  ElCheckbox,
+  ElCheckboxButton,
+  ElCheckboxGroup,
+  ElFormItem,
+} from 'element-plus'
 import { computed, defineComponent, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 import type { FormInjectKey } from '../hooks'
@@ -46,7 +51,9 @@ export default defineComponent({
     const isIndeterminate = ref(false)
 
     const checkAllHandle = () => {
-      checkList.value = checkAll.value ? options.value.map(({ value }) => value) : []
+      checkList.value = checkAll.value
+        ? options.value.map(({ value }) => value)
+        : []
     }
 
     watch(
@@ -54,7 +61,7 @@ export default defineComponent({
       (defaultValue) => {
         isIndeterminate.value = !!defaultValue && defaultValue.length > 0
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     return () => (
@@ -94,7 +101,7 @@ export default defineComponent({
                 <ElCheckboxButton label={value}>{label}</ElCheckboxButton>
               ) : (
                 <ElCheckbox label={value}>{label}</ElCheckbox>
-              )
+              ),
             )}
           </ElCheckboxGroup>
 

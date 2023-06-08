@@ -1,5 +1,6 @@
 import { stylesDisplay, stylesPosition } from '@editor/common'
 import type { WidgetProps } from '@spearjs/shared'
+
 export default [
   {
     type: 'select',

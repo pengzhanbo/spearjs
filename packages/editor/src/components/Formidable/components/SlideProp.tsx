@@ -32,7 +32,8 @@ export default defineComponent({
     const slider = useDotProp(model, dotKey)
 
     const options = computed(() => {
-      const { min, max, step, showInput, showStops, range, marks } = props.config
+      const { min, max, step, showInput, showStops, range, marks } =
+        props.config
       return { min, max, step, showInput, showStops, range, marks }
     })
 

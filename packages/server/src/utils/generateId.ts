@@ -1,6 +1,7 @@
 import { customAlphabet } from 'nanoid'
 
-const hashLetter = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+const hashLetter =
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
 export const generateAppId = customAlphabet(hashLetter, 12)
 

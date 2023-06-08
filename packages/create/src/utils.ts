@@ -1,4 +1,5 @@
 import { fs, path } from '@spearjs/utils'
+
 export function formatTargetDir(targetDir: string) {
   return targetDir?.trim().replace(/\/+$/g, '')
 }
@@ -39,7 +40,9 @@ export function emptyDir(dir: string) {
 }
 
 export function isValidPackageName(projectName: string): boolean {
-  return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(projectName)
+  return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(
+    projectName,
+  )
 }
 
 export function toValidPackageName(projectName: string): string {

@@ -45,7 +45,11 @@ export const useAppPagesStore = defineStore('pages', {
       Object.assign(this, state)
     },
     // --- page
-    createAppPage(option: { title: string; path: string; isHome?: boolean }): void {
+    createAppPage(option: {
+      title: string
+      path: string
+      isHome?: boolean
+    }): void {
       this.pages.push(createAppPage(option))
     },
     updatePage(index: number, page: Partial<AppPageItem>): void {
@@ -105,7 +109,11 @@ export const useAppPagesStore = defineStore('pages', {
       }
       return { blocks, block }
     },
-    addBlock(block: AppBlock | AppBlockGroup, roadMap?: string, insertTo?: number): void {
+    addBlock(
+      block: AppBlock | AppBlockGroup,
+      roadMap?: string,
+      insertTo?: number,
+    ): void {
       roadMap = roadMap || ''
       const { blocks } = this.parseRoadMap(roadMap)
       if (insertTo === undefined) {
@@ -124,7 +132,7 @@ export const useAppPagesStore = defineStore('pages', {
     deleteBlock(
       index: number,
       roadMap?: string,
-      done?: (block: AppBlock | AppBlockGroup) => void
+      done?: (block: AppBlock | AppBlockGroup) => void,
     ): AppBlock | AppBlockGroup {
       roadMap = roadMap || ''
       const { blocks } = this.parseRoadMap(roadMap)
@@ -133,7 +141,11 @@ export const useAppPagesStore = defineStore('pages', {
       blocks.splice(index, 1)
       return block
     },
-    moveSameRoadMapBlock(source: number, target: number, roadMap?: string): void {
+    moveSameRoadMapBlock(
+      source: number,
+      target: number,
+      roadMap?: string,
+    ): void {
       roadMap = roadMap || ''
       const { blocks } = this.parseRoadMap(roadMap)
       const block = blocks[source]
@@ -168,7 +180,11 @@ export const useAppPagesStore = defineStore('pages', {
         this.focusBlock.slots = newSlots
       }
     },
-    updateFocusBlockAction(name: string, action: AppBlockAction, index: number) {
+    updateFocusBlockAction(
+      name: string,
+      action: AppBlockAction,
+      index: number,
+    ) {
       if (this.focusBlock && this.focusBlock.type === 'block') {
         this.focusBlock.actions[name][index] = action
       }

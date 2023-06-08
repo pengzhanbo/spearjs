@@ -32,7 +32,14 @@ export default defineComponent({
     const number = useDotProp(model, dotKey)
 
     const options = computed(() => {
-      const { defaultValue: _d, type: _t, tips: _ti, label: _l, key: _k, ...options } = props.config
+      const {
+        defaultValue: _d,
+        type: _t,
+        tips: _ti,
+        label: _l,
+        key: _k,
+        ...options
+      } = props.config
       return options
     })
 
@@ -44,7 +51,11 @@ export default defineComponent({
         v-show={props.show}
       >
         <p class="w-full flex items-center justify-start">
-          <ElInputNumber class="flex-1" v-model={number.value} {...options.value} />
+          <ElInputNumber
+            class="flex-1"
+            v-model={number.value}
+            {...options.value}
+          />
           {tips(props.config.tips)}
           {slots.default?.()}
         </p>

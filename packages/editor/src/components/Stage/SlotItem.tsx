@@ -47,7 +47,10 @@ export default defineComponent({
     const { dropCollect, setDropRef } = useBlocksDrop(roadMap)
 
     const slotClass = computed(() => {
-      const list = [styles.blockSlot, dropCollect.value.canDrop ? styles.canDrop : '']
+      const list = [
+        styles.blockSlot,
+        dropCollect.value.canDrop ? styles.canDrop : '',
+      ]
       if (props.option.class) {
         isArray(props.option.class)
           ? list.push(...props.option.class)

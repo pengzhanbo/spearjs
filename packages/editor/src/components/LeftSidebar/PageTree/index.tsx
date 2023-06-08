@@ -1,4 +1,9 @@
-import { AddIcon, CloseIcon, EditIcon, HomeIcon } from '@editor/components/Icons'
+import {
+  AddIcon,
+  CloseIcon,
+  EditIcon,
+  HomeIcon,
+} from '@editor/components/Icons'
 import { useAppPagesStore } from '@editor/stores'
 import type { AppPageItem } from '@editor/stores'
 import { parsePathMath, toPathMath } from '@editor/utils'
@@ -54,7 +59,7 @@ export default defineComponent({
           })
         }
         isRouterTo = false
-      }
+      },
     )
 
     const showDialog = ref(false)
@@ -74,7 +79,10 @@ export default defineComponent({
     })
     const pageIndex = ref(0)
 
-    const openDialogByEdit = ({ title, path }: PageOption, index: number): void => {
+    const openDialogByEdit = (
+      { title, path }: PageOption,
+      index: number,
+    ): void => {
       isEdit.value = true
       showDialog.value = true
       newPage.value = { title, path }
@@ -111,7 +119,10 @@ export default defineComponent({
       showDialog.value = false
       newPage.value = { title: '', path: '/' }
     }
-    const removePage = async (page: PageOption, index: number): Promise<void> => {
+    const removePage = async (
+      page: PageOption,
+      index: number,
+    ): Promise<void> => {
       await ElMessageBox.confirm(`是否删除 ${page.title} ?`, '警告', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
@@ -120,7 +131,8 @@ export default defineComponent({
       pageStore.removePage(index)
       const pathMath = parsePathMath(route.params.pathMath)
       if (pathMath === page.path) {
-        const homePage = pages.value.find((page) => page.isHome) || pageStore.pages[0]
+        const homePage =
+          pages.value.find((page) => page.isHome) || pageStore.pages[0]
         routeTo(homePage)
       }
     }
@@ -129,7 +141,11 @@ export default defineComponent({
         <ElButton icon={AddIcon} type="primary" onClick={openDialogByCreate}>
           新增页面
         </ElButton>
-        <ElDialog v-model={showDialog.value} title={dialogText.value.title} append-to-body>
+        <ElDialog
+          v-model={showDialog.value}
+          title={dialogText.value.title}
+          append-to-body
+        >
           {{
             default: () => (
               <ElForm model={newPage.value}>
@@ -143,7 +159,9 @@ export default defineComponent({
             ),
             footer: () => (
               <span class={styles.dialogFooter}>
-                <ElButton onClick={() => (showDialog.value = false)}>取消</ElButton>
+                <ElButton onClick={() => (showDialog.value = false)}>
+                  取消
+                </ElButton>
                 <ElButton type="primary" onClick={submitDialog}>
                   {dialogText.value.submit}
                 </ElButton>
@@ -156,8 +174,14 @@ export default defineComponent({
             <span class="flex-1">标题(路径)</span>
           </li>
           {pages.value.map((page, index) => (
-            <li class={{ [styles.current]: page.path === currentPage.value.path }} key={page.path}>
-              <p class="flex-1 mr-5 cursor-pointer" onClick={() => routeTo(page)}>
+            <li
+              class={{ [styles.current]: page.path === currentPage.value.path }}
+              key={page.path}
+            >
+              <p
+                class="flex-1 mr-5 cursor-pointer"
+                onClick={() => routeTo(page)}
+              >
                 <ElTooltip
                   effect="dark"
                   show-after={600}
@@ -183,12 +207,25 @@ export default defineComponent({
                     <HomeIcon />
                   </span>
                 </ElTooltip>
-                <ElTooltip show-after={600} effect="dark" placement="bottom-start" content="编辑">
-                  <span class="el-icon" onClick={() => openDialogByEdit(page, index)}>
+                <ElTooltip
+                  show-after={600}
+                  effect="dark"
+                  placement="bottom-start"
+                  content="编辑"
+                >
+                  <span
+                    class="el-icon"
+                    onClick={() => openDialogByEdit(page, index)}
+                  >
                     <EditIcon />
                   </span>
                 </ElTooltip>
-                <ElTooltip show-after={600} effect="dark" placement="bottom-start" content="删除">
+                <ElTooltip
+                  show-after={600}
+                  effect="dark"
+                  placement="bottom-start"
+                  content="删除"
+                >
                   <span class="el-icon" onClick={() => removePage(page, index)}>
                     <CloseIcon />
                   </span>

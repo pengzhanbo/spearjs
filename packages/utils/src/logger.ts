@@ -1,14 +1,17 @@
 import colors from 'picocolors'
 
 export const info = (...args: any[]): void => {
+  // eslint-disable-next-line no-console
   console.log(colors.cyan('info'), ...args)
 }
 
 export const tip = (...args: any[]): void => {
+  // eslint-disable-next-line no-console
   console.log(colors.blue('tip'), ...args)
 }
 
 export const success = (...args: any[]): void => {
+  // eslint-disable-next-line no-console
   console.log(colors.green('success'), ...args)
 }
 

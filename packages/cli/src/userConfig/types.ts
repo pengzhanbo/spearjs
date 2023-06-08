@@ -1,4 +1,5 @@
 import type { BaseWidget, ComponentWidget } from '@spearjs/shared'
+
 export interface UserBasicConfig {
   /**
    * widget 名称

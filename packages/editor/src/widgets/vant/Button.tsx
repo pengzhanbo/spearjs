@@ -23,6 +23,7 @@ export default {
     const block = useBlock()
     expose({
       show() {
+        // eslint-disable-next-line no-console
         console.log('点击,显示')
         block.setStyles({ display: '' })
       },

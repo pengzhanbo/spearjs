@@ -20,7 +20,7 @@ export const useThemeConfig = () => {
 
       css.value = ruleList.join('')
     },
-    { immediate: true, deep: true }
+    { immediate: true, deep: true },
   )
 
   return { load, unload }

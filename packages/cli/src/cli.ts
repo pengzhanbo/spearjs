@@ -1,3 +1,6 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { colors } from '@spearjs/utils'
 import { cac } from 'cac'
 import { createBuild, createConfig, createDev, createPublish } from './commands'
@@ -21,7 +24,19 @@ export const cli = (): void => {
 
   const program = cac('spearjs')
 
-  const versionCli = require('../package.json').version
+  let pkg: Record<string, unknown> = {}
+  const dirname =
+    typeof __dirname !== 'undefined'
+      ? __dirname
+      : path.dirname(fileURLToPath(import.meta.url))
+
+  try {
+    pkg = JSON.parse(
+      fs.readFileSync(path.join(dirname, '../package.json'), 'utf-8'),
+    )
+  } catch {}
+
+  const versionCli = pkg.version
 
   program.version(`spearjs/cli@${versionCli}`)
 
@@ -40,7 +55,10 @@ export const cli = (): void => {
   program
     .command('build', 'Build widget')
     .option('-c, --config <config>', 'Set path to config file')
-    .option('-d, --dest <dest>', 'Set the directory build output (default: dist)')
+    .option(
+      '-d, --dest <dest>',
+      'Set the directory build output (default: dist)',
+    )
     .action(wrapCommand(createBuild()))
 
   // register `publish` command
@@ -48,7 +66,10 @@ export const cli = (): void => {
     .command('publish', 'Publish widget to SpearJs lowCode platform')
     .option('-c, --config <config>', 'Set path to config file')
     .option('-t, --target <target>', 'publish widget to target server')
-    .option('-d, --dest <dest>', 'Set the directory publish assets (default: dist)')
+    .option(
+      '-d, --dest <dest>',
+      'Set the directory publish assets (default: dist)',
+    )
     .action(wrapCommand(createPublish()))
 
   program

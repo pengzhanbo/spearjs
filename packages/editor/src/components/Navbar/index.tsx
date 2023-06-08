@@ -43,13 +43,19 @@ export default defineComponent({
             </ElIcon>
             <span>预览</span>
           </p>
-          <p class={[styles.headerItem, canRedo.value ? '' : styles.disabled]} onClick={redo}>
+          <p
+            class={[styles.headerItem, canRedo.value ? '' : styles.disabled]}
+            onClick={redo}
+          >
             <ElIcon class="el-icon--left">
               <RedoIcon />
             </ElIcon>
             <span>前进</span>
           </p>
-          <p class={[styles.headerItem, canUndo.value ? '' : styles.disabled]} onClick={undo}>
+          <p
+            class={[styles.headerItem, canUndo.value ? '' : styles.disabled]}
+            onClick={undo}
+          >
             <ElIcon class="el-icon--left">
               <UndoIcon />
             </ElIcon>

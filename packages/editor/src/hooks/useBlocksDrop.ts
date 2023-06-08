@@ -50,7 +50,8 @@ export const useBlocksDrop = (_roadMap?: ComputedRef<string>) => {
 
         // 这里需要规避一种情况，即 拖拽元素悬浮与其内部的子元素中，
         // 需要避免 拽拽元素插入到其自身的子元素中
-        if (!dragItem.roadMap || dropRoadMap.startsWith(dragItem.roadMap)) return
+        if (!dragItem.roadMap || dropRoadMap.startsWith(dragItem.roadMap))
+          return
 
         pageStore.deleteBlock(dragItem.index, dragItem.roadMap, (block) => {
           pageStore.addBlock(block, dropRoadMap)

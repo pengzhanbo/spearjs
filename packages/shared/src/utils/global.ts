@@ -9,13 +9,13 @@ declare global {
   }
 }
 
-globalThis.__spearjs_low_code__ = globalThis.__spearjs_low_code__ || {}
+// eslint-disable-next-line @typescript-eslint/no-extra-semi
+;(globalThis as any).__spearjs_low_code__ =
+  (globalThis as any).__spearjs_low_code__ || {}
 
-const spearjs = globalThis.__spearjs_low_code__
+const spearjs = (globalThis as any).__spearjs_low_code__
 spearjs.global = spearjs.global || {}
 spearjs.widgetMap = spearjs.widgetMap || {}
-
-const _global = spearjs.global
 
 export const widgetMap = spearjs.widgetMap
 
@@ -26,7 +26,12 @@ export const registerWidget = (widget: Widget): void => {
   }
 }
 
-export const hasWidget = ({ id, version }: { id: string; version: string }): boolean =>
-  !!widgetMap[`${id}-${version}`]
+export const hasWidget = ({
+  id,
+  version,
+}: {
+  id: string
+  version: string
+}): boolean => !!widgetMap[`${id}-${version}`]
 
 spearjs.registerWidget = registerWidget

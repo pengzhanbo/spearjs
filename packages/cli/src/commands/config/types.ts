@@ -1,7 +1,9 @@
 /**
  * Type of `config` command function
  */
-export type ConfigCommand = (commandOptions?: ConfigCommandOptions) => Promise<void>
+export type ConfigCommand = (
+  commandOptions?: ConfigCommandOptions,
+) => Promise<void>
 
 export interface ConfigCommandOptions {
   list: boolean

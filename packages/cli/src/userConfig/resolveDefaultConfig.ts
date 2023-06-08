@@ -1,5 +1,8 @@
+import { createRequire } from 'node:module'
 import { path } from '@spearjs/utils'
 import type { UserConfig } from './types'
+
+const require = createRequire(process.cwd())
 
 export const resolveDefaultConfig = (): UserConfig => {
   const cwd = process.cwd()

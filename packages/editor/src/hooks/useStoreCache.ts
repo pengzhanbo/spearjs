@@ -22,7 +22,10 @@ const index = ref(0)
 
 const addCache = (cache: StoreCache) => {
   if (index.value > 0 && index.value !== storeCache.value.length - 1) {
-    storeCache.value.splice(index.value, storeCache.value.length - index.value + 1)
+    storeCache.value.splice(
+      index.value,
+      storeCache.value.length - index.value + 1,
+    )
   }
   storeCache.value.push(JSON.parse(JSON.stringify(cache)))
   if (storeCache.value.length >= MAX_CACHE_LENGTH) {
@@ -46,10 +49,14 @@ export const setupStoreCache = async () => {
   /**
    * 对于高频次变更状态，取 1秒的时间区间，在区间内的变更，仅计算为一次缓存
    */
-  const throttleAddCache = throttle((state: StoreCache) => addCache(state), 1000, {
-    leading: false,
-    trailing: true,
-  })
+  const throttleAddCache = throttle(
+    (state: StoreCache) => addCache(state),
+    1000,
+    {
+      leading: false,
+      trailing: true,
+    },
+  )
 
   watch(
     () => store.state.value,
@@ -59,11 +66,13 @@ export const setupStoreCache = async () => {
         throttleAddCache(state)
       }
     },
-    { deep: true }
+    { deep: true },
   )
 }
 
-export const ignoreStoreCache = async <T>(fn: () => T | Promise<T>): Promise<T> => {
+export const ignoreStoreCache = async <T>(
+  fn: () => T | Promise<T>,
+): Promise<T> => {
   ignore = true
   const result = await fn()
   await Promise.resolve()

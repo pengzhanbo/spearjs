@@ -1,4 +1,4 @@
-import { defineComponent, Suspense, computed, ref } from 'vue'
+import { Suspense, computed, defineComponent, ref } from 'vue'
 import widget from './widget'
 
 function getDefaultValue(type: any, defaultValue: any): any {
@@ -18,13 +18,20 @@ function getDefaultValue(type: any, defaultValue: any): any {
     return defaultValue || (() => {})
   }
 }
-const components = {}
-function createComponent({ id, version, name, setup, props, render }) {
+const components: Record<string, any> = {}
+function createComponent({
+  id,
+  version,
+  name,
+  setup,
+  props,
+  render,
+}: any = {}) {
   const key = `${id}-${version}`
   if (components[key]) return components[key]
-  const currentProps = {}
-  props.forEach((prop) => {
-    currentProps[prop.name] = {
+  const currentProps: Record<string, any> = {}
+  props.forEach((prop: any) => {
+    currentProps[prop.name as string] = {
       type: prop.type,
       required: false,
       default: () => getDefaultValue(prop.type, prop.form.defaultValue),
@@ -33,7 +40,7 @@ function createComponent({ id, version, name, setup, props, render }) {
   components[key] = {
     name,
     props: currentProps,
-    setup: async function (_props, { slots, attrs, expose, emit }) {
+    async setup(_props: any, { slots, attrs, expose, emit }: any) {
       const current = (await setup(_props)) || {}
       const nowProps = computed(() => {
         return {
@@ -43,7 +50,16 @@ function createComponent({ id, version, name, setup, props, render }) {
       })
       const actions = {}
       const styles = {}
-      return () => render({ props: nowProps.value, attrs, slots, actions, styles, expose, emit })
+      return () =>
+        render({
+          props: nowProps.value,
+          attrs,
+          slots,
+          actions,
+          styles,
+          expose,
+          emit,
+        })
     },
   }
   return components[key]
@@ -59,7 +75,10 @@ export default defineComponent({
     }
     return () => (
       <>
-        <div onClick={handle} style={{ 'cursor': 'pointer', 'user-select': 'none' }}>
+        <div
+          onClick={handle}
+          style={{ 'cursor': 'pointer', 'user-select': 'none' }}
+        >
           add
         </div>
         <Suspense>

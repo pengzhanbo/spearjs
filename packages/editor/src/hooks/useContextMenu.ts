@@ -23,7 +23,7 @@ const open = (
   ev: MouseEvent,
   block: AppBlock | AppBlockGroup | null,
   roadMap?: string,
-  index?: number
+  index?: number,
 ) => {
   ev.preventDefault()
   isOpen.value = true
@@ -32,17 +32,20 @@ const open = (
   currentIndex.value = index
   if (!block) {
     style.value = {
-      left: ev.offsetX + 'px',
-      top: ev.offsetY + 'px',
+      left: `${ev.offsetX}px`,
+      top: `${ev.offsetY}px`,
     }
     return
   }
   // 计算 菜单打开的位置信息
   // 位置信息相对于 stage容器计算位置
-  const { offsetLeft, offsetTop } = getElOffset(ev.target as HTMLElement, contextMenuRoot.value!)
+  const { offsetLeft, offsetTop } = getElOffset(
+    ev.target as HTMLElement,
+    contextMenuRoot.value!,
+  )
   style.value = {
-    left: offsetLeft + ev.offsetX + 'px',
-    top: offsetTop + ev.offsetY + 'px',
+    left: `${offsetLeft + ev.offsetX}px`,
+    top: `${offsetTop + ev.offsetY}px`,
   }
 }
 

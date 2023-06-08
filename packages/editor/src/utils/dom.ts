@@ -3,12 +3,17 @@
  * @param el 当前元素
  * @param root 祖先定位元素，默认为 body
  */
-export const getElOffset = (el: HTMLElement, root: HTMLElement = document.body) => {
+export const getElOffset = (
+  el: HTMLElement,
+  root: HTMLElement = document.body,
+) => {
   let { offsetLeft, offsetTop } = el
   const { offsetHeight, offsetWidth } = el
-  while ((el = el.offsetParent as HTMLElement) && el !== root) {
-    offsetLeft += el.offsetLeft
-    offsetTop += el.offsetTop
+  let _el: HTMLElement | null = el
+  // eslint-disable-next-line no-cond-assign
+  while ((_el = _el.offsetParent as any) && _el !== root) {
+    offsetLeft += _el.offsetLeft
+    offsetTop += _el.offsetTop
   }
 
   return {

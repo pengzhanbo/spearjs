@@ -1,6 +1,6 @@
 import { setupDropPlaceholder } from '@editor/hooks'
 import type { PropType } from 'vue'
-import { computed, defineComponent, Transition, watch } from 'vue'
+import { Transition, computed, defineComponent, watch } from 'vue'
 import styles from './index.module.scss'
 
 export default defineComponent({
@@ -12,11 +12,12 @@ export default defineComponent({
     },
   },
   setup: (props) => {
-    const { rectBound, setPlaceholderRoot, showPlaceholder } = setupDropPlaceholder()
+    const { rectBound, setPlaceholderRoot, showPlaceholder } =
+      setupDropPlaceholder()
 
     watch(
       () => props.rootRef,
-      (root) => setPlaceholderRoot(root)
+      (root) => setPlaceholderRoot(root),
     )
 
     const style = computed(() => {

@@ -186,7 +186,9 @@ export type WidgetSelectPropOptions<T = any> = (
 export interface WidgetSelectProp<T = any> extends WidgetBaseProp {
   type: 'select'
   defaultValue?: T
-  options: WidgetSelectPropOptions<T> | ((props: Record<string, any>) => WidgetSelectPropOptions<T>)
+  options:
+    | WidgetSelectPropOptions<T>
+    | ((props: Record<string, any>) => WidgetSelectPropOptions<T>)
   multiple?: boolean
   multipleLimit?: number
   keyValue?: string
@@ -196,7 +198,9 @@ export interface WidgetSelectProp<T = any> extends WidgetBaseProp {
   placeholder?: string
   filterable?: boolean
   allowCreate?: boolean
-  filterMethod?: (options: WidgetSelectPropOptions<T>) => WidgetSelectPropOptions<T>
+  filterMethod?: (
+    options: WidgetSelectPropOptions<T>,
+  ) => WidgetSelectPropOptions<T>
   remote?: boolean
   remoteMethod?: (query: string) => WidgetSelectPropOptions<T>
   loading?: boolean
@@ -243,7 +247,10 @@ export interface WidgetSliderProp extends WidgetBaseProp {
   showInput?: boolean
   range?: boolean
   showStops?: boolean
-  marks?: Record<number | string, string | { style?: CSSProperties; label: string }>
+  marks?: Record<
+    number | string,
+    string | { style: CSSProperties; label: string }
+  >
 }
 
 // todo date prop

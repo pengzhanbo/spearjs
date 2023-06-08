@@ -22,7 +22,8 @@ But you can useBlock(bid) to get a block.
     block.props = mergeProps(block.props, props || {})
   }
 
-  const setStyles = (styles: CSSProperties) => Object.assign(block.styles, styles)
+  const setStyles = (styles: CSSProperties) =>
+    Object.assign(block.styles, styles)
 
   const action = (name: string) => emitAction(block.actions, name)
 

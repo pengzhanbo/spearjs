@@ -1,15 +1,15 @@
-import * as os from 'os'
-import { win32 } from 'path'
+import * as os from 'node:os'
+import { win32 } from 'node:path'
 import { loadUserConfig, resolveDefaultConfig } from '../../userConfig'
 import type { UserConfig } from '../../userConfig'
 
 const normalizeRequireCacheKey: (key: string) => string = (key) =>
-  os.platform() == 'win32' ? win32.normalize(key) : key
+  os.platform() === 'win32' ? win32.normalize(key) : key
 
 const resolveDeps = (
   filename: string,
   deps: Set<string> = new Set(),
-  seen: Set<string> = new Set()
+  seen: Set<string> = new Set(),
 ): Set<string> => {
   const mod = require.cache[normalizeRequireCacheKey(filename)]
   if (!mod) return deps
@@ -28,7 +28,7 @@ const resolveDeps = (
 }
 
 export const resolveDevUserConfig = async (
-  userConfigPath?: string
+  userConfigPath?: string,
 ): Promise<{
   userConfig: UserConfig
   userConfigDeps: string[]

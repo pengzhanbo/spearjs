@@ -9,7 +9,7 @@
  * 7. 调用接口发布widget
  */
 import { colors, fs, inquirer, logger, path } from '@spearjs/utils'
-import * as FormData from 'form-data'
+import FormData from 'form-data'
 import * as zipDir from 'zip-dir'
 import type { UserConfigByComponent } from '../../userConfig'
 import { loadUserConfig, resolveUserConfigPath } from '../../userConfig'
@@ -56,7 +56,11 @@ export const createPublish = (): PublishCommand => {
     const configPath = resolveUserConfigPath(commandOptions.config)!
     const userConfig = await loadUserConfig(configPath)
     const dest = commandOptions.dest || userConfig.dest || 'dist'
-    const cacheZip = path.join(process.cwd(), dest, `${pkg.widgetId}-${pkg.version}.zip`)
+    const cacheZip = path.join(
+      process.cwd(),
+      dest,
+      `${pkg.widgetId}-${pkg.version}.zip`,
+    )
     const http = getHttp(commandOptions.target)
     const formData = new FormData()
 
@@ -69,8 +73,14 @@ export const createPublish = (): PublishCommand => {
     formData.append('name', userConfig.name)
     formData.append('type', userConfig.type)
     formData.append('platform', userConfig.platform)
-    formData.append('componentType', (userConfig as UserConfigByComponent).componentType)
-    formData.append('dependence', (userConfig as UserConfigByComponent).dependence)
+    formData.append(
+      'componentType',
+      (userConfig as UserConfigByComponent).componentType,
+    )
+    formData.append(
+      'dependence',
+      (userConfig as UserConfigByComponent).dependence,
+    )
     formData.append('file', fs.createReadStream(cacheZip))
     formData.append(
       'editorAssert',
@@ -79,7 +89,7 @@ export const createPublish = (): PublishCommand => {
         css: fs.existsSync(path.join(process.cwd(), dest, 'editor/style.css'))
           ? 'editor/style.css'
           : '',
-      })
+      }),
     )
     formData.append(
       'renderAssert',
@@ -88,11 +98,14 @@ export const createPublish = (): PublishCommand => {
         css: fs.existsSync(path.join(process.cwd(), dest, 'render/style.css'))
           ? 'render/style.css'
           : '',
-      })
+      }),
     )
     formData.append('latest', latest ? 1 : 0)
 
-    const res = (await updateWidget(http, formData)) as unknown as { code: number; message: string }
+    const res = (await updateWidget(http, formData)) as unknown as {
+      code: number
+      message: string
+    }
     // 删除临时压缩包
     await fs.unlink(cacheZip)
 

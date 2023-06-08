@@ -5,7 +5,7 @@ import type { BuildCommand } from './types'
 
 export const builder: BuildCommand = async (commandOptions = {}) => {
   const log = debug('spearjs:cli/build')
-  log(`commandOptions:`, commandOptions)
+  log('commandOptions:', commandOptions)
 
   if (process.env.NODE_ENV === undefined) {
     process.env.NODE_ENV = 'production'

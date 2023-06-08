@@ -57,7 +57,7 @@ export default [
           .map(({ name }) => ({
             label: name,
             value: name,
-          }))
+          })),
       )
       return list
     },

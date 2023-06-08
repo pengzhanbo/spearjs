@@ -26,14 +26,21 @@ export default defineComponent({
   setup(props) {
     const model = useFormData(props.injectKey)
     const spread = ref(
-      props.config.forgetSpread ? true : isBoolean(props.config.spread) ? props.config.spread : true
+      props.config.forgetSpread
+        ? true
+        : isBoolean(props.config.spread)
+        ? props.config.spread
+        : true,
     )
     const handleClick = () => {
       if (props.config.forgetSpread) return
       spread.value = !spread.value
     }
     const show = computed(() => {
-      const showProp = typeof props.config.showProp === 'undefined' ? true : props.config.showProp
+      const showProp =
+        typeof props.config.showProp === 'undefined'
+          ? true
+          : props.config.showProp
       return isFunction(showProp) ? showProp(readonly(model)) : showProp
     })
     return () => (
@@ -42,7 +49,9 @@ export default defineComponent({
           {tips(props.config.tips)}
           <span>{props.config.label}</span>
           <ElIcon>
-            <ArrowRightBold class={[styles.groupIcon, { [styles.open]: spread.value }]} />
+            <ArrowRightBold
+              class={[styles.groupIcon, { [styles.open]: spread.value }]}
+            />
           </ElIcon>
         </label>
         <ElCollapseTransition>

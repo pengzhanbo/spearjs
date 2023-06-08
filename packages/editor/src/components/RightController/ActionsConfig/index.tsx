@@ -24,10 +24,10 @@ import BlockSelector from '../BlockSelector'
 import { BlockHeader } from '../ConfigHeader'
 import ActionItem from './ActionItem'
 
-const ActionTitle: FunctionalComponent<{ action: WidgetAction; index: number }> = ({
-  action,
-  index,
-}) => {
+const ActionTitle: FunctionalComponent<{
+  action: WidgetAction
+  index: number
+}> = ({ action, index }) => {
   return (
     <h4 class="flex items-center font-bold">
       <span class="mr-3">动作{index + 1}:</span>
@@ -67,7 +67,9 @@ export default defineComponent({
     })
 
     const actionList = computed(() => {
-      return widget.value && widget.value.actions ? widget.value.actions : ([] as WidgetActions)
+      return widget.value && widget.value.actions
+        ? widget.value.actions
+        : ([] as WidgetActions)
     })
     const collapse = ref('')
     watch(
@@ -75,7 +77,7 @@ export default defineComponent({
       (list) => {
         collapse.value = list[0]?.action
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     const showDialog = ref(false)
@@ -99,23 +101,28 @@ export default defineComponent({
         if (type === 'global') {
           actionHandler.value.bid = ''
         }
-      }
+      },
     )
 
     const exposeList = computed(() => {
       if (actionHandler.value.type === 'block' && actionHandler.value.bid) {
         const curBlock = findBlockByBid(
           pageStore.currentPage.blocks,
-          actionHandler.value.bid
+          actionHandler.value.bid,
         ) as AppBlock
-        const curWidget = findWidget(curBlock.widget.id, curBlock.widget.version)
-        return [...preExposeList, ...(curWidget.expose || [])].filter((expose) => {
-          if (curBlock.bid === block.value?.bid) {
-            return expose.type === 'method'
-          } else {
-            return expose.type === 'method' && expose.global
-          }
-        })
+        const curWidget = findWidget(
+          curBlock.widget.id,
+          curBlock.widget.version,
+        )
+        return [...preExposeList, ...(curWidget.expose || [])].filter(
+          (expose) => {
+            if (curBlock.bid === block.value?.bid) {
+              return expose.type === 'method'
+            } else {
+              return expose.type === 'method' && expose.global
+            }
+          },
+        )
       } else {
         return []
       }
@@ -133,7 +140,11 @@ export default defineComponent({
       }
     }
 
-    const onEditActionHandler = (name: string, handler: AppBlockAction, index: number) => {
+    const onEditActionHandler = (
+      name: string,
+      handler: AppBlockAction,
+      index: number,
+    ) => {
       dialogType.value = 'edit'
       showDialog.value = true
       actionHandler.value = cloneDeep(handler)
@@ -158,7 +169,11 @@ export default defineComponent({
         }
         dialogType.value === 'add'
           ? pageStore.addFocusBlockAction(currentActionName.value, handler)
-          : pageStore.updateFocusBlockAction(currentActionName.value, handler, currentIndex.value)
+          : pageStore.updateFocusBlockAction(
+              currentActionName.value,
+              handler,
+              currentIndex.value,
+            )
       }
       showDialog.value = false
     }
@@ -184,7 +199,10 @@ export default defineComponent({
           </ElSelect>
         </ElFormItem>
         <ElFormItem label="组件" v-show={actionHandler.value.type === 'block'}>
-          <BlockSelector v-model={actionHandler.value.bid!} block={block.value!} />
+          <BlockSelector
+            v-model={actionHandler.value.bid!}
+            block={block.value!}
+          />
         </ElFormItem>
         <ElFormItem label="执行方法" v-show={actionHandler.value.bid}>
           <ElSelect v-model={actionHandler.value.name}>

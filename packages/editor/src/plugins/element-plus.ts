@@ -1,5 +1,12 @@
 import 'element-plus/dist/index.css'
-import { Check, Delete, Edit, Message, Search, Star } from '@element-plus/icons-vue'
+import {
+  Check,
+  Delete,
+  Edit,
+  Message,
+  Search,
+  Star,
+} from '@element-plus/icons-vue'
 import ElementPlus from 'element-plus'
 import type { App, Plugin } from 'vue'
 

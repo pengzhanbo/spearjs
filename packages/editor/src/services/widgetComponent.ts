@@ -1,8 +1,16 @@
 import { useBlock } from '@editor/hooks/useBlock'
 import type { ComponentWidget } from '@spearjs/shared'
-import type { ComponentOptions, DefineComponent, PropType, SetupContext } from 'vue'
+import type {
+  ComponentOptions,
+  DefineComponent,
+  PropType,
+  SetupContext,
+} from 'vue'
 import { defineComponent, getCurrentInstance, onUnmounted } from 'vue'
-import { addComponentInstance, deleteComponentInstance } from './componentInstanceMap'
+import {
+  addComponentInstance,
+  deleteComponentInstance,
+} from './componentInstanceMap'
 import { generateWidgetName } from './idGenerator'
 
 export type DefineWidgetComponent = DefineComponent<{
@@ -49,13 +57,15 @@ export function createWidgetComponent({
       // expose 有调用次数限制
       // 注入 expose 预导出
       // 同时允许 覆盖预设导出的方法
-      const expose: SetupContext['expose'] = (exposed?: Record<string, any>) => {
+      const expose: SetupContext['expose'] = (
+        exposed?: Record<string, any>,
+      ) => {
         exposed = Object.assign(
           {
             show: () => block.setStyles({ display: '' }),
             hide: () => block.setStyles({ display: 'none' }),
           },
-          exposed || {}
+          exposed || {},
         )
         ctx.expose(exposed)
       }
@@ -65,8 +75,10 @@ export function createWidgetComponent({
       // 允许 widget 内部自定义 setup，自定义其他的数据或者逻辑，
       // 在 render 中可以通过 this[prop] 获取到相关的返回内容
       if (setup) {
-        // @ts-ignore
-        Object.assign(res, setup(props.props, { ...ctx, bid: props.bid, expose }) || {})
+        Object.assign(
+          res,
+          setup(props.props, { ...ctx, bid: props.bid, expose }) || {},
+        )
       }
       return res
     },

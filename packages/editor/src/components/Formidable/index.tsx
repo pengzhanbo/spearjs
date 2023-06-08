@@ -43,7 +43,7 @@ export default defineComponent({
             <Group config={prop} injectKey={injectKey} />
           ) : (
             <PropItem config={prop} injectKey={injectKey} />
-          )
+          ),
         )}
       </ElForm>
     )

@@ -39,7 +39,7 @@ export default defineRenderConfig<Props>({
     const headerStyle = computed<CSSProperties>(() => {
       const headerConfig = props.headerConfig
       const style: CSSProperties = {}
-      style.height = headerConfig.height + 'px'
+      style.height = `${headerConfig.height}px`
       style.backgroundColor = headerConfig.bgColor
       if (headerConfig.fixed) {
         style.position = 'fixed'
@@ -47,7 +47,7 @@ export default defineRenderConfig<Props>({
         style.left = 0
         style.width = '100%'
       } else {
-        style.marginBottom = headerConfig.marginBottom + 'px'
+        style.marginBottom = `${headerConfig.marginBottom}px`
       }
       return style
     })
@@ -56,20 +56,22 @@ export default defineRenderConfig<Props>({
       const headerConfig = props.headerConfig
       const style: CSSProperties = {}
       if (headerConfig.fixed) {
-        style.paddingTop = headerConfig.height + headerConfig.marginBottom + 'px'
+        style.paddingTop = `${
+          headerConfig.height + headerConfig.marginBottom
+        }px`
       }
       return style
     })
 
     const asideStyle = computed<CSSProperties>(() => {
       const style: CSSProperties = {}
-      style.width = props.asideConfig.width + 'px'
+      style.width = `${props.asideConfig.width}px`
       style.backgroundColor = props.asideConfig.bgColor
       if (props.asideConfig.fixed) {
         const top = props.headerConfig.height + props.headerConfig.marginBottom
         style.position = 'fixed'
         style.left = 0
-        style.top = top + 'px'
+        style.top = `${top}px`
         style.maxHeight = `calc(100% - ${top}px)`
         style.overflowY = 'auto'
       }
@@ -81,10 +83,14 @@ export default defineRenderConfig<Props>({
     })
     const mainStyle = computed<CSSProperties>(() => {
       const style: CSSProperties = {}
-      style.marginLeft = props.mainConfig.marginLeft + 'px'
-      style.padding = `${props.mainConfig.paddingY || 0}px ${props.mainConfig.paddingX || 0}px`
+      style.marginLeft = `${props.mainConfig.marginLeft}px`
+      style.padding = `${props.mainConfig.paddingY || 0}px ${
+        props.mainConfig.paddingX || 0
+      }px`
       style.backgroundColor = props.mainConfig.bgColor
-      const marginBottom = props.footerConfig.height + props.footerConfig.marginTop + 'px'
+      const marginBottom = `${
+        props.footerConfig.height + props.footerConfig.marginTop
+      }px`
       if (props.footerConfig.fixed) {
         style.marginBottom = marginBottom
       }
@@ -97,10 +103,12 @@ export default defineRenderConfig<Props>({
     const footerStyle = computed<CSSProperties>(() => {
       const style: CSSProperties = {}
       style.backgroundColor = props.footerConfig.bgColor
-      style.height = props.footerConfig.height + 'px'
+      style.height = `${props.footerConfig.height}px`
       if (props.footerConfig.fixed) {
         style.position = 'fixed'
-        style.left = props.asideConfig.width + props.mainConfig.marginLeft + 'px'
+        style.left = `${
+          props.asideConfig.width + props.mainConfig.marginLeft
+        }px`
         style.right = 0
         style.bottom = 0
       }
@@ -116,11 +124,15 @@ export default defineRenderConfig<Props>({
           <ElHeader style={this.headerStyle.value}>{slots.header?.()}</ElHeader>
         ) : null}
         <ElContainer style={this.containerStyle.value}>
-          {props.aside ? <ElAside style={this.asideStyle.value}>{slots.aside?.()}</ElAside> : null}
+          {props.aside ? (
+            <ElAside style={this.asideStyle.value}>{slots.aside?.()}</ElAside>
+          ) : null}
           <ElContainer>
             <ElMain style={this.mainStyle.value}>{slots.main?.()}</ElMain>
             {props.footer ? (
-              <ElFooter style={this.footerStyle.value}>{slots.footer?.()}</ElFooter>
+              <ElFooter style={this.footerStyle.value}>
+                {slots.footer?.()}
+              </ElFooter>
             ) : null}
           </ElContainer>
         </ElContainer>

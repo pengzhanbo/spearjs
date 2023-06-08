@@ -1,6 +1,7 @@
 .stage-wrapper {
   background-color: var(--app-c-bg);
   will-change: all;
+
   @apply relative shadow-md transition-colors;
 }
 
@@ -53,6 +54,7 @@
   outline: dashed 1px;
   outline-offset: 0;
   transition: outline 0.2s ease-in-out, margin 0.2s ease-in-out;
+
   @apply relative cursor-move outline-gray-300;
 
   &:hover,
@@ -103,5 +105,6 @@
 .stage-placeholder {
   outline: solid 2px;
   outline-offset: 0;
+
   @apply absolute transition-all z-49 outline-green-500 bg-green-400 bg-opacity-30;
 }

@@ -16,24 +16,26 @@ export default defineComponent({
     },
   },
   setup: (props) => {
-    const { isOpen, style, block, roadMap, index, close, setContextMenuRoot } = setupContextMenu()
+    const { isOpen, style, block, roadMap, index, close, setContextMenuRoot } =
+      setupContextMenu()
     const appPageStore = useAppPagesStore()
 
     watch(
       () => props.rootRef,
       (root) => setContextMenuRoot(root),
-      { deep: true }
+      { deep: true },
     )
 
     const onDelete = () => {
       appPageStore.deleteBlock(index.value!, roadMap.value, (block) => {
-        appPageStore.focusBlock?.bid === block.bid && appPageStore.setFocusBlock(null)
+        appPageStore.focusBlock?.bid === block.bid &&
+          appPageStore.setFocusBlock(null)
       })
       close()
     }
     const onAddBlockGroup = () => {
       const group = createBlockGroup()
-      if (block.value?.type == 'group') {
+      if (block.value?.type === 'group') {
         appPageStore.pushBlockToGroup(group, roadMap.value)
       } else {
         appPageStore.addBlock(group, roadMap.value)

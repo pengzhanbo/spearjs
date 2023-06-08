@@ -26,6 +26,7 @@ async function bootstrap() {
   const port = config.get('SERVER_PORT') || 3000
   await app.listen(port)
 
+  // eslint-disable-next-line no-console
   console.log(`Spearjs server is running on: http://localhost:${port}/`)
 }
 

@@ -25,14 +25,17 @@ export interface EditorConfigByService {
 export type EditorConfig = EditorConfigByComponent | EditorConfigByService
 
 export interface RenderConfigByComponent<Props, RawBindings> {
-  setup?: (props: Readonly<Props>, ctx: SetupContext & { bid: string }) => RawBindings
+  setup?: (
+    props: Readonly<Props>,
+    ctx: SetupContext & { bid: string },
+  ) => RawBindings
   render: (
     this: RawBindings & ComponentPublicInstance<Props>,
     options: {
       props: Readonly<Props>
       slots: WidgetSlots
       action: (name: string) => void
-    }
+    },
   ) => ReturnType<RenderFunction>
 }
 

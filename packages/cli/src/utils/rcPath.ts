@@ -1,4 +1,4 @@
-import * as os from 'os'
+import * as os from 'node:os'
 import { fs, path } from '@spearjs/utils'
 
 const xdgConfigPath = (file: string) => {
@@ -12,4 +12,5 @@ const xdgConfigPath = (file: string) => {
   }
 }
 
-export const getRcPath = (file: string) => xdgConfigPath(file) || path.join(os.homedir(), file)
+export const getRcPath = (file: string) =>
+  xdgConfigPath(file) || path.join(os.homedir(), file)

@@ -1,4 +1,5 @@
 import styles from './editor.module.scss'
+
 export default () => {
   return (
     <>

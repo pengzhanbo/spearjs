@@ -30,7 +30,12 @@ export default defineEditorConfig({
     display: 'block',
   },
   slots: ({ header, aside, footer }) => {
-    return [header && 'header', aside && 'aside', 'main', footer && 'footer'].filter(Boolean)
+    return [
+      header && 'header',
+      aside && 'aside',
+      'main',
+      footer && 'footer',
+    ].filter(Boolean)
   },
   props: [
     {

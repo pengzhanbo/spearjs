@@ -14,10 +14,14 @@ export const validation = () =>
         for (const key of Object.keys(error.constraints)) {
           message = error.constraints[key]
           const contexts = (error as any).contexts
-          if (contexts && typeof contexts[key] !== 'undefined' && contexts[key]) {
+          if (
+            contexts &&
+            typeof contexts[key] !== 'undefined' &&
+            contexts[key]
+          ) {
             code = contexts[key].code
+            break
           }
-          break
         }
       } else {
         let children = errors[0].children
@@ -32,8 +36,8 @@ export const validation = () =>
                 contexts[key].code !== 'undefined'
               ) {
                 code = contexts[key].code
+                break
               }
-              break
             }
             break
           }
