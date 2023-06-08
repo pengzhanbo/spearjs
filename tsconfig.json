@@ -1,25 +1,24 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "./packages/tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "esnext",
-    "composite": true,
     "jsx": "preserve",
-    "types": ["vite/client", "node"],
     "paths": {
-      "@editor/*": ["./packages/editor/src/*"],
+      "@editor/*": [
+        "./packages/editor/src/*",
+        "./package/editor/src/*/index.ts"
+      ],
       "@core/*": ["./packages/core/src/*"],
       "@spearjs/core": ["./packages/core/src/core.ts"],
       "@spearjs/*": ["./packages/*/src/index.ts"]
     }
   },
-  "vueCompilerOptions": {
-    "experimentalDisableTemplateSupport": true
-  },
-  "include": ["./packages/**/*", "./docs/**/*", "./widgets/**/*"],
-  "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "./packages/tsconfig.build.json" },
-    { "path": "./packages/editor/tsconfig.node.json" }
-  ]
+  "include": [
+    "./packages/**/src",
+    "./package/cli/preview",
+    "./docs",
+    "./widgets"
+  ],
+  "exclude": ["**/node_modules/**", "**/dist/**"],
+  "references": [{ "path": "./packages/tsconfig.build.json" }]
 }

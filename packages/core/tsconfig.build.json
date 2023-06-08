@@ -1,11 +1,13 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": "./",
     "rootDir": "./src",
-    "composite": false,
+    "composite": true,
     "emitDeclarationOnly": true,
     "types": ["vite/client"],
+    "lib": ["DOM", "ESNext"],
+    "jsx": "preserve",
     "paths": {
       "@core/*": ["./src/*"]
     }

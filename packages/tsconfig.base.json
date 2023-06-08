@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "strict": true,
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    "noEmitOnError": true,
+    "newLine": "lf",
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true
+  }
+}

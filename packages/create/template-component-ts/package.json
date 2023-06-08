@@ -9,11 +9,11 @@
   },
   "dependencies": {
     "@spearjs/shared": "^1.0.0",
-    "vue": "^3.2.45"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@spearjs/cli": "^1.0.0",
-    "postcss": "^8.4.19",
-    "sass": "^1.56.1"
+    "postcss": "^8.4.24",
+    "sass": "^1.62.1"
   }
 }

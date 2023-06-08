@@ -37,37 +37,20 @@
   ],
   "scripts": {
     "build": "tsup && pnpm copy",
-    "clean": "rimraf dist",
+    "clean": "rimraf ./dist",
     "copy": "cpx \"src/**/*.css\" dist"
   },
   "dependencies": {
-    "element-plus": "^2.2.22",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "element-plus": "^2.3.6",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.2"
   },
   "devDependencies": {
-    "cpx2": "^4.2.0",
-    "rimraf": "^3.0.2",
-    "tsup": "^6.5.0"
+    "cpx2": "^4.2.3",
+    "rimraf": "^5.0.1",
+    "tsup": "^6.7.0"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "tsup": {
-    "clean": true,
-    "dts": [
-      "src/index.ts"
-    ],
-    "entry": [
-      "src/index.ts"
-    ],
-    "format": [
-      "cjs",
-      "esm"
-    ],
-    "outDir": "dist",
-    "sourcemap": false,
-    "target": "es2020",
-    "tsconfig": "tsconfig.dts.json"
   }
 }

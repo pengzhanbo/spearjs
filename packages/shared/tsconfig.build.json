@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.dts.json",
+  "compilerOptions": {
+    "composite": true
+  }
+}

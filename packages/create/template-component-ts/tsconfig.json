@@ -19,8 +19,5 @@
     "baseUrl": ".",
     "module": "esnext",
     "jsx": "preserve"
-  },
-  "vueCompilerOptions": {
-    "experimentalDisableTemplateSupport": true
   }
 }
