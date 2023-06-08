@@ -1,46 +1,4 @@
 {
   "root": true,
-  "customSyntax": "postcss-scss",
-  "extends": [
-    "stylelint-config-standard",
-    "stylelint-config-standard-scss",
-    "stylelint-config-recommended-vue/scss",
-    "stylelint-config-recess-order",
-    "stylelint-config-prettier"
-  ],
-  "rules": {
-    "at-rule-no-unknown": [
-      true,
-      {
-        "ignoreAtRules": [
-          "tailwind",
-          "apply",
-          "variants",
-          "responsive",
-          "screen",
-          "function",
-          "if",
-          "each",
-          "include",
-          "mixin"
-        ]
-      }
-    ],
-    "unit-no-unknown": [true, { "ignoreUnits": ["rpx"] }],
-    "color-function-notation": "legacy",
-    "alpha-value-notation": "number",
-    "selector-class-pattern": null,
-    "selector-pseudo-class-no-unknown": [
-      true,
-      {
-        "ignorePseudoClasses": ["deep", "global"]
-      }
-    ]
-  },
-  "overrides": [
-    {
-      "files": ["*.vue", "**/*.vue", "*.html", "**/*.html"],
-      "customSyntax": "postcss-html"
-    }
-  ]
+  "extends": "@pengzhanbo/stylelint-config"
 }
