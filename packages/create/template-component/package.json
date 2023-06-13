@@ -14,6 +14,6 @@
   "devDependencies": {
     "@spearjs/cli": "^1.0.0",
     "postcss": "^8.4.24",
-    "sass": "^1.62.1"
+    "sass": "^1.63.3"
   }
 }
